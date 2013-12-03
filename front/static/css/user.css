@@ -1,0 +1,286 @@
+/* Highly expiremental*/
+.red {
+	height: 125px;
+	background: #FF6558;
+}
+.green {
+	height: 245px;
+	background: #6DCD4E;
+}
+.black {
+	height: 121px;
+	background: #575757;
+}
+.blue {
+	height: 330px;
+	background: #176CFF;
+}
+.brown {
+	height: 117px;
+	background: #BF7900;
+}
+.yellow {
+	height: 236px;
+	background: #FFB32D;
+
+}
+.category-red {
+	background: #FF6558;
+}
+.category-green {
+	background: #6DCD4E;
+}
+.category-black {
+	background: #575757;
+}
+.category-blue {
+	background: #176CFF;
+}
+.category-brown {
+	background: #BF7900;
+}
+.category-yellow {
+	background: #FFB32D;
+
+}
+.test {
+	width: 100%;
+	float: left;
+	margin-bottom: 20px;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.expense-form {
+	position: absolute;
+	left: 35%;
+	width: 30%;
+	height: 330px;
+	text-align: center;
+	-webkit-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.expense-form-show {
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
+}
+.add-expense {
+	display: block;
+	width: 40px;
+	height: 40px;
+	margin: 50px auto 0;
+	font-weight: 300;
+	font-size: 2rem;
+	text-align: center;
+	line-height: 40px;
+	color: #fff;
+	background: #343534;
+	border-radius: 40px;
+	cursor: pointer;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.add-expense:hover {
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	transform: scale(1.2);
+	background: #FF6558;
+}
+.add-expense-translate {
+	-webkit-transform: translateY(340px);
+	-ms-transform: translateY(340px);
+	transform: translateY(340px);
+}
+.add-expense-categories-list {
+	width: 100%;
+	margin: 25px auto;
+	float: left;
+	list-style: none;
+}
+.add-expense-category {
+	width: 45%;
+	margin: 10px 2.5%;
+	float: left;
+	font-size: 1rem;
+	text-align: left;
+	background-image: url(///Users/dimitarralev/Projects/simplexpenses/front/static/img/rtn.png);
+	background-position: 96%;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+}
+.add-expense-category-selected {
+	background-image: url(///Users/dimitarralev/Projects/simplexpenses/front/static/img/rt.png);
+}
+.add-expense-new-category {
+	width: 45%;
+	margin: 10px 2.5%;
+	float: left;
+	font-size: 1rem;
+	color: #FF6558;
+	text-align: left;
+	cursor: pointer;
+	opacity: 0.5;
+}
+.add-expense-new-category:hover {
+	opacity: 1;
+}
+.add-expense-sum {
+	display: block;
+	width: 90%;
+	margin: 0 auto;
+	font-family: inherit;
+	font-size: 3rem;
+	font-weight: 300;
+	text-align: center;
+	outline: 0;
+	border: 0;
+}
+.add-expense-submit {
+	padding: 8px 30px;
+	font-family: inherit;
+	font-size: 1.1rem;
+	font-weight: 300;
+	color: #fff;
+	background: #747474;
+	border-radius: 2px;
+	cursor: pointer;
+	border: 0;
+	outline: 0;
+}
+.menu-block {
+	position: absolute;
+	top: 15px;
+	right: 15px;
+}
+.menu-toggle {
+	cursor: pointer;
+}
+.menu-toggle-line {
+	display: block;
+	width: 36px;
+	height: 6px;
+	margin: 4px 0;
+	background: #343534;
+	border-radius: 2px;
+}
+.menu-links {
+	display: none;
+	list-style: none;
+}
+.menu-link-item {
+
+}
+/* Highly expiremental*/
+
+
+body {
+	margin: 0;
+	padding: 0;
+	font-family: 'Open Sans', sans-serif;
+}
+ul, p, h3, img {
+	margin: 0;
+	padding: 0;
+}
+a {
+	color: #343534;
+	text-decoration: none;
+}
+.this-month-block {
+	width: 40%;
+	height: 450px;
+	margin: 0 0 100px 5%;
+	float: left;
+	text-align: center;
+}
+.sum-expenses,
+.sum-planned {
+	display: block;
+	margin: 40px 0;
+	font-size: 4rem;
+	font-weight: 300;
+	text-align: center;
+}
+.graph {
+	width: 100%;
+}
+.category {
+	width: 40px;
+	margin-right: 20px;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.category:hover {
+	-webkit-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	transform: scale(1.05);
+}
+.graph-expl {
+	width: 100%;
+	margin: 0;
+	font-weight: 300;
+	text-align: center;
+}
+.planned-block {
+	width: 40%;
+	height: 450px;
+	margin: 0 5% 100px 0;
+	float: right;
+	text-align: center;
+}
+.expenses-block {
+	width: 90%;
+	margin: 0 auto 50px;
+	clear: both;
+	overflow: hidden;
+}
+.expenses-list {
+	width: 100%;
+	list-style: none;
+	font-weight: 300;
+}
+.expense {
+	width: 100%;
+	height: 50px;
+	float: left;
+	border-top: solid 1px #dadada;
+	border-left: solid 1px #dadada;
+	border-right: solid 1px #dadada;
+	-moz-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.expense:last-child {
+	border-bottom: solid 1px #dadada;
+}
+.category-square {
+	width: 5%;
+	height: 50px;
+	float: left;
+}
+.expense-sum {
+	width: 8%;
+	margin: 0 4% 0 2%;
+	float: left;
+	font-size: 1.4rem;
+	line-height: 50px;
+}
+.expense-description {
+	width: 70%;
+	padding: 1px 0;
+	float: left;
+	font-weight: inherit;
+	text-align: center;
+	line-height: 50px;
+}
+.expense-date {
+	width: 11%;
+	float: left;
+	font-weight: inherit;
+	line-height: 50px;
+	text-align: center;
+}
