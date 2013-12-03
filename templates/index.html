@@ -6,13 +6,13 @@
 <head>
 	<meta charset="UTF-8">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300|Open+Sans:400,300,600' rel='stylesheet'>
-	<link rel="stylesheet" href="{{static}}css/front.css">
+	<link rel="stylesheet" href="{{STATIC_URL}}css/front.css">
 	<title>Simplexpenses</title>
 </head>
 <body>
 	<div class="wraper">
 		<header>
-			<img class="logo" src="{{static}}img/logo.png" alt="simplexpenses">
+			<img class="logo" src="{{STATIC_URL}}img/logo.png" alt="simplexpenses">
 			<nav class="nav-block">
 				<ul class="nav-list">
 					<li class="nav-item"><a class="nav-item-link" href="#">Home</a></li>
@@ -30,15 +30,15 @@
 		</section>
 		<section class="features-block">
 			<div class="feature">
-				<img class="feature-img" src="{{static}}img/graph.png" width="60" height="60" alt="Expenses">
+				<img class="feature-img" src="{{STATIC_URL}}img/graph.png" width="60" height="60" alt="Expenses">
 				<p class="feature-text">Store and review your monthly expenses.</p>
 			</div>
 			<div class="feature">
-				<img class="feature-img" src="{{static}}img/plan.png" width="60" height="60" alt="Plan">
+				<img class="feature-img" src="{{STATIC_URL}}img/plan.png" width="60" height="60" alt="Plan">
 				<p class="feature-text">Plan the spendings for the next month by categories.</p>
 			</div>
 			<div class="feature">
-				<img class="feature-img" src="{{static}}img/history.png" width="60" height="60" alt="History">
+				<img class="feature-img" src="{{STATIC_URL}}img/history.png" width="60" height="60" alt="History">
 				<p class="feature-text">Check your monthly expenses history.</p>
 			</div>
 		</section>
@@ -59,6 +59,6 @@
 			<p class="madeby">Carefully made by <a href="" class="me">me</a></p>
 		</footer>
 	</div>
-	<script src="{{static}}js/front.js"></script>
+	<script src="{{STATIC_URL}}js/front.js"></script>
 </body>
 </html>
