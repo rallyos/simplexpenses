@@ -1,6 +1,8 @@
 <!--
 1. Remove /static from the href's
 -->
+{% load staticfiles %}
+
 <!doctype html>
 <html lang="en">
 <head>
@@ -12,7 +14,7 @@
 <body>
 	<div class="wraper">
 		<header>
-			<img class="logo" src="{{STATIC_URL}}img/logo.png" alt="simplexpenses">
+			<img class="logo" src="{% static "img/logo.png" %}" alt="simplexpenses">
 			<nav class="nav-block">
 				<ul class="nav-list">
 					<li class="nav-item"><a class="nav-item-link" href="#">Home</a></li>
