@@ -92,7 +92,7 @@ STATIC_ROOT = 'staticfiles'
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
-STATIC_URL = '/static/'
+STATIC_URL = 'http://floating-tor-5775.herokuapp.com/static/'
 
 # Parse database configuration from $DATABASE_URL
 import dj_database_url
