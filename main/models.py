@@ -3,14 +3,14 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
-	title = models.CharField()
-	description = models.CharField()
+	title = models.CharField(max_length=50)
+	description = models.CharField(max_length=80)
 	color = models.CharField(max_length=7)
 
 class Expense(models.Model):
 	user = models.ForeignKey(User)
 	amount = models.IntegerField()
-	description = models.CharField()
+	description = models.CharField(max_length=80)
 	category = models.ForeignKey(Category)
 	date = models.DateField(auto_now_add=True)
 
