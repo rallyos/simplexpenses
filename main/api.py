@@ -1,3 +1,5 @@
+from tastypie.authorization import Authorization
+
 from tastypie.resources import ModelResource
 from main.models import Category, Expense, Planned
 
