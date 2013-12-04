@@ -1,5 +1,5 @@
 from django.shortcuts import render, HttpResponse
-
+from main.models import Expense, Category, Planned
 # Create your views here.
 
 def index(request):
