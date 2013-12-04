@@ -30,13 +30,6 @@ class Expense(models.Model):
 	def __unicode__(self):
 		return self.title
 
-	def save(self, *args, **kwargs):
-		# For automatic slug generation.
-		if not self.slug:
-			self.slug = slugify(self.title)[:50]
-
-		return super(Expense, self).save(*args, **kwargs)
-
 class Planned(models.Model):
 	user = models.ForeignKey(User)
 	cateogory = models.ForeignKey(Category)
