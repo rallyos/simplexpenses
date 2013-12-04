@@ -13,13 +13,6 @@ class Category(models.Model):
 	def __unicode__(self):
 		return self.title
 
-	def save(self, *args, **kwargs):
-		# For automatic slug generation.
-		if not self.slug:
-			self.slug = slugify(self.title)[:50]
-
-		return super(Category, self).save(*args, **kwargs)
-
 class Expense(models.Model):
 	user = models.ForeignKey(User)
 	amount = models.DecimalField(max_digits=12, decimal_places=2)
@@ -38,10 +31,3 @@ class Planned(models.Model):
 
 	def __unicode__(self):
 		return self.title
-
-	def save(self, *args, **kwargs):
-		# For automatic slug generation.
-		if not self.slug:
-			self.slug = slugify(self.title)[:50]
-
-		return super(Planned, self).save(*args, **kwargs)
