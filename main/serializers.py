@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
-from main import models
+from main.models import Expense, Category, Planned
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
