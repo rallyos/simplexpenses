@@ -11,8 +11,8 @@ planned_resource = PlannedResource()
 
 urlpatterns = patterns('',
     url(r'^$', include('main.urls')),
-	url(r'^api/expense', include(expense_resource.urls)),
-	url(r'^api/category', include(expense_resource.urls)),
-	url(r'^api/planned', include(expense_resource.urls)),
+	url(r'^api/expense/', include(expense_resource.urls)),
+	url(r'^api/category/', include(category_resource.urls)),
+	url(r'^api/planned/', include(planned_resource.urls)),
 #    url(r'^admin/', include(admin.site.urls)),
 )
