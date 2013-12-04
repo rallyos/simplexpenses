@@ -12,13 +12,13 @@ class Category(models.Model):
 
 	def __unicode__(self):
 		return self.title
-		
+
 	def save(self, *args, **kwargs):
 		# For automatic slug generation.
 		if not self.slug:
 			self.slug = slugify(self.title)[:50]
 
-		return super(Entry, self).save(*args, **kwargs)
+		return super(Category, self).save(*args, **kwargs)
 
 class Expense(models.Model):
 	user = models.ForeignKey(User)
@@ -35,7 +35,7 @@ class Expense(models.Model):
 		if not self.slug:
 			self.slug = slugify(self.title)[:50]
 
-		return super(Entry, self).save(*args, **kwargs)
+		return super(Expense, self).save(*args, **kwargs)
 
 class Planned(models.Model):
 	user = models.ForeignKey(User)
@@ -51,4 +51,4 @@ class Planned(models.Model):
 		if not self.slug:
 			self.slug = slugify(self.title)[:50]
 
-		return super(Entry, self).save(*args, **kwargs)
+		return super(Planned, self).save(*args, **kwargs)
