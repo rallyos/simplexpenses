@@ -7,7 +7,7 @@ def index(request):
 
 
 from rest_framework import viewsets
-from quickstart.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
+from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
