@@ -7,8 +7,11 @@ from main.models import Category, Expense, Planned
 
 class UserResource(ModelResource):
     class Meta:
-        queryset = User.objects.get(pk=1)
+        queryset = User.objects.all()
         resource_name = 'user'
+        fields = ['id']
+        include_resource_uri = False
+
 
 class ExpenseResource(ModelResource):
     user_id = fields.ForeignKey(UserResource, 'user')
