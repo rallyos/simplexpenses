@@ -21,6 +21,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 class PlannedSerializer(serializers.HyperlinkedModelSerializer):
 
   	user_id = serializers.IntegerField(required=False)
+  	category_id = serializers.IntegerField(required=False)
 
 	class Meta:
 		model = Planned
