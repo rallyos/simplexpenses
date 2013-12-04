@@ -36,8 +36,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'tastypie',
     'main',
+    'rest_framework',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -65,13 +65,13 @@ TEMPLATE_DIRS = (
 
 DATABASES = {
     'default': {
-        'ENGINE':'django.db.backends.postgresql_psycopg2',
-        'NAME': 'd7ll0k6smddg2n',
-        'USER': 'wekqpzeknvawmg',
-        'PASSWORD': 'NbXiLO8Fl3xhQXC_IcN2hWt8GE',
-        'HOST': 'ec2-54-235-180-39.compute-1.amazonaws.com',
-        'PORT': '5432',
-    }
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'd169na2qr86kqc',
+        'HOST': 'ec2-54-204-35-114.compute-1.amazonaws.com',
+        'PORT': 5432,
+        'USER': 'ewsedppxtifsta',
+        'PASSWORD': 'XNGicy8NI1hK2xIPOHYrMZgtGF'
+  }
 }
 
 # Internationalization
