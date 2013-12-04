@@ -10,7 +10,7 @@ class Category(models.Model):
 
 class Expense(models.Model):
 	user = models.ForeignKey(User)
-	amount = models.IntegerField()
+	amount = models.DecimalField()
 	description = models.CharField(max_length=80)
 	category = models.ForeignKey(Category)
 	date = models.DateField(auto_now_add=True)
