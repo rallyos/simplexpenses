@@ -11,21 +11,21 @@ class UserResource(ModelResource):
         resource_name = 'user_id'
 
 class ExpenseResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user_id')
+    user_id = fields.ForeignKey(UserResource, 'user_id')
     class Meta:
         queryset = Expense.objects.all()
         authorization = Authorization()
 
 
 class CategoryResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user_id')
+    user_id = fields.ForeignKey(UserResource, 'user_id')
     class Meta:
         queryset = Category.objects.all()
         authorization = Authorization()
 
 
 class PlannedResource(ModelResource):
-    user = fields.ForeignKey(UserResource, 'user_id')
+    user_id = fields.ForeignKey(UserResource, 'user_id')
     class Meta:
         queryset = Planned.objects.all()
         authorization = Authorization()
