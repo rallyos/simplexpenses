@@ -2,7 +2,7 @@ from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
 from rest_framework import viewsets, routers
-from quickstart import views
+from main import views
 
 #admin.autodiscover()
 
