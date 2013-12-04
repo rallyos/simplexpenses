@@ -10,14 +10,15 @@ class Category(models.Model):
 	description = models.CharField(max_length=80)
 	color = models.CharField(max_length=7)
 
-    def __unicode__(self):
-        return self.title
-    def save(self, *args, **kwargs):
-        # For automatic slug generation.
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
+	def __unicode__(self):
+		return self.title
+		
+	def save(self, *args, **kwargs):
+		# For automatic slug generation.
+		if not self.slug:
+			self.slug = slugify(self.title)[:50]
 
-        return super(Entry, self).save(*args, **kwargs)
+		return super(Entry, self).save(*args, **kwargs)
 
 class Expense(models.Model):
 	user = models.ForeignKey(User)
@@ -26,19 +27,15 @@ class Expense(models.Model):
 	category = models.ForeignKey(Category)
 	date = models.DateField(auto_now_add=True)
 
-    def __unicode__(self):
-        return self.title
-    def save(self, *args, **kwargs):
-        # For automatic slug generation.
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
+	def __unicode__(self):
+		return self.title
 
-        return super(Entry, self).save(*args, **kwargs)    def save(self, *args, **kwargs):
-        # For automatic slug generation.
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
+	def save(self, *args, **kwargs):
+		# For automatic slug generation.
+		if not self.slug:
+			self.slug = slugify(self.title)[:50]
 
-        return super(Entry, self).save(*args, **kwargs)
+		return super(Entry, self).save(*args, **kwargs)
 
 class Planned(models.Model):
 	user = models.ForeignKey(User)
@@ -46,13 +43,12 @@ class Planned(models.Model):
 	planned_amount = models.DecimalField(max_digits=12, decimal_places=2)
 	planned_month = models.DateField(auto_now_add=True)
 
-    def __unicode__(self):
-        return self.title
+	def __unicode__(self):
+		return self.title
 
-    def save(self, *args, **kwargs):
-        # For automatic slug generation.
-        if not self.slug:
-            self.slug = slugify(self.title)[:50]
+	def save(self, *args, **kwargs):
+		# For automatic slug generation.
+		if not self.slug:
+			self.slug = slugify(self.title)[:50]
 
-        return super(Entry, self).save(*args, **kwargs)
-        
+		return super(Entry, self).save(*args, **kwargs)
