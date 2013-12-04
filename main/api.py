@@ -6,13 +6,18 @@ class ExpenseResource(ModelResource):
     class Meta:
         queryset = Expense.objects.all()
         allowed_methods = ['get']
+        authorization = Authorization()
+
 
 class CategoryResource(ModelResource):
     class Meta:
         queryset = Category.objects.all()
         allowed_methods = ['get']
+        authorization = Authorization()
+
 
 class PlannedResource(ModelResource):
     class Meta:
         queryset = Planned.objects.all()
         allowed_methods = ['get']
+        authorization = Authorization()
