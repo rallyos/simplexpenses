@@ -9,7 +9,7 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = Expense
-		fields = ('user_id', 'amount', 'description', 'category_id', 'date')
+		fields = ('id', 'user_id', 'amount', 'description', 'category_id', 'date')
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
@@ -17,7 +17,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = Category
-		fields = ('user_id', 'title', 'description', 'color')
+		fields = ('id', 'user_id', 'title', 'description', 'color')
 
 class PlannedSerializer(serializers.HyperlinkedModelSerializer):
 
@@ -26,4 +26,4 @@ class PlannedSerializer(serializers.HyperlinkedModelSerializer):
 
 	class Meta:
 		model = Planned
-		fields = ('user_id', 'category_id', 'planned_amount', 'planned_month')
+		fields = ('id', 'user_id', 'category_id', 'planned_amount', 'planned_month')
