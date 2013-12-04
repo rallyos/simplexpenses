@@ -7,7 +7,7 @@ from main.models import Category, Expense, Planned
 
 class UserResource(ModelResource):
     class Meta:
-        queryset = User.objects.all()
+        queryset = User.objects.get(pk=1)
         resource_name = 'user'
 
 class ExpenseResource(ModelResource):
