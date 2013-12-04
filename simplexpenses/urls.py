@@ -1,8 +1,6 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 
-from django.contrib.auth.models import User, Group
-
 from rest_framework import viewsets, routers
 
 #admin.autodiscover()
@@ -19,9 +17,9 @@ class PlannedViewset(viewsets.ModelViewSet):
 
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter()
-router.register(r'expense', ExpenseViewSet)
-router.register(r'category', CategoryViewset)
-router.register(r'planned', PlannedViewset)
+router.register(r'expense', views.ExpenseViewSet)
+router.register(r'category', views.CategoryViewset)
+router.register(r'planned', views.PlannedViewset)
 
 
 
