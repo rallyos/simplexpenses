@@ -15,6 +15,7 @@ class Expense(models.Model):
 	date = models.DateField(auto_now_add=True)
 
 class Planned(models.Model):
+	user = models.ForeignKey(User)
 	cateogory = models.ForeignKey(Category)
 	planned_amount = models.IntegerField()
 	planned_month = models.DateField(auto_now_add=True)
