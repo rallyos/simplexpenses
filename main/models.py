@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 
 class Category(models.Model):
+	user = models.ForeignKey(User)
 	title = models.CharField(max_length=50)
 	description = models.CharField(max_length=80)
 	color = models.CharField(max_length=7)
