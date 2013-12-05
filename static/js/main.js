@@ -32,7 +32,7 @@ $('.add-expense').on('click', function() {
 });
 */
 
-var add_expense_button = document.getElementsByClassName('add-expense')
+var add_expense_button = document.getElementsByClassName('add-expense')[0]
 add_expense_button.addEventListener("click", function () {
 	var test = this.value
 });
