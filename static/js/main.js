@@ -45,12 +45,6 @@ add_expense_button.addEventListener("click", function () {
 		expense_form.className += ' add-expense-translate'
 	}
 
-	if (this.classList.length > 1) {
-		this.className = 'add-expense'
-	} else {
-		this.className += ' another-test'
-	}
-
 	expense_amount.focus()
 
 	if (test == '^') {
