@@ -26,8 +26,6 @@ for (i=0; categories.length > i; i++) {
 		categories[i].className = 'add-expense-category'
 	}
 
-	console.log(this)
-
 	this.className += ' add-expense-category-selected'
 
     })
