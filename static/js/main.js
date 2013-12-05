@@ -10,7 +10,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
     $scope.categories = data;
   });
 
-  categoriestest = document.getElementByClassName('add-expense-category')
+  categoriestest = document.getElementsByClassName('add-expense-category')
 
 
   $scope.test = function() {
