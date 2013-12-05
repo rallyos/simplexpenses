@@ -8,22 +8,6 @@ expensesApp.controller('ExpensesList', function ($scope, $http) {
 expensesApp.controller('CategoriesList', function ($scope, $http) {
   $http.get('api/category/').success(function(data) {
     $scope.categories = data;
-
-	var categories = document.getElementsByClassName('add-expense-category')
-
-	for (i=0; categories.length > i; i++) {
-	    categories[i].addEventListener('click', function() {
-
-		for (i=0; categories.length > i ;i++) {
-			categories[i].className = 'add-expense-category'
-		}
-
-		this.className += ' add-expense-category-selected'
-
-	    })
-	}
-
-
   });
 });
 
@@ -33,19 +17,18 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 // JUST TESTING
 
 var add_expense_button = document.getElementsByClassName('add-expense')[0]
-var categories = document.getElementsByClassName('add-expense-category')
 
-for (i=0; categories.length > i; i++) {
-    categories[i].addEventListener('click', function() {
-
+function test() {
+	console.log('konzolka brat')
 	for (i=0; categories.length > i ;i++) {
 		categories[i].className = 'add-expense-category'
 	}
 
 	this.className += ' add-expense-category-selected'
 
-    })
 }
+
+
 
 var expense_form = document.getElementsByClassName('test')[0]
 var expense_amount = document.getElementsByClassName('add-expense-sum')[0]
