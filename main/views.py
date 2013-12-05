@@ -17,6 +17,8 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
 
+    def get_queryset(self):
+        return self.request.user.accounts.all()
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
@@ -25,9 +27,15 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
+    def get_queryset(self):
+        return self.request.user.accounts.all()
+
 class PlannedViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
     """
     queryset = Planned.objects.all()
     serializer_class = PlannedSerializer
+
+    def get_queryset(self):
+        return self.request.user.accounts.all()
