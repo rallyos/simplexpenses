@@ -3,7 +3,6 @@ var expensesApp = angular.module('test-module', []);
 expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
-    console.log(expenses)
     console.log($scope.expenses)
   });
 });
