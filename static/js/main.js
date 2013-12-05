@@ -47,7 +47,9 @@ add_expense_category.addEventListener("click", function () {
 		categories[i].className = 'add-expense-category'
 	}
 
-		this.className += ' add-expense-category-selected'
+	console.log(this)
+
+	this.className += ' add-expense-category-selected'
 });
 
 
