@@ -39,7 +39,7 @@ add_expense_button.addEventListener("click", function () {
 	var test = this.textContent
 
 	if (expense_form.classList.length > 1) {
-		expense_form.className -= ' add-expense-translate'
+		expense_form.className = 'test'
 	} else {
 		expense_form.className += ' add-expense-translate'
 	}
