@@ -1,8 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from main.models import Expense, Category, Planned
 
-from django.contrib.auth.models import User
-
 # Create your views here.
 
 def index(request):
