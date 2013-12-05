@@ -12,18 +12,15 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 
 
-  $scope.test = function() {
+  $scope.test = function($event) {
 
   categoriestest = document.getElementsByClassName('add-expense-category')
 
-  	console.log('wtf')
-  	console.log(this)
 	for (i=0; categoriestest.length > i ;i++) {
 		categoriestest[i].className = 'add-expense-category'
 	}
 
-	this.className += ' add-expense-category-selected'
-
+	$event.target.className += ' add-expense-category-selected'
 
   }
 

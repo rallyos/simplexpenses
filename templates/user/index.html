@@ -26,7 +26,7 @@
 			<div class="expense-form" ng-controller="CategoriesList">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
-					<li class="add-expense-category" ng-repeat="category in categories" ng-click="test()">{{category.title}}</li>
+					<li class="add-expense-category" ng-repeat="category in categories" ng-click="test($event)">{{category.title}}</li>
 					<li class="add-expense-new-category">Add Category</li>
 				</ul>
 				<input class="add-expense-submit" type="submit">
