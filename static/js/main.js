@@ -2,6 +2,7 @@ var expensesApp = angular.module('test-module', []);
  
 expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
+    console.log(data)
     $scope.expenses = data;
   });
 });
