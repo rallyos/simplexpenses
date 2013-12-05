@@ -64,12 +64,10 @@
 		<section class="expenses-block" ng-controller="ExpensesList">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span>{{expense.id}}</span>
-					<span>{{expense.user_id}}</span>
-					<span class="category-square category-{{expense.category_id}}"></span>
-					<span class="expense-sum">{{amount}}</span>
-					<h3 class="expense-description">{{expense.description}}</h3>
-					<h3 class="expense-date">{{expense.date}}</h3>
+					<span class="category-square category-{{[expense.category_id]}}"></span>
+					<span class="expense-sum">{{[expense.amount]}}</span>
+					<h3 class="expense-description">{{[expense.description]}}</h3>
+					<h3 class="expense-date">{{[expense.date]}}</h3>
 				</li>
 			</ul>
 		</section>
