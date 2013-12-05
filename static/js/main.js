@@ -5,6 +5,11 @@ expensesApp.controller('ExpensesList', function ($scope, $http) {
     $scope.expenses = data;
   });
 });
+expensesApp.controller('CategoriesList', function ($scope, $http) {
+  $http.get('api/category/').success(function(data) {
+    $scope.categories = data;
+  });
+});
 
 
 

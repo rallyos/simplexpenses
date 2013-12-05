@@ -22,19 +22,16 @@
 			</ul>
 		</nav>
 		<header class="test">
-			<div class="expense-form">
+		{% verbatim %}			
+			<div class="expense-form" ng-controller="CategoriesList">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
-					<li class="add-expense-category">Taxes</li>
-					<li class="add-expense-category">Food & Drink</li>
-					<li class="add-expense-category">Movies</li>
-					<li class="add-expense-category">Music</li>
-					<li class="add-expense-category">Household</li>
-					<li class="add-expense-category">Transport</li>
+					<li class="add-expense-category" ng-repeat="category in categories">{{category.title}}</li>
 					<li class="add-expense-new-category">Add Category</li>
 				</ul>
 				<input class="add-expense-submit" type="submit">
 			</div>
+		{% endverbatim %}
 			<span class="add-expense">+</span>
 		</header>
 		<section class="this-month-block">
