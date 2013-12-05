@@ -18,7 +18,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
-        return self.request.user.accounts.all()
+        return self.request.user.expense.all()
 
 class CategoryViewSet(viewsets.ModelViewSet):
     """
@@ -28,7 +28,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
     def get_queryset(self):
-        return self.request.user.accounts.all()
+        return self.request.user.category.all()
 
 class PlannedViewSet(viewsets.ModelViewSet):
     """
@@ -38,4 +38,4 @@ class PlannedViewSet(viewsets.ModelViewSet):
     serializer_class = PlannedSerializer
 
     def get_queryset(self):
-        return self.request.user.accounts.all()
+        return self.request.user.planned.all()
