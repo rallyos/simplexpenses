@@ -14,9 +14,27 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 
 
+// JUST TESTING
+$('.add-expense').on('click', function() {
+	var test = $(this).text()
+	$('.test').toggleClass('add-expense-translate');
+	//$('.expense-form').toggleClass('expense-form-show');
+	$(this).toggleClass('another-test');
+
+	$('.add-expense-sum').focus()
+
+	if (test == '^') {
+		$(this).text('+')
+	} else {
+		$(this).text('^')
+	}
+});
 
 
-
+var add_expense_button = document.getElementByClassName('add-expense')
+add_expense_button.addEventListener("click", function () {
+	var test = this.value
+});
 
 
 
