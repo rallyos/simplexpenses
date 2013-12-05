@@ -1,5 +1,8 @@
 from django.conf.urls import patterns, include, url
 
+from rest_framework import viewsets, routers
+
+
 from main import views
 
 urlpatterns = patterns('',
