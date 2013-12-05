@@ -18,6 +18,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 var add_expense_button = document.getElementsByClassName('add-expense')[0]
 var add_expense_category = document.getElementsByClassName('add-expense-category')[0]
+var categories = document.getElementsByClassName('add-expense-category')
 var expense_form = document.getElementsByClassName('test')[0]
 var expense_amount = document.getElementsByClassName('add-expense-sum')[0]
 
@@ -42,13 +43,11 @@ add_expense_button.addEventListener("click", function () {
 
 add_expense_category.addEventListener("click", function () {
 
-	this.className = 'add-expense-category'
-
-	if (this.classList.length > 1) {
-		this.className = 'add-expense-category'
-	} else {
-		this.className += ' add-expense-category-selected'
+	for (i=0; categories.length > i ;i++) {
+		categories[i].className = 'add-expense-category'
 	}
+
+		this.className += ' add-expense-category-selected'
 });
 
 
