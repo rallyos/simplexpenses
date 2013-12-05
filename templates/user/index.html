@@ -61,16 +61,18 @@
 			</div>
 			<h3 class="graph-expl">Planned</h3>
 		</section>
+		{% verbatim %}
 		<section class="expenses-block" ng-controller="ExpensesList">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span class="category-square category-{{[expense.category_id]}}"></span>
-					<span class="expense-sum">{{[expense.amount]}}</span>
-					<h3 class="expense-description">{{[expense.description]}}</h3>
-					<h3 class="expense-date">{{[expense.date]}}</h3>
+					<span class="category-square category-{{expense.category_id}}"></span>
+					<span class="expense-sum">{{expense.amount}}</span>
+					<h3 class="expense-description">{{expense.description}}</h3>
+					<h3 class="expense-date">{{expense.date}}</h3>
 				</li>
 			</ul>
 		</section>
+		{% endverbatim %}
 	</div>
 	<!-- Let's see how the things will end up -->
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
