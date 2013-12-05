@@ -15,24 +15,9 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 
 // JUST TESTING
-/*
-$('.add-expense').on('click', function() {
-	var test = $(this).text()
-	$('.test').toggleClass('add-expense-translate');
-
-	$(this).toggleClass('another-test');
-
-	$('.add-expense-sum').focus()
-
-	if (test == '^') {
-		$(this).text('+')
-	} else {
-		$(this).text('^')
-	}
-});
-*/
 
 var add_expense_button = document.getElementsByClassName('add-expense')[0]
+var add_expense_category = document.getElementsByClassName('add-expense-category')[0]
 var expense_form = document.getElementsByClassName('test')[0]
 var expense_amount = document.getElementsByClassName('add-expense-sum')[0]
 
@@ -55,9 +40,16 @@ add_expense_button.addEventListener("click", function () {
 
 });
 
+add_expense_category.addEventListener("click", function () {
 
+	this.className = 'add-expense-category'
 
-
+	if (this.classList.length > 1) {
+		this.className = 'add-expense-category'
+	} else {
+		this.className += ' add-expense-category-selected'
+	}
+});
 
 
 
