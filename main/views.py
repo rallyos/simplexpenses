@@ -5,7 +5,9 @@ from main.models import Expense, Category, Planned
 def index(request):
 	return render(request, 'index.html')
 
-
+def user(request):
+    return render(request, 'user/index.html')
+    
 from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
