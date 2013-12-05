@@ -1,8 +1,3 @@
-myModule.config(function($interpolateProvider) {
-  $interpolateProvider.startSymbol('{[{');
-  $interpolateProvider.endSymbol('}]}');
-});
-
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.controller('ExpensesList', function ($scope, $http) {
