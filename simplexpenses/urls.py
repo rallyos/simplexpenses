@@ -15,8 +15,8 @@ router.register(r'planned', views.PlannedViewSet)
 
 
 urlpatterns = patterns('',
-    #url(r'^$', include('main.urls')),
-
+	
+    url(r'^$', include('main.urls')),
     url(r'^api/', include(router.urls)),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 #    url(r'^admin/', include(admin.site.urls)),
