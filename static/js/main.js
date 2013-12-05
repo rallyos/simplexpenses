@@ -8,6 +8,22 @@ expensesApp.controller('ExpensesList', function ($scope, $http) {
 expensesApp.controller('CategoriesList', function ($scope, $http) {
   $http.get('api/category/').success(function(data) {
     $scope.categories = data;
+
+	var categories = document.getElementsByClassName('add-expense-category')
+
+	for (i=0; categories.length > i; i++) {
+	    categories[i].addEventListener('click', function() {
+
+		for (i=0; categories.length > i ;i++) {
+			categories[i].className = 'add-expense-category'
+		}
+
+		this.className += ' add-expense-category-selected'
+
+	    })
+	}
+
+
   });
 });
 
