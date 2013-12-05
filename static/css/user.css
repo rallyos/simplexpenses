@@ -106,14 +106,14 @@
 	float: left;
 	font-size: 1rem;
 	text-align: left;
-	background-image: url(///Users/dimitarralev/Projects/simplexpenses/front/static/img/rtn.png);
+	background-image: url(http://floating-tor-5775.herokuapp.com/static/img/rtn.png);
 	background-position: 96%;
 	background-size: 20px;
 	background-repeat: no-repeat;
 	cursor: pointer;
 }
 .add-expense-category-selected {
-	background-image: url(///Users/dimitarralev/Projects/simplexpenses/front/static/img/rt.png);
+	background-image: url(http://floating-tor-5775.herokuapp.com/static/img/rt.png);
 }
 .add-expense-new-category {
 	width: 45%;
