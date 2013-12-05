@@ -17,6 +17,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
   categoriestest = document.getElementsByClassName('add-expense-category')
 
   	console.log('wtf')
+  	console.log(this)
 	for (i=0; categoriestest.length > i ;i++) {
 		categoriestest[i].className = 'add-expense-category'
 	}
