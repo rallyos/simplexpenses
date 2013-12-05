@@ -1,7 +1,7 @@
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.controller('ExpensesList', function ($scope, $http) {
-  $http.get('http://floating-tor-5775.herokuapp.com/api/expense/').success(function(data) {
+  $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
   });
 });
