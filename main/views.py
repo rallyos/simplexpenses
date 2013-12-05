@@ -3,11 +3,11 @@ from main.models import Expense, Category, Planned
 # Create your views here.
 
 def index(request):
-	return render(request, 'index.html')
+    if request.user.is_authenticated():
+    	return render(request, 'user/index.html')
+    else:
+        return render(request, 'index.html')
 
-def user(request):
-    return render(request, 'user/index.html')
-    
 from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
