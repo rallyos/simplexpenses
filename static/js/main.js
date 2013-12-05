@@ -34,6 +34,7 @@ $('.add-expense').on('click', function() {
 
 var add_expense_button = document.getElementsByClassName('add-expense')[0]
 var expense_form = document.getElementsByClassName('test')[0]
+var expense_amount = document.getElementsByClassName('add-expense-sum')[0]
 
 add_expense_button.addEventListener("click", function () {
 	var test = this.textContent
@@ -43,6 +44,14 @@ add_expense_button.addEventListener("click", function () {
 	} else {
 		expense_form.className += ' add-expense-translate'
 	}
+
+	if (this.classList.length > 1) {
+		this.className = 'add-expense'
+	} else {
+		this.className += ' another-test'
+	}
+
+	expense_amount.focus()
 
 	if (test == '^') {
 		this.textContent = '+';
