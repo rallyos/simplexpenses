@@ -10,11 +10,13 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
     $scope.categories = data;
   });
 
+  categoriestest = document.getElementByClassName('add-expense-category')
+
+
   $scope.test = function() {
 
-	console.log('konzolka brat')
-	for (i=0; categories.length > i ;i++) {
-		categories[i].className = 'add-expense-category'
+	for (i=0; categoriestest.length > i ;i++) {
+		categoriestest[i].className = 'add-expense-category'
 	}
 
 	this.className += ' add-expense-category-selected'
