@@ -15,6 +15,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 
 // JUST TESTING
+/*
 $('.add-expense').on('click', function() {
 	var test = $(this).text()
 	$('.test').toggleClass('add-expense-translate');
@@ -29,7 +30,7 @@ $('.add-expense').on('click', function() {
 		$(this).text('^')
 	}
 });
-
+*/
 
 var add_expense_button = document.getElementByClassName('add-expense')
 add_expense_button.addEventListener("click", function () {
