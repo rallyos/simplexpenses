@@ -6,23 +6,19 @@ expensesApp.controller('ExpensesList', function ($scope, $http) {
   });
 });
 expensesApp.controller('CategoriesList', function ($scope, $http) {
-  $http.get('api/category/').success(function(data) {
-    $scope.categories = data;
-  });
+	
+	$http.get('api/category/').success(function(data) {
+		$scope.categories = data;
+	});
 
+	$scope.test = function($event) {
+		categoriestest = document.getElementsByClassName('add-expense-category')
 
-
-  $scope.test = function($event) {
-
-  categoriestest = document.getElementsByClassName('add-expense-category')
-
-	for (i=0; categoriestest.length > i ;i++) {
-		categoriestest[i].className = 'add-expense-category'
+		for (i=0; categoriestest.length > i ;i++) {
+			categoriestest[i].className = 'add-expense-category'
+		}
+		$event.target.className += ' add-expense-category-selected'
 	}
-
-	$event.target.className += ' add-expense-category-selected'
-
-  }
 
 });
 

@@ -4,8 +4,8 @@ from main.models import Expense, Category, Planned
 
 class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 
-	user_id = serializers.IntegerField(required=False)
-  	category_id = serializers.IntegerField(required=False)
+#	user_id = serializers.IntegerField(required=False)
+#  	category_id = serializers.IntegerField(required=False)
 
 	class Meta:
 		model = Expense
@@ -13,7 +13,7 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
-  	user_id = serializers.IntegerField(required=False)
+#  	user_id = serializers.IntegerField(required=False)
 
 	class Meta:
 		model = Category
@@ -21,8 +21,8 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
 class PlannedSerializer(serializers.HyperlinkedModelSerializer):
 
-  	user_id = serializers.IntegerField(required=False)
-  	category_id = serializers.IntegerField(required=False)
+#  	user_id = serializers.IntegerField(required=False)
+#  	category_id = serializers.IntegerField(required=False)
 
 	class Meta:
 		model = Planned
