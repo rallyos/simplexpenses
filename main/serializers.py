@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from rest_framework import serializers
 from main.models import Expense, Category, Planned
 
-class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
+class ExpenseSerializer(serializers.ModelSerializer):
 
 #	user_id = serializers.IntegerField(required=False)
 #  	category_id = serializers.IntegerField(required=False)
@@ -11,7 +11,7 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 		model = Expense
 		fields = ('id', 'user_id', 'amount', 'description', 'category_id', 'date')
 
-class CategorySerializer(serializers.HyperlinkedModelSerializer):
+class CategorySerializer(serializers.ModelSerializer):
 
 #  	user_id = serializers.IntegerField(required=False)
 
@@ -19,7 +19,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
 		model = Category
 		fields = ('id', 'user_id', 'title', 'description', 'color')
 
-class PlannedSerializer(serializers.HyperlinkedModelSerializer):
+class PlannedSerializer(serializers.ModelSerializer):
 
 #  	user_id = serializers.IntegerField(required=False)
 #  	category_id = serializers.IntegerField(required=False)
