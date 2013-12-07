@@ -1,4 +1,5 @@
 from django.shortcuts import render
+from django.http import HttpResponse
 from main.models import Expense, Category, Planned
 from django.contrib.auth import authenticate, login, logout
 
