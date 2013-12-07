@@ -1,10 +1,13 @@
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.controller('ExpensesList', function ($scope, $http) {
-  $http.get('api/expense/').success(function(data) {
-    $scope.expenses = data;
-  });
+	testinguva = document.getElementsByClassName('expense-sum')
+	console.log(testinguva)
+	//$scope.testing = 
+
 });
+
+
 expensesApp.controller('CategoriesList', function ($scope, $http) {
 	
 	$http.get('api/category/').success(function(data) {
