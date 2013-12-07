@@ -33,6 +33,9 @@ def login_user(request):
         # Return an 'invalid login' error message.
             return HttpResponse(status=404)
 
+def logout_user(request):
+    logout(request)
+    return redirect('/')
 
 
 class ExpenseViewSet(viewsets.ModelViewSet):
