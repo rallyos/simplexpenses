@@ -1,12 +1,8 @@
 var expensesApp = angular.module('test-module', []);
 
 
-expensesApp.controller('ExpensesGraph', function ($scope, $http) {
-
-	$scope.test = function() {
-		console.log('TEST')
-	}
-
+expensesApp.controller('ExpensesGraph', function ($scope) {
+	$scope.test = 23.99
 });
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
