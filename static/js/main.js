@@ -1,10 +1,15 @@
 var expensesApp = angular.module('test-module', []);
  
-expensesApp.controller('ExpensesList', function ($scope, $http) {
-	testinguva = document.getElementsByClassName('expense-sum')
-	console.log(testinguva)
-	//$scope.testing = 
+expensesApp.controller('ExpensesGraph', function() {
+	testingu = document.getElementsByClassName('sum-amount')
+	console.log(testingu)
+	//$scope.testing =
+})
 
+expensesApp.controller('ExpensesList', function ($scope, $http) {
+  $http.get('api/expense/').success(function(data) {
+    $scope.expenses = data;
+  });
 });
 
 
