@@ -10,6 +10,29 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+def login(request):
+    if request.method == 'GET':
+        username = request.GET[ 'username' ]
+        password = request.GET[ 'password' ]
+        user = authenticate(username=username, password=password)
+    
+        # If authenticated 
+        if user is not None:
+            if user.is_active:
+                # Login and set the token cookie
+                login(request, user)
+                login_success = HttpResponse(status=200)
+
+                return login_success
+            else:
+                # Change this if you delete/deactivate user/user has deleted it's account
+                return redirect('/')
+        else:
+        # Return an 'invalid login' error message.
+            return HttpResponse(status=404)
+
+
+
 class ExpenseViewSet(viewsets.ModelViewSet):
 
     queryset = Expense.objects.all()

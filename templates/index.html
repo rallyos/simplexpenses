@@ -24,9 +24,9 @@
 			</nav>
 		</header>
 		<section class="form-block">
-			<form class="signin-form" action="">
-				<input class="form-input signin-input" type="text" placeholder="email">
-				<input class="form-input signin-input" type="password" placeholder="password">
+			<form class="signin-form">{% csrf_token %} 
+				<input class="form-input signin-input" id="username" type="text" placeholder="email">
+				<input class="form-input signin-input" id="password" type="password" placeholder="password">
 				<input class="form-submit signin-submit" type="submit" value="Sign in">
 			</form>
 		</section>
@@ -46,10 +46,10 @@
 		</section>
 		<section class="form-block">
 			<h1 class="beta-heading">Sign up for the beta.</h1>
-			<form class="signup-form" action="">
-				<input class="form-input signup-input" type="text" placeholder="email">
-				<input class="form-input signup-input" type="password" placeholder="password">
-				<input class="form-input signup-input" type="password" placeholder="Confirm password">
+			<form class="signup-form">{% csrf_token %} 
+				<input class="form-input signup-input" id="username" type="text" placeholder="email">
+				<input class="form-input signup-input" id="password1" type="password" placeholder="password">
+				<input class="form-input signup-input" id="password2" type="password" placeholder="Confirm password">
 				<input class="form-submit signup-submit" type="submit" value="Sign me up">
 			</form>
 		</section>
