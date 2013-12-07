@@ -1,6 +1,14 @@
 var expensesApp = angular.module('test-module', []);
 
-expensesApp.factory('sumit', function() {
+expensesApp.factory('sumit', function($http) {
+
+	$http.get('api/expense/').success(function(data) {
+		$scope.expenses = data;
+
+	});
+
+	console.log($scope.expenses)
+
 	return {sharedObject: {data: 3 } }
 })
 
