@@ -1,6 +1,6 @@
 var expensesApp = angular.module('test-module', []);
  
-expensesApp.controller('ExpensesGraph', function() {
+expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 4
 })
 
