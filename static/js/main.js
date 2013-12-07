@@ -13,7 +13,7 @@ expensesApp.controller('ExpensesList', function ($scope, $http, sumit) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
     $scope.testa = sumit.sharedObject
-    console.log($scope.data)
+    console.log($scope.testa)
   });
 });
 expensesApp.controller('CategoriesList', function ($scope, $http) {
