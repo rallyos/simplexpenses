@@ -4,7 +4,7 @@ var signInForm = document.getElementsByClassName('signin-form')[0]
 signUpForm.onsubmit = function() {
 
 	// Store the elements
-	csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
+	csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[1].value;
 	user = document.getElementById('reg-user').value;
 	pass = document.getElementById('reg-pass').value;
 	confirmPass = document.getElementById('reg-confirm-pass').value;
@@ -28,7 +28,7 @@ signUpForm.onsubmit = function() {
 
 signInForm.onsubmit = function() {
 
-	csrfmiddlewaretoken = signInForm.getElementsByName('csrfmiddlewaretoken')[0].value;
+	csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
 	user = signInForm.getElementById('username').value;
 	pass = signInForm.getElementById('password').value;
 
