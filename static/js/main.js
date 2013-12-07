@@ -1,9 +1,7 @@
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.controller('ExpensesGraph', function() {
-	testingu = document.getElementsByClassName('sum-amount')
-	console.log(testingu)
-	//$scope.testing =
+	$scope.testing = 4
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
