@@ -1,31 +1,8 @@
 var expensesApp = angular.module('test-module', []);
-
-
-expensesApp.provider('myProvider', function() {
-
-    this.$get = function($http) {
-		  $http.get('api/expense/').success(function(data) {
-		    $scope.expenses = data;
-		  console.log($scope.expenses)
-
-		  });
-        return $scope.expenses;
-    };
-});
-
-
-expensesApp.factory('sumit', function() {
-	return {sharedObject: {data: 3 } }
-})
-
-expensesApp.controller('ExpensesGraph', function ($scope) {
-	$scope.test = 23.99
-});
-
-expensesApp.controller('ExpensesList', function ($scope, $http, sumit) {
+ 
+expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
-
   });
 });
 expensesApp.controller('CategoriesList', function ($scope, $http) {
