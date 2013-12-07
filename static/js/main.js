@@ -1,9 +1,9 @@
 var expensesApp = angular.module('test-module', []);
  
 
-app.factory('dealerService', function($http) {
+expensesApp.factory('dealerService', function($http) {
    return {
-      getDealerList = function() {
+      getDealerList function() {
          var dealers = {};
          // TODO add possible caching via $cacheFactory
          $http.get('api/expense/').success(function(data) {
