@@ -1,6 +1,9 @@
 var expensesApp = angular.module('test-module', []);
 
 
+expensesApp.controller('ExpensesGraph', function ($scope, Data) {
+	$scope.testing = Data
+});
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
@@ -16,9 +19,6 @@ expensesApp.controller('ExpensesList', function ($scope, $http) {
   });
 });
 
-expensesApp.controller('ExpensesGraph', function ($scope, Data) {
-	$scope.testing = Data
-});
 
 
 expensesApp.controller('CategoriesList', function ($scope, $http) {
