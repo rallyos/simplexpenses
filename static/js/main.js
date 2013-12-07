@@ -1,15 +1,26 @@
 var expensesApp = angular.module('test-module', []);
 
 
-expensesApp.controller('ExpensesGraph', function ($scope) {
-	$scope.testing = 23.99
-});
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
+
+	expensesApp.testove('Data', function() {
+		for (i=0; i == data.length ; i++) {
+			console.log('swinging in the name of')
+		}
+		return 19.99
+	})
+
   });
 });
+
+expensesApp.controller('ExpensesGraph', function ($scope, Data) {
+	$scope.testing = Data
+});
+
+
 expensesApp.controller('CategoriesList', function ($scope, $http) {
 	
 	$http.get('api/category/').success(function(data) {
