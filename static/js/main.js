@@ -1,6 +1,8 @@
 var expensesApp = angular.module('test-module', []);
 
-
+expensesApp.factory('sumit', function() {
+	return {sharedObject: {data: 3 } }
+})
 
 expensesApp.controller('ExpensesGraph', function ($scope, sumit) {
 	$scope.testing = sumit.sharedObject
@@ -9,10 +11,6 @@ expensesApp.controller('ExpensesGraph', function ($scope, sumit) {
 expensesApp.controller('ExpensesList', function ($scope, $http, sumit) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;
-
-	expensesApp.factory('sumit', function() {
-		return {sharedObject: {data: 3 } }
-	})
 
   });
 });
