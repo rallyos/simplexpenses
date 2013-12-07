@@ -1,7 +1,8 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render
 from main.models import Expense, Category, Planned
 
-# Create your views here.
+from rest_framework import viewsets
+from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
 def index(request):
     if request.user.is_authenticated():
@@ -9,14 +10,8 @@ def index(request):
     else:
         return render(request, 'index.html')
 
-from rest_framework import viewsets
-from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
-
-
 class ExpenseViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
+
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
 
@@ -24,9 +19,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return Expense.objects.filter(user_id__exact=self.request.user.id)
 
 class CategoryViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
+
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
@@ -34,9 +27,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
         return Category.objects.filter(user_id__exact=self.request.user.id)
 
 class PlannedViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
+
     queryset = Planned.objects.all()
     serializer_class = PlannedSerializer
 
