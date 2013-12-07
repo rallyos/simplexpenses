@@ -1,5 +1,14 @@
 var expensesApp = angular.module('test-module', []);
- 
+
+
+expensesApp.controller('ExpensesGraph', function ($scope, $http) {
+
+	$scope.test = function() {
+		console.log('TEST')
+	}
+
+});
+
 expensesApp.controller('ExpensesList', function ($scope, $http) {
   $http.get('api/expense/').success(function(data) {
     $scope.expenses = data;

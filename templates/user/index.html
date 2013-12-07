@@ -34,8 +34,8 @@
 		{% endverbatim %}
 			<span class="add-expense">+</span>
 		</header>
-		<section class="this-month-block">
-			<span class="sum-expenses">{{13.21}}</span>
+		<section class="this-month-block" ng-controller="ExpensesGraph" ng-click="test()">
+			<span class="sum-expenses"></span>
 			<div class="graph">
 				<canvas class="category red"></canvas>
 				<canvas class="category green"></canvas>
