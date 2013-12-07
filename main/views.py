@@ -19,8 +19,8 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return Expense.objects.filter(user_id__exact=self.request.user.id)
 
     def pre_save(self, obj):
-        obj.description = 'epic test'
-        
+        obj.user_id = self.request.user.id
+
 class CategoryViewSet(viewsets.ModelViewSet):
 
     queryset = Category.objects.all()
