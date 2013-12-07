@@ -1,6 +1,6 @@
 var expensesApp = angular.module('test-module', []);
 
-expensesApp.factory('sumit', function($http) {
+expensesApp.factory('sumit', function($scope, $http) {
 
 	$http.get('api/expense/').success(function(data) {
 		$scope.expenses = data;
