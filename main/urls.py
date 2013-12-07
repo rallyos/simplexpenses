@@ -4,5 +4,6 @@ from main import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
-    url(r'^login_user', views.login_user, name='login')
+    url(r'^login', views.login_user, name='login'),
+    url(r'^logout', views.logout_user, name='logout')
 )
