@@ -10,6 +10,7 @@ expensesApp.factory('dealerService', function($http) {
             dealers.list = data;
          });
          return dealers;
+         console.log(dealers)
       },
 
       // other functions
@@ -19,7 +20,7 @@ expensesApp.factory('dealerService', function($http) {
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
 	$scope.testing = 4
-	console.log(dealerService.dealers.list)
+	console.log(dealerService.dealers)
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
