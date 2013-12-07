@@ -11,7 +11,7 @@ def index(request):
     else:
         return render(request, 'index.html')
 
-def login(request):
+def login_user(request):
     if request.method == 'GET':
         username = request.GET[ 'username' ]
         password = request.GET[ 'password' ]

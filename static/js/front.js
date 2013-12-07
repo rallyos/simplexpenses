@@ -33,7 +33,7 @@ signInForm.onsubmit = function() {
 	pass = signInForm.children[2].value;
 
 	var xhr = new XMLHttpRequest()
-	xhr.open('GET', 'login?' + 'csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) +
+	xhr.open('GET', 'login_user?' + 'csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) +
 	'&username=' + encodeURIComponent(user) +
 	'&password=' + encodeURIComponent(pass), false);
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
