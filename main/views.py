@@ -12,6 +12,25 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+def register_user(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        
+        if form.is_valid():
+            user = form.save()
+
+            username = request.POST['username']
+            password = request.POST['password1']
+            user = authenticate(username=username, password=password)
+
+            if user is not None:
+                if user.is_active:
+                    login(request, user)
+                    success = HttpResponse(status=200)
+                    return success
+
+        return HttpResponse(status=403) 
+
 def login_user(request):
     if request.method == 'GET':
         username = request.GET[ 'username' ]

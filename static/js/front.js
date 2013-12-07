@@ -4,10 +4,10 @@ var signInForm = document.getElementsByClassName('signin-form')[0]
 signUpForm.onsubmit = function() {
 
 	// Store the elements
-	csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[1].value;
-	user = document.getElementById('reg-user').value;
-	pass = document.getElementById('reg-pass').value;
-	confirmPass = document.getElementById('reg-confirm-pass').value;
+	csrfmiddlewaretoken = signUpForm.children[0].value;
+	user = signUpForm.children[1].value;
+	pass = signUpForm.children[2].value;
+	confirmPass = signUpForm.children[3].value;
 
 	var xhr = new XMLHttpRequest()
 	xhr.open('POST', 'register_user', false);
