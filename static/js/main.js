@@ -6,9 +6,9 @@ expensesApp.provider('myProvider', function() {
     this.$get = function($http) {
 		  $http.get('api/expense/').success(function(data) {
 		    $scope.expenses = data;
+		  console.log($scope.expenses)
 
 		  });
-		  console.log($scope.expenses)
         return $scope.expenses;
     };
 });
