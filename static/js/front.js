@@ -28,9 +28,9 @@ signUpForm.onsubmit = function() {
 
 signInForm.onsubmit = function() {
 
-	csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value;
-	user = signInForm.getElementById('username').value;
-	pass = signInForm.getElementById('password').value;
+	csrfmiddlewaretoken = signInForm.children[0].value;
+	user = signInForm.children[1].value;
+	pass = signInForm.children[2].value;
 
 	var xhr = new XMLHttpRequest()
 	xhr.open('GET', 'login?' + 'csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) +
