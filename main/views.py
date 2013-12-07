@@ -21,7 +21,7 @@ def login(request):
         if user is not None:
             if user.is_active:
                 # Login and set the token cookie
-                login(user)
+                login(request, user)
                 login_success = HttpResponse(status=200)
 
                 return login_success
