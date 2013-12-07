@@ -29,6 +29,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Category.objects.filter(user_id__exact=self.request.user.id)
 
+    def pre_save(self, obj):
+        obj.user_id = self.request.user.id
+
 class PlannedViewSet(viewsets.ModelViewSet):
 
     queryset = Planned.objects.all()
@@ -36,3 +39,6 @@ class PlannedViewSet(viewsets.ModelViewSet):
 
     def get_queryset(self):
         return Planned.objects.filter(user_id__exact=self.request.user.id)
+
+    def pre_save(self, obj):
+        obj.user_id = self.request.user.id
