@@ -1,19 +1,7 @@
 var expensesApp = angular.module('test-module', []);
- 
-expensesApp.factory('testo', function($http) {
-	expenses = $http.get('api/expense/').success(function(data) {
-    	expenses = data;
-    	//return expenses
-    	return expenses
-	});
-	console.log(expenses)
-})
-
 
 expensesApp.controller('ExpensesGraph', function($scope, testo) {
-	$scope.testo = testo
-	console.log(testo)
-	//$scope.testing = testo
+	$scope.testing = 8
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
@@ -31,10 +19,10 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 	$scope.test = function($event) {
 		categoriestest = document.getElementsByClassName('add-expense-category')
-
 		for (i=0; categoriestest.length > i ;i++) {
 			categoriestest[i].className = 'add-expense-category'
 		}
+
 		$event.target.className += ' add-expense-category-selected'
 	}
 
@@ -52,12 +40,6 @@ var expense_amount = document.getElementsByClassName('add-expense-sum')[0]
 
 add_expense_button.addEventListener("click", function () {
 	var test = this.textContent
-
-	if (expense_form.classList.length > 1) {
-		expense_form.className = 'test'
-	} else {
-		expense_form.className += ' add-expense-translate'
-	}
 
 	expense_amount.focus()
 
@@ -92,29 +74,7 @@ add_expense_button.addEventListener("click", function () {
 
 
 
-
-
-
-
-
-
-
-
 /*
-$('.add-expense').on('click', function() {
-	var test = $(this).text()
-	$('.test').toggleClass('add-expense-translate');
-	//$('.expense-form').toggleClass('expense-form-show');
-	$(this).toggleClass('another-test');
-
-	$('.add-expense-sum').focus()
-
-	if (test == '^') {
-		$(this).text('+')
-	} else {
-		$(this).text('^')
-	}
-});
 
 $('.add-expense-category').on('click', function() {
 	$('.add-expense-category').removeClass('add-expense-category-selected')

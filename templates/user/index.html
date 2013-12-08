@@ -21,7 +21,8 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test">
+		<header class="test" ng-class="headerClass">
+
 		{% verbatim %}			
 			<div class="expense-form" ng-controller="CategoriesList">
 				<input class="add-expense-sum" type="text" value="0.00">
@@ -32,11 +33,13 @@
 				<input class="add-expense-submit" type="submit">
 			</div>
 		{% endverbatim %}
-			<span class="add-expense">+</span>
+
+			<span class="add-expense" ng-click="headerClass='add-expense-translate'">+</span>
 		</header>
+
 		{% verbatim %}			
 		<section class="this-month-block" ng-controller="ExpensesGraph">
-			<span class="sum-expenses">{{testing.epic}}</span>
+			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
 				<canvas class="category red"></canvas>
 				<canvas class="category green"></canvas>
@@ -48,6 +51,7 @@
 			<h3 class="graph-expl">This month</h3>
 		</section>
 		{% endverbatim %}
+
 		<section class="planned-block">
 			<span class="sum-planned">68.24</span>
 			<div class="graph">
@@ -60,6 +64,7 @@
 			</div>
 			<h3 class="graph-expl">Planned</h3>
 		</section>
+
 		{% verbatim %}
 		<section class="expenses-block" ng-controller="ExpensesList">
 			<ul class="expenses-list">
@@ -72,6 +77,7 @@
 			</ul>
 		</section>
 		{% endverbatim %}
+
 	</div>
 	<!-- Let's see how the things will end up -->
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
