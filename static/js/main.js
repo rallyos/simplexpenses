@@ -19,9 +19,9 @@ expensesApp.factory('dealerService', function($http) {
 });
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
-	$scope.testing = 4
 	proba = dealerService.getDealerList()
-	console.log(proba)
+
+	$scope.testing = proba.length
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
