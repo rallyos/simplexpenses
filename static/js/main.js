@@ -10,7 +10,7 @@ expensesApp.factory('dealerService', function($http) {
 		});
 
 		return dealers;
-    },
+    };
 
     return dealers
 });
