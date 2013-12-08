@@ -1,7 +1,7 @@
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.factory('testo', function($http) {
-	$http.get('api/expense/').success(function(data) {
+	expenses = $http.get('api/expense/').success(function(data) {
     	expenses = data;
     	//return expenses
     	return expenses
