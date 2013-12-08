@@ -8,7 +8,7 @@ expensesApp.factory('dealerService', function($http) {
          // TODO add possible caching via $cacheFactory
          $http.get('api/expense/').success(function(data) {
             dealers.list = data;
-            console.log(data)
+            //console.log(data)
          });
          return dealers.list;
       },
@@ -19,7 +19,7 @@ expensesApp.factory('dealerService', function($http) {
 });
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
-	proba = dealerService.getDealerList()
+	proba = getDealerList()
 	console.log(proba)
 
 //	for (i=0; proba.length > i; i++) {	}
