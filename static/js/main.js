@@ -10,9 +10,9 @@ expensesApp.factory('testo', function($http) {
 
 
 expensesApp.controller('ExpensesGraph', function($scope, testo) {
-	$scope.testo = testo
-	console.log($scope.testo)
-	$scope.testing = 8
+	//$scope.testo = testo
+	console.log(testo)
+	$scope.testing = testo
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
