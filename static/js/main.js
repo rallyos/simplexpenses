@@ -19,7 +19,7 @@ expensesApp.factory('dealerService', function($http) {
 });
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
-	$scope.proba = dealerService()
+	$scope.proba = dealerService.getDealerList()
 	console.log($scope.proba)
 	console.log($scope.proba.dealers)
 	console.log($scope.proba.list)
