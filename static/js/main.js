@@ -10,7 +10,7 @@ expensesApp.factory('dealerService', function($http) {
             dealers.list = data;
             //console.log(data)
          });
-         return {dali: {dealers.list} };
+         return dali: {dealers.list} ;
       },
 
       // other functions
