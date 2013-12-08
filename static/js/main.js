@@ -1,26 +1,8 @@
 var expensesApp = angular.module('test-module', []);
  
 
-expensesApp.factory('dealerService', function($http) {
-	var dealers = {};
-	dealers.getDealerList = function() {
-
-		$http.get('api/expense/').success(function(data) {
-			dealers.list = data;
-		});
-
-		return dealers;
-    };
-
-    return dealers
-});
-
-expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
-	$scope.dealerService = dealerService
-	console.log($scope.dealerService.dealers)
-
-//	for (i=0; proba.length > i; i++) {	}
-	$scope.testing = proba.length
+expensesApp.controller('ExpensesGraph', function($scope) {
+	$scope.testing = 8
 })
 
 expensesApp.controller('ExpensesList', function ($scope, $http) {
