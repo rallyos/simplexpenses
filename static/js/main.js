@@ -8,9 +8,10 @@ expensesApp.factory('dealerService', function($http) {
          // TODO add possible caching via $cacheFactory
          $http.get('api/expense/').success(function(data) {
             dealers.list = data;
+            console.log(data)
          });
-         return dealers;
-         console.log(dealers)
+         return dealers.list;
+         console.log(dealers.list)
       },
 
       // other functions
