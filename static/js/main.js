@@ -2,8 +2,8 @@ var expensesApp = angular.module('test-module', []);
  
 
 expensesApp.factory('dealerService', function($http) {
-
-	getDealerList: function() {
+   return {
+      getDealerList: function() {
          var dealers = {};
          // TODO add possible caching via $cacheFactory
          $http.get('api/expense/').success(function(data) {
@@ -11,9 +11,7 @@ expensesApp.factory('dealerService', function($http) {
             //console.log(data)
          });
          return dealers.list;
-      }
-
-      return getDealerList()
+      },
 
       // other functions
    };
@@ -21,8 +19,10 @@ expensesApp.factory('dealerService', function($http) {
 });
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
-	proba = dealerService
-	console.log(proba)
+	$scope.proba = dealerService
+	console.log($scope.proba)
+	console.log($scope.dealers)
+	console.log($scope.list)
 
 //	for (i=0; proba.length > i; i++) {	}
 	$scope.testing = proba.length
