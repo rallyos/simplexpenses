@@ -8,6 +8,8 @@ expensesApp.factory('testo', function($http) {
 
 
 expensesApp.controller('ExpensesGraph', function($scope, testo) {
+	$scope.testo = testo
+	console.log($scope.testo)
 	$scope.testing = 8
 })
 
