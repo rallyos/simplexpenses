@@ -1,18 +1,17 @@
 var expensesApp = angular.module('test-module', []);
  
 expensesApp.factory('testo', function($http) {
-	epic = $http.get('api/expense/').success(function(data) {
+	$http.get('api/expense/').success(function(data) {
     	expenses = data;
     	//return expenses
 	});
 	console.log(expenses)
-	return dali: {epic}
 })
 
 
 expensesApp.controller('ExpensesGraph', function($scope, testo) {
 	$scope.testo = testo
-	console.log(testo.epic)
+	console.log(testo)
 	//$scope.testing = testo
 })
 
