@@ -20,7 +20,7 @@ expensesApp.factory('dealerService', function($http) {
 
 expensesApp.controller('ExpensesGraph', function($scope, dealerService) {
 	$scope.testing = 4
-	proba = dealerService()
+	proba = dealerService.getDealerList()
 	console.log(proba)
 })
 
