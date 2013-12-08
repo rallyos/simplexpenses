@@ -2,8 +2,9 @@ var expensesApp = angular.module('test-module', []);
  
 expensesApp.factory('testo', function($http) {
 	epic = $http.get('api/expense/').success(function(data) {
-    expenses = data;
-  });
+    	expenses = data;
+	});
+	return epic
 })
 
 
