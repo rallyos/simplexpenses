@@ -5,7 +5,7 @@ expensesApp.factory('testo', function($http) {
     	expenses = data;
     	return expenses
 	});
-	return epic
+	return { dali: {epic} }
 })
 
 
