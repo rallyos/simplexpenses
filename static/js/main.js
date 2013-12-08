@@ -1,5 +1,11 @@
 var expensesApp = angular.module('test-module', []);
  
+expensesApp.factory('test', function($http){
+	epic = $http.get('api/expense/').success(function(data) {
+    $scope.expenses = data;
+  });
+})
+
 
 expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
