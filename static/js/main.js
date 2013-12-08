@@ -4,6 +4,7 @@ expensesApp.factory('testo', function($http) {
 	$http.get('api/expense/').success(function(data) {
     	expenses = data;
     	//return expenses
+    	return expenses
 	});
 	console.log(expenses)
 })
