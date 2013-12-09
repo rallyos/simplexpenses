@@ -27,7 +27,7 @@
 			<div class="expense-form">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<div class="add-expense-categories-list">
-					<input type="radio" class="add-expense-category" ng-repeat="category in categories">{{category.title}}</input>
+					{{category.title}}<input type="radio" class="add-expense-category" ng-repeat="category in categories">
 					<span class="add-expense-new-category">Add Category</span>
 				</div>
 				<input class="add-expense-submit" type="submit">
