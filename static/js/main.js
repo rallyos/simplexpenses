@@ -3,7 +3,7 @@ var expensesApp = angular.module('expenses', []);
 
 expensesApp.factory('Expenses', function($http) {
 	$http.get('api/expense/').success(function(data) {
-		$scope.expenses = data;
+		$scope.expensesa = data;
 		console.log('wtd')
 	});
 })
