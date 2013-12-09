@@ -17,7 +17,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 		$scope.categories = data;
 	});
 
-	$scope.selectCategory = function() {
+	$scope.selectCategory = function(categoryClass) {
 		$scope.categoryClass = false;
 		//this.categoryClass = !this.categoryClass;
 	}
