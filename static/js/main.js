@@ -9,7 +9,7 @@ expensesApp.factory('Expenses', function($http) {
 })
 
 
-expensesApp.controller('ExpensesGraph', function($scope) {
+expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
 	$scope.testing = 8
 });
 
