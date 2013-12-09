@@ -25,7 +25,7 @@ expensesApp.factory('categoriesData', function($http) {
 		
 		testu: function() {
 
-			var promise = $http.get('/api/category/').then(function (response) {
+			var promise = $http.get('/api/category3/').then(function (response) {
 				console.log(response);
 				return response.data;
 			});

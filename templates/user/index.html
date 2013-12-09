@@ -41,26 +41,16 @@
 		<section class="this-month-block" ng-controller="ExpensesGraph">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
-				<canvas class="category red"></canvas>
-				<canvas class="category green"></canvas>
-				<canvas class="category black"></canvas>
-				<canvas class="category blue"></canvas>
-				<canvas class="category brown"></canvas>
-				<canvas class="category yellow"></canvas>
+				<canvas class="category" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">This month</h3>
 		</section>
 		{% endverbatim %}
 
-		<section class="planned-block">
+		<section class="planned-block" ng-controller="ExpensesGraph">
 			<span class="sum-planned">68.24</span>
 			<div class="graph">
-				<canvas class="category red"></canvas>
-				<canvas class="category green"></canvas>
-				<canvas class="category black"></canvas>
-				<canvas class="category blue"></canvas>
-				<canvas class="category brown"></canvas>
-				<canvas class="category yellow"></canvas>
+				<canvas class="category" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">Planned</h3>
 		</section>
