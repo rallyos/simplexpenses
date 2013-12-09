@@ -15,12 +15,12 @@ expensesApp.factory('appData', function($http) {
 				return dve.data;
 			});
 
+			testov = {
+				expensesa: expenses,
+				categoriesa: categories
+			};
 			// Return the promise to the controller
-			console.log(edno)
-			console.log(dve)
-			console.log(edno.data)
-			console.log(dve.data)
-			return [expenses, categories]
+			return testov
 		}
 	};
 
@@ -30,12 +30,12 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	theData = appData.testu();
+	appData.testu().then(function(d) {
+		console.log(d)
 
-	console.log(theData[0])
-
-	$scope.expenses = theData[0]
-	$scope.categories = theData[1]
+		//$scope.expenses = d;
+		//$scope.categories = c;
+	});
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
