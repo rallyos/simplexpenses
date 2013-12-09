@@ -52,9 +52,7 @@ expensesApp.controller('mainController', function($scope, appData) {
 	}
 
 	$scope.testas = function() {
-		asd = $scope.categories
-		bcd = this.expense.category_id
-		color = asd + [this.expense.category_id].color
+		color = $scope.categories[this.expense.category_id].color
 		return 'background: ' + color
 	}
 
