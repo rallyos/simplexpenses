@@ -38,10 +38,10 @@ expensesApp.controller('mainController', function($scope, appData) {
 		return d
 	});
 
-	appData.testuv().then(function(d) {
-		console.log(d)
+	$scope.categories = appData.testuv().then(function(c) {
+		console.log(c)
 
-		$scope.categories = c;
+		return c;
 	});
 
 
