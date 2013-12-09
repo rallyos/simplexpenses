@@ -21,13 +21,13 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''" ng-controller="CategoriesList">
+		<header class="test" ng-class="headerClass ? 'add-expense-translate' : 's'" ng-controller="CategoriesList">
 
 		{% verbatim %}			
 			<div class="expense-form">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
-					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="unselectCategory()">{{category.title}}</li>
+					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="unselectCategory();selectCategory()">{{category.title}}</li>
 					<li class="add-expense-new-category">Add Category</li>
 				</ul>
 				<input class="add-expense-submit" type="submit">
