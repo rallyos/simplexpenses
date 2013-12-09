@@ -17,9 +17,8 @@ expensesApp.factory('appData', function($http) {
 				return response.data;
 			});
 
-			console.log(fetchedData)
 			// Return the promise to the controller
-			return fetchedData;
+			return expenses, categories
 		}
 	};
 
