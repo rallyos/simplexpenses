@@ -1,16 +1,8 @@
 var expensesApp = angular.module('expenses', []);
 
 
-expensesApp.factory('Expenses', function() {
-	$http.get('api/expense/').success(function(data) {
-		expenses = data;
-	});
-	return {message: 'testing'}
-})
 
-
-expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
-	console.log(Expenses.message)
+expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
 });
 
