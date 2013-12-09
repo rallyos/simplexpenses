@@ -28,7 +28,7 @@ expensesApp.controller('mainController', function($scope, appData) {
 
 	theData = appData.testu();
 
-	console.log(theData)
+	console.log(theData[0])
 
 	$scope.expenses = theData[0]
 	$scope.categories = theData[1]
