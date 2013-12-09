@@ -16,20 +16,18 @@ expensesApp.factory('appData', function($http) {
 			});
 
 			// Return the promise to the controller
-			return expenses, categories
+			return [expenses, categories]
 		}
 	};
 
-	console.log(data)
 	return data;
 });
 
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d, c) {
+	appData.testu().then(function(d) {
 		console.log(d)
-		console.log(c)
 
 		//$scope.expenses = d;
 		//$scope.categories = c;
