@@ -41,7 +41,9 @@ expensesApp.factory('categoriesData', function($http) {
 
 
 expensesApp.controller('ExpensesGraph', function($scope) {
-	$scope.testing = 8
+	categoriesData.testu().then(function(c) {
+		$scope.categories = c;
+	});
 });
 
 expensesApp.controller('ExpensesList', function ($scope, expensesData) {
