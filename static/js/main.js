@@ -27,13 +27,7 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 	}
 
 	$scope.translateForm = function(headerClass) {
-
-		if ( $scope.headerClass ) {
-			$scope.headerClass = false
-		} else {
-			$scope.headerClass = true
-		}
-
+        $scope.headerClass = !$scope.headerClass;
 	}
 
 });
