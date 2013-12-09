@@ -11,13 +11,19 @@ expensesApp.factory('appData', function($http) {
 				return edno.data;
 			});
 
+			// Return the promise to the controller
+			return expenses
+		},
+
+		testuv: function() {
 			var categories = $http.get('/api/category/', function (dve) {
 				return dve.data;
 			});
 
-			// Return the promise to the controller
-			return expenses
+			return categories
 		}
+
+
 	};
 
 	return data;
@@ -29,9 +35,15 @@ expensesApp.controller('mainController', function($scope, appData) {
 	appData.testu().then(function(d) {
 		console.log(d)
 
-		//$scope.expenses = d;
+		$scope.expenses = d;
+	});
+
+	appData.testuv().then(function(d) {
+		console.log(d)
+
 		//$scope.categories = c;
 	});
+
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
