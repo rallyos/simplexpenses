@@ -19,6 +19,26 @@ expensesApp.factory('expensesData', function($http) {
   return myService;
 });
 
+expensesApp.factory('categoriesData', function($http) {
+
+	var myService = {
+		
+		testu: function() {
+
+			var promise = $http.get('/api/expense/').then(function (response) {
+				console.log(response);
+				return response.data;
+			});
+
+			// Return the promise to the controller
+			return promise;
+		}
+	};
+
+  return myService;
+});
+
+
 
 expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
@@ -33,11 +53,12 @@ expensesApp.controller('ExpensesList', function ($scope, expensesData) {
 });
 
 
-expensesApp.controller('CategoriesList', function ($scope, $http) {
+expensesApp.controller('CategoriesList', function ($scope, categoriesData) {
 	
-	$http.get('api/category/').success(function(data) {
-		$scope.categories = data;
+	expensesData.testu().then(function(c) {
+		$scope.categories = c;
 	});
+
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
