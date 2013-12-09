@@ -33,8 +33,8 @@ expensesApp.controller('mainController', function($scope, appData) {
 	wtf = appData.testu()
 	console.log(wtf)
 
-		//$scope.expenses = d;
-		//$scope.categories = c;
+		$scope.expenses = wtf.expensesa;
+		$scope.categories = wtf.categoriesa;
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
