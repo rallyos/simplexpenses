@@ -33,18 +33,16 @@
 				<input class="add-expense-submit" type="submit">
 			</div>
 		{% endverbatim %}
-		{% verbatim %}			
-			<span class="add-expense" ng-click="headerClass={{ ? 'add-expense-translate' : ''}}">+</span>
-		{% endverbatim %}
 
+			<span class="add-expense" ng-click="headerClass ? 'add-expense-translate' : 'nonFirstRow'">+</span>
 		</header>
 
 		{% verbatim %}			
 		<section class="this-month-block" ng-controller="ExpensesGraph">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
-				<canvas class="category red"></canvas>
-				<canvas class="category green"></canvas>
+				<canvas class="category red" ng-click="headerClass=true"></canvas>
+				<canvas class="category green" ng-click="headerClass=false"></canvas>
 				<canvas class="category black"></canvas>
 				<canvas class="category blue"></canvas>
 				<canvas class="category brown"></canvas>
