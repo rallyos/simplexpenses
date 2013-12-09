@@ -32,16 +32,15 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d) {
-		console.log(d)
-		$scope.expenses = d.data
-	});
-
 	appData.testuv().then(function(c) {
 		console.log(c)
 		$scope.categories = c.data
 	});
 
+	appData.testu().then(function(d) {
+		console.log(d)
+		$scope.expenses = d.data
+	});
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
