@@ -3,6 +3,7 @@ var expensesApp = angular.module('expenses', []);
 
 
 // Define CreditCard class
+var Expenses = $resource('/api/expenses/');
  /*
 // We can retrieve a collection from the server
 var cards = CreditCard.query(function() {
@@ -41,7 +42,7 @@ expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
 });
 
 expensesApp.controller('ExpensesList', function ($scope, $resource) {
-
+	$scope.data = Expenses.get();
 });
 
 
@@ -56,5 +57,3 @@ expensesApp.controller('CategoriesList', function ($scope) {
 	}
 
 });
-
-var Expenses = $resource('/api/expenses/');
