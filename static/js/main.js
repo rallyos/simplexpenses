@@ -25,9 +25,11 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 		$event.target.className += ' add-expense-category-selected'
 	}
-
+	$scope.selectCategory = function(categoryClass) {
+		$scope.categoryClass = !$scope.categoryClass;
+	}
 	$scope.translateForm = function(headerClass) {
-        $scope.headerClass = !$scope.headerClass;
+		$scope.headerClass = !$scope.headerClass;
 	}
 
 });
