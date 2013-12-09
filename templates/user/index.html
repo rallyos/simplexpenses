@@ -21,15 +21,15 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : 's'" ng-controller="CategoriesList">
+		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''" ng-controller="CategoriesList">
 
 		{% verbatim %}			
 			<div class="expense-form">
 				<input class="add-expense-sum" type="text" value="0.00">
-				<ul class="add-expense-categories-list">
-					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="unselectCategory();selectCategory()">{{category.title}}</li>
-					<li class="add-expense-new-category">Add Category</li>
-				</ul>
+				<div class="add-expense-categories-list">
+					<input type="radio" class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
+					<span class="add-expense-new-category">Add Category</span>
+				</div>
 				<input class="add-expense-submit" type="submit">
 			</div>
 		{% endverbatim %}

@@ -22,11 +22,6 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 		this.categoryClass = !this.categoryClass;
 	}
 
-	$scope.unselectCategory = function() {
-		console.log('unselect')
-		$scope.categoryClass = false;
-	}
-
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
 	}
