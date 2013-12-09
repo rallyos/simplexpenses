@@ -47,9 +47,30 @@ expensesApp.controller('mainController', function($scope, appData) {
 
 });
 
+/* From stackoverflow
+app.factory('myService', function($http, $q) {
+  myService.async = function() {
+    return $http.get('test.json')
+    .then(function (response) {
+      var data = reponse.data;
+      console.log(data);
+      return data;
+    });
+  };
 
+  return myService;
+});
 
+app.controller('MainCtrl', function( myService,$scope) {
+  $scope.asyncData = myService.async();
+  $scope.$watch('asyncData', function(asyncData) {
+    if(angular.isDefined(asyncData)) {
+      // Do something with the returned data, angular handle promises fine, you don't have to reassign the value to the scope if you just want to use it with angular directives
+    }
+  });
 
+});
+*/
 /*
 expensesApp.factory('categoriesData', function($http) {
 
