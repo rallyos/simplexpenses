@@ -21,7 +21,7 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : 'nonFirstRow'">
+		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''">
 
 		{% verbatim %}			
 			<div class="expense-form" ng-controller="CategoriesList">
@@ -34,7 +34,7 @@
 			</div>
 		{% endverbatim %}
 
-			<span class="add-expense" ng-click="headerClass=true">+</span>
+			<span class="add-expense" ng-click="headerClass=false">+</span>
 		</header>
 
 		{% verbatim %}			
