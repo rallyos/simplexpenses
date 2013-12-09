@@ -1,4 +1,4 @@
-var expensesApp = angular.module('expenses', []);
+var expensesApp = angular.module('expenses', ['ngResource']);
 
 
 
