@@ -11,7 +11,7 @@ expensesApp.factory('Expenses', function($http) {
 
 
 expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
-	console.log(Expenses)
+	console.log(expenses)
 	$scope.testing = 8
 });
 
