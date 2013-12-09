@@ -12,7 +12,7 @@ expensesApp.factory('appData', function($http) {
 			});
 
 			// Return the promise to the controller
-			return expenses.data
+			return expenses
 		},
 
 		testuv: function() {
@@ -20,7 +20,7 @@ expensesApp.factory('appData', function($http) {
 				return dve.data;
 			});
 
-			return categories.data
+			return categories
 		}
 
 
@@ -33,13 +33,13 @@ expensesApp.factory('appData', function($http) {
 expensesApp.controller('mainController', function($scope, appData) {
 
 	$scope.expenses = appData.testu().then(function(d) {
-		console.log(d)
+		console.log(d.data)
 
 		return d
 	});
 
 	$scope.categories = appData.testuv().then(function(c) {
-		console.log(c)
+		console.log(c.data)
 
 		return c;
 	});
