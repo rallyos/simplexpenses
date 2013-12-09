@@ -39,7 +39,7 @@
 		<section class="this-month-block">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
-				<canvas class="category red" ng-repeat="category in categories"></canvas>
+				<canvas class="category red" ng-repeat="category in categories" ng-click="console.log(this)"></canvas>
 			</div>
 			<h3 class="graph-expl">This month</h3>
 		</section>
