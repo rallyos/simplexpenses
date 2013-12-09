@@ -55,7 +55,7 @@
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span class="category-square" ng-init="stil = testas()" style="stil"></span>
+					<span class="category-square" ng-init="stil = testas()" style="{{stil}}"></span>
 					<span class="expense-sum">{{expense.amount}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
 					<h3 class="expense-date">{{expense.date}}</h3>
