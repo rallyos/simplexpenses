@@ -35,7 +35,6 @@ expensesApp.controller('mainController', function($scope, appData) {
 
 		//$scope.expenses = d;
 		//$scope.categories = c;
-	});
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
