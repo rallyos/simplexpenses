@@ -29,7 +29,7 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d) {
+	appData.testu().then(function(c, d) {
 		console.log(d)
 
 		//$scope.expenses = d;
