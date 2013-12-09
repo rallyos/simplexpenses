@@ -1,10 +1,13 @@
 var expensesApp = angular.module('expenses', ['ngResource']);
 
 expensesApp.service('expensesData', function($http) {
-	$http.get('api/expense/').success(function(data) {
-		//$scope.categories = data;
-		console.log(data)
-	});
+	return {
+		$http.get('api/expense/').success(function(data) {
+			//$scope.categories = data;
+			return data
+		});
+	}
+
 })
 
 expensesApp.controller('ExpensesGraph', function($scope) {
@@ -12,6 +15,7 @@ expensesApp.controller('ExpensesGraph', function($scope) {
 });
 
 expensesApp.controller('ExpensesList', function ($scope, expensesData) {
+	console.log(expensesData)
 	$scope.expenses = expensesData
 });
 
