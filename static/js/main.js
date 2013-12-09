@@ -8,12 +8,10 @@ expensesApp.factory('appData', function($http) {
 		testu: function() {
 
 			var expenses = $http.get('/api/expense/').then(function (response) {
-				console.log(response);
 				return response.data;
 			});
 
 			var categories = $http.get('/api/category/').then(function (response) {
-				console.log(response);
 				return response.data;
 			});
 
@@ -23,13 +21,13 @@ expensesApp.factory('appData', function($http) {
 	};
 
 	console.log(data)
-  return data;
+	return data;
 });
 
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(c, d) {
+	appData.testu().then(function(d) {
 		console.log(d)
 
 		//$scope.expenses = d;
