@@ -16,7 +16,7 @@ expensesApp.factory('appData', function($http) {
 			});
 
 			// Return the promise to the controller
-			return expenses
+			return {expensesa: expenses, categoriesa: categories}
 		}
 	};
 
