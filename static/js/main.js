@@ -18,8 +18,8 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 	});
 
 	$scope.selectCategory = function() {
-		this.categoryClass = false;
-		$scope.categoryClass = !$scope.categoryClass;
+		$scope.categoryClass = false;
+		this.categoryClass = !this.categoryClass;
 	}
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
