@@ -7,14 +7,12 @@ expensesApp.factory('appData', function($http) {
 		
 		testu: function() {
 
-			var fetchedData = {}
-
-			var fetchedData.expenses = $http.get('/api/expense/').then(function (response) {
+			var expenses = $http.get('/api/expense/').then(function (response) {
 				console.log(response);
 				return response.data;
 			});
 
-			var fetchedData.categories = $http.get('/api/category/').then(function (response) {
+			var categories = $http.get('/api/category/').then(function (response) {
 				console.log(response);
 				return response.data;
 			});
