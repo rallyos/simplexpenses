@@ -32,15 +32,16 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
+	appData.testu().then(function(d) {
+		console.log(d)
+		$scope.expenses = d.data
+	});
+
 	appData.testuv().then(function(c) {
 		console.log(c)
 		$scope.categories = c.data
 	});
 
-	appData.testu().then(function(d) {
-		console.log(d)
-		$scope.expenses = d.data
-	});
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
@@ -51,7 +52,9 @@ expensesApp.controller('mainController', function($scope, appData) {
 	}
 
 	$scope.testas = function() {
-		color = $scope.categories[this.expense.category_id].color
+		asd = $scope.categories
+		bcd = this.expense.category_id
+		color = asd + [this.expense.category_id].color
 		return 'background: ' + color
 	}
 
