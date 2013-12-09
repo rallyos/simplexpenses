@@ -1,4 +1,4 @@
-var expensesApp = angular.module('expenses', ['ngResource']);
+var expensesApp = angular.module('expenses', []);
 
 
 
@@ -8,7 +8,7 @@ expensesApp.controller('ExpensesGraph', function($scope) {
 });
 
 expensesApp.controller('ExpensesList', function ($scope, $resource) {
-  var dataService = $resource('http://run.plnkr.co/5NYWROuqUDQOGcKq/test.json');
+  var dataService = $resource('/api/expenses/');
   $scope.data = dataService.get();
 });
 
