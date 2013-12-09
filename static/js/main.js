@@ -2,8 +2,11 @@ var expensesApp = angular.module('expenses', []);
 
 
 expensesApp.factory('Expenses', function() {
-
-	return {message: 'testing'}
+	$http.get('api/expense/').success(function(data) {
+		expenses = data;
+		return expenses 
+	});
+	return {message: expenses}
 })
 
 
