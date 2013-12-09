@@ -27,8 +27,9 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d) {
+	appData.testu().then(function(d, c) {
 		console.log(d)
+		console.log(c)
 
 		//$scope.expenses = d;
 		//$scope.categories = c;
