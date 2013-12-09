@@ -33,8 +33,10 @@
 				<input class="add-expense-submit" type="submit">
 			</div>
 		{% endverbatim %}
+		{% verbatim %}			
+			<span class="add-expense" ng-click="{{headerClass ? 'add-expense-translate' : ''"}}>+</span>
+		{% endverbatim %}
 
-			<span class="add-expense" ng-click="headerClass ? 'add-expense-translate' : ''">+</span>
 		</header>
 
 		{% verbatim %}			
