@@ -20,13 +20,13 @@ expensesApp.factory('expensesData', function($http) {
   return myService;
 });
 
-expensesApp.factory('expensesData', function($http) {
+expensesApp.factory('categoriesData', function($http) {
 
 	var myService = {
 		
 		testu: function() {
 
-			var promise = $http.get('/api/expense/').then(function (response) {
+			var promise = $http.get('/api/category/').then(function (response) {
 				console.log(response);
 				return response.data;
 			});
