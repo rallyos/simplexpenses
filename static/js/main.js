@@ -7,11 +7,11 @@ expensesApp.factory('appData', function($http) {
 		
 		testu: function() {
 
-			var expenses = $http.get('/api/expense/').then(function (edno) {
+			var expenses = $http.get('/api/expense/', function (edno) {
 				return edno.data;
 			});
 
-			var categories = $http.get('/api/category/').then(function (dve) {
+			var categories = $http.get('/api/category/', function (dve) {
 				return dve.data;
 			});
 
@@ -26,7 +26,7 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu(function(d) {
+	appData.testu().then(function(d) {
 		console.log(d)
 
 		//$scope.expenses = d;
