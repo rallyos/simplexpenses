@@ -41,7 +41,7 @@ expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
 	$scope.testing = 8
 });
 
-expensesApp.controller('ExpensesList', function ($scope) {
+expensesApp.controller('ExpensesList', function ($scope, $resource) {
 
 });
 
