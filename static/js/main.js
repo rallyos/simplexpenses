@@ -40,7 +40,7 @@ expensesApp.factory('categoriesData', function($http) {
 
 
 
-expensesApp.controller('ExpensesGraph', function($scope) {
+expensesApp.controller('ExpensesGraph', function($scope, categoriesData) {
 	categoriesData.testu().then(function(c) {
 		$scope.categories = c;
 	});
