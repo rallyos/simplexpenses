@@ -4,7 +4,7 @@ expensesApp.factory('expensesData', function($http) {
 
 	var myService = {
 		
-		async: function() {
+		testu: function() {
 
 			var promise = $http.get('/api/expense/').then(function (response) {
 				console.log(response);
@@ -26,7 +26,7 @@ expensesApp.controller('ExpensesGraph', function($scope) {
 
 expensesApp.controller('ExpensesList', function ($scope, expensesData) {
 
-	expensesData.async().then(function(d) {
+	expensesData.testu().then(function(d) {
 		$scope.expenses = d;
 	});
 
