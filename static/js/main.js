@@ -30,8 +30,8 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d) {
-		console.log(d)
+	wtf = appData.testu()
+	console.log(wtf)
 
 		//$scope.expenses = d;
 		//$scope.categories = c;
