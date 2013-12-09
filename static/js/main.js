@@ -17,16 +17,9 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 		$scope.categories = data;
 	});
 
-	$scope.test = function($event) {
-		categoriestest = document.getElementsByClassName('add-expense-category')
-		for (i=0; categoriestest.length > i ;i++) {
-			categoriestest[i].className = 'add-expense-category'
-		}
-
-		$event.target.className += ' add-expense-category-selected'
-	}
 	$scope.selectCategory = function($event, categoryClass) {
-		$scope.$event.target.categoryClass = !$scope.$event.target.categoryClass;
+		$scope.categoryClass = false;
+		$event.target.categoryClass = !$event.target.categoryClass;
 	}
 	$scope.translateForm = function(headerClass) {
 		$scope.headerClass = !$scope.headerClass;
