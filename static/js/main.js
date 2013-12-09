@@ -1,22 +1,35 @@
 var expensesApp = angular.module('expenses', ['ngResource']);
 
-expensesApp.service('expensesData', function($http) {
-	return {
-		$http.get('api/expense/').success(function(data) {
-			//$scope.categories = data;
-			return data
-		});
-	}
+expensesApp.factory('expensesData', function($http) {
 
-})
+	var myService = {
+		
+		async: function() {
+
+			var promise = $http.get('/api/expense/').then(function (response) {
+				console.log(response);
+				return response.data;
+			});
+
+			// Return the promise to the controller
+			return promise;
+		}
+	};
+
+  return myService;
+});
+
 
 expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
 });
 
 expensesApp.controller('ExpensesList', function ($scope, expensesData) {
-	console.log(expensesData)
-	$scope.expenses = expensesData
+
+	expensesData.async().then(function(d) {
+		$scope.expenses = d;
+	});
+
 });
 
 
