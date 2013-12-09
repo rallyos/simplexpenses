@@ -21,10 +21,10 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''">
+		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''" ng-controller="CategoriesList">
 
 		{% verbatim %}			
-			<div class="expense-form" ng-controller="CategoriesList">
+			<div class="expense-form">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-repeat="category in categories" ng-click="test($event)">{{category.title}}</li>
@@ -34,7 +34,7 @@
 			</div>
 		{% endverbatim %}
 
-			<span class="add-expense" ng-click="headerClass=false">+</span>
+			<span class="add-expense" ng-click="translateForm()">+</span>
 		</header>
 
 		{% verbatim %}			
