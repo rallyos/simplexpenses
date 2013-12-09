@@ -37,24 +37,16 @@ expect(newCard.id).toEqual(789);
 
 
 
-
-
-
-
-
-
-
-
 expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
 	$scope.testing = 8
 });
 
-expensesApp.controller('ExpensesList', function ($scope, $http) {
+expensesApp.controller('ExpensesList', function ($scope) {
 
 });
 
 
-expensesApp.controller('CategoriesList', function ($scope, $http) {
+expensesApp.controller('CategoriesList', function ($scope) {
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
