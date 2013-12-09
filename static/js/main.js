@@ -6,8 +6,8 @@ expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
 });
 
-expensesApp.controller('ExpensesList', function ($scope, $http, $resource) {
-		ExpensesTest = $resource('/api/expense/')
+expensesApp.controller('ExpensesList', function ($scope, $resource) {
+		ExpensesTest = $resource('/api/expense/?json')
 		$scope.expenses = ExpensesTest.get();
 });
 
