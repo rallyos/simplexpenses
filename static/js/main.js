@@ -7,12 +7,12 @@ expensesApp.factory('appData', function($http) {
 		
 		testu: function() {
 
-			var expenses = $http.get('/api/expense/').then(function (response) {
-				return response.data;
+			var expenses = $http.get('/api/expense/').then(function (edno) {
+				return edno.data;
 			});
 
-			var categories = $http.get('/api/category/').then(function (response) {
-				return response.data;
+			var categories = $http.get('/api/category/').then(function (dve) {
+				return dve.data;
 			});
 
 			// Return the promise to the controller
