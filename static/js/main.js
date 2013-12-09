@@ -1,8 +1,8 @@
 var expensesApp = angular.module('expenses', ['ngResource']);
 
-expensesApp.service('expensesData', function() {
+expensesApp.service('expensesData', function($http) {
 	$http.get('api/expense/').success(function(data) {
-		$scope.categories = data;
+		//$scope.categories = data;
 		console.log(data)
 	});
 })
