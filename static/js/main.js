@@ -55,7 +55,7 @@ expensesApp.controller('ExpensesList', function ($scope, expensesData) {
 
 expensesApp.controller('CategoriesList', function ($scope, categoriesData) {
 	
-	expensesData.testu().then(function(c) {
+	categoriesData.testu().then(function(c) {
 		$scope.categories = c;
 	});
 
