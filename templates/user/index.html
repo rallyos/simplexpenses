@@ -39,7 +39,7 @@
 		<section class="this-month-block">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
-				<canvas class="category red" ng-repeat="category in categories" ng-click="console.log(this)"></canvas>
+				<canvas class="category red" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">This month</h3>
 		</section>
@@ -54,7 +54,7 @@
 
 		<section class="expenses-block">
 			<ul class="expenses-list">
-				<li ng-repeat="expense in expenses" class="expense">
+				<li ng-repeat="expense in expenses" class="expense"  ng-click="freeworld()">
 					<span class="category-square category-{{expense.category_id}}"></span>
 					<span class="expense-sum">{{expense.amount}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
