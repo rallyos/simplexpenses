@@ -1,3 +1,4 @@
+/*
 var expensesApp = angular.module('expenses', []);
 
 
@@ -23,4 +24,11 @@ expensesApp.controller('CategoriesList', function ($scope) {
 		$scope.headerClass = !$scope.headerClass;
 	}
 
+});
+*/
+var app = angular.module('expenses', ['ngResource']);
+
+app.controller('ExpensesGraph', function($scope, $resource) {
+  var dataService = $resource('http://run.plnkr.co/5NYWROuqUDQOGcKq/test.json');
+  $scope.data = dataService.get();
 });
