@@ -28,10 +28,10 @@ expensesApp.controller('CategoriesList', function ($scope, $http) {
 
 	$scope.translateForm = function(headerClass) {
 
-		if ( headerClass ) {
-			headerClass = false
+		if ( $scope.headerClass ) {
+			$scope.headerClass = false
 		} else {
-			headerClass = true
+			$scope.headerClass = true
 		}
 
 	}
