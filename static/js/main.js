@@ -32,16 +32,16 @@ expensesApp.factory('appData', function($http) {
 
 expensesApp.controller('mainController', function($scope, appData) {
 
-	appData.testu().then(function(d) {
+	$scope.expenses = appData.testu().then(function(d) {
 		console.log(d)
 
-		$scope.expenses = d;
+		return d
 	});
 
 	appData.testuv().then(function(d) {
 		console.log(d)
 
-		//$scope.categories = c;
+		$scope.categories = c;
 	});
 
 
