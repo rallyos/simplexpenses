@@ -1,5 +1,6 @@
 var expensesApp = angular.module('expenses', ['ngResource']);
 
+
 expensesApp.factory('expensesData', function($http) {
 
 	var myService = {
@@ -19,13 +20,13 @@ expensesApp.factory('expensesData', function($http) {
   return myService;
 });
 
-expensesApp.factory('categoriesData', function($http) {
+expensesApp.factory('expensesData', function($http) {
 
 	var myService = {
 		
 		testu: function() {
 
-			var promise = $http.get('/api/category/').then(function (response) {
+			var promise = $http.get('/api/expense/').then(function (response) {
 				console.log(response);
 				return response.data;
 			});
@@ -38,29 +39,14 @@ expensesApp.factory('categoriesData', function($http) {
   return myService;
 });
 
-
-
-expensesApp.controller('ExpensesGraph', function($scope, categoriesData) {
-	categoriesData.testu().then(function(c) {
-		$scope.categories = c;
-	});
-});
-
-expensesApp.controller('ExpensesList', function ($scope, expensesData) {
-
-	expensesData.testu().then(function(d) {
-		$scope.expenses = d;
-	});
-
-});
-
-
-expensesApp.controller('CategoriesList', function ($scope, categoriesData) {
+expensesApp.controller('mainController', function($scope, expensesData, categoriesData) {
 	
 	categoriesData.testu().then(function(c) {
 		$scope.categories = c;
 	});
-
+	expensesData.testu().then(function(d) {
+		$scope.expenses = d;
+	});
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
@@ -71,3 +57,19 @@ expensesApp.controller('CategoriesList', function ($scope, categoriesData) {
 	}
 
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

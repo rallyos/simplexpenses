@@ -8,7 +8,8 @@
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
 </head>
 <body>
-	<div class="wrapper">
+	{% verbatim %}			
+	<div class="wrapper" ng-controller="mainController">
 		<nav class="menu-block">
 			<div class="menu-toggle">
 				<span class="menu-toggle-line"></span>
@@ -21,9 +22,8 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''" ng-controller="CategoriesList">
+		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''">
 
-		{% verbatim %}			
 			<div class="expense-form">
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
@@ -32,22 +32,19 @@
 				</ul>
 				<input class="add-expense-submit" type="submit">
 			</div>
-		{% endverbatim %}
 
 			<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
 		</header>
 
-		{% verbatim %}			
-		<section class="this-month-block" ng-controller="ExpensesGraph">
+		<section class="this-month-block">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
 				<canvas class="category red" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">This month</h3>
 		</section>
-		{% endverbatim %}
 
-		<section class="planned-block" ng-controller="ExpensesGraph">
+		<section class="planned-block">
 			<span class="sum-planned">68.24</span>
 			<div class="graph">
 				<canvas class="category red" ng-repeat="category in categories"></canvas>
@@ -55,8 +52,7 @@
 			<h3 class="graph-expl">Planned</h3>
 		</section>
 
-		{% verbatim %}
-		<section class="expenses-block" ng-controller="ExpensesList">
+		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
 					<span class="category-square category-{{expense.category_id}}"></span>
