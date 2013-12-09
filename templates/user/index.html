@@ -39,7 +39,7 @@
 		<section class="this-month-block">
 			<span class="sum-expenses">{{testing}}</span>
 			<div class="graph">
-				<canvas class="category red" ng-repeat="category in categories"></canvas>
+				<canvas class="category ng-style: {background: {{category.color}}" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">This month</h3>
 		</section>
@@ -55,7 +55,7 @@
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span class="category-square ng-style: {background: category_color};"></span>
+					<span class="category-square ng-style: {background: {{categories[expense.category_id].color}};"></span>
 					<span class="expense-sum">{{expense.amount}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
 					<h3 class="expense-date">{{expense.date}}</h3>
