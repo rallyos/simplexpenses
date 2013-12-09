@@ -3,7 +3,7 @@ var expensesApp = angular.module('expenses', []);
 
 
 
-expensesApp.controller('ExpensesGraph', function($scope, Expenses) {
+expensesApp.controller('ExpensesGraph', function($scope) {
 	$scope.testing = 8
 });
 
