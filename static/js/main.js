@@ -3,9 +3,7 @@ var expensesApp = angular.module('expenses', ['ngResource']);
 
 expensesApp.factory('appData', function($http) {
 
-	var data = {}
-
-	var data.danni = {
+	var data = {
 		
 		testu: function() {
 
