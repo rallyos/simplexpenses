@@ -16,9 +16,10 @@ expensesApp.factory('appData', function($http) {
 			});
 
 			// Return the promise to the controller
-			console.log(expenses)
-			console.log(categories)
-			
+			console.log(edno)
+			console.log(dve)
+			console.log(edno.data)
+			console.log(dve.data)
 			return [expenses, categories]
 		}
 	};
