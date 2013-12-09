@@ -51,10 +51,6 @@ expensesApp.controller('mainController', function($scope, appData) {
 		$scope.headerClass = !$scope.headerClass;
 	}
 
-	$scope.freeworld = function() {
-		console.log(this)
-		console.log(this.expense)
-	}
 
 });
 
