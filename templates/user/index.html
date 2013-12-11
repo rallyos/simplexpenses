@@ -8,6 +8,7 @@
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.3/angular-resource.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
 	<script src="{% static "js/main.js" %}"></script>
 	<script>
 		c = '{{categories|escapejs}}'
@@ -35,13 +36,15 @@
 		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''">
 
 			<div class="expense-form">
-				<input class="add-expense-sum" type="text" value="0.00">
+				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
 					<li class="add-expense-new-category">Add Category</li>
 				</ul>
 				<!-- Make it button or something more semantic -->
-				<input class="add-expense-submit" ng-click="testam()" type="submit">
+				<input class="add-expense-description" ng-model="exp_description" type="text">
+				<label class="add-expense-description-label"><i>(Description)</i></label>
+				<input class="add-expense-submit" ng-click="testam(3)" type="submit">
 			</div>
 
 			<span class="add-expense" ng-click="translateForm(headerClass)">+</span>

@@ -1,15 +1,21 @@
-var expensesApp = angular.module('expenses', ['ngResource']);
+var expensesApp = angular.module('expenses', ['ngResource', 'ngAnimate']);
 
-expensesApp.factory('Expenses', ['$resource', function($resource) {
+expensesApp.config(function($httpProvider) {
+	$httpProvider.defaults.headers.post = {'X-CSRFToken': 'FGeDoCXffpjAduo7FpuLDvcJljBc8hhZ', 'Content-Type': 'application/json'}
+})
 
+expensesApp.factory('Expenses', ['$resource', function($resource, $httpProvider) {
 	return $resource( '/api/expense/');
-
 }]);
 
 expensesApp.controller('mainController', function($scope, Expenses) {
 
-	$scope.testam = function() {
-		Expenses.save({amount: 2.14})
+	$scope.testam = function(cat_id) {
+
+		description = 'from the form'
+		Expenses.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': cat_id},function(response) {
+			$scope.expenses.unshift(response);
+		});
 	}
 	$scope.expenses = expenses
 	$scope.categories = categories
@@ -23,10 +29,17 @@ expensesApp.controller('mainController', function($scope, Expenses) {
 	}
 
 	$scope.testas = function() {
-		color = $scope.categories[this.expense.category_id].color
+		// fix this mess
+		vab = this.expense.category_id
+ 
+ 		for (i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == vab) {
+				color = $scope.categories[i].color
+			}
+		}
+
 		return 'background: ' + color
 	}
-
 
 	$scope.sumExpenses = function () {
 		sum = 0

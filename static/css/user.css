@@ -139,6 +139,33 @@
 	outline: 0;
 	border: 0;
 }
+.add-expense-description {
+	display: block;
+	width: 90%;
+	margin: 20px auto 3px;
+	padding-bottom: 3px;
+	font-family: inherit;
+	font-size: 1.4rem;
+	font-weight: 300;
+	outline: 0;
+	border: 0;
+	border-bottom: dashed 1px #F17F7F;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.add-expense-description:hover {
+	background: #fafafa;
+}
+.add-expense-description-label {
+	display: block;
+	width: 100%;
+	margin-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 300;
+	font-size: 1.2rem;
+	color: #B9B9B9;
+	text-align: center;
+}
 .add-expense-submit {
 	padding: 8px 30px;
 	font-family: inherit;
@@ -150,6 +177,11 @@
 	cursor: pointer;
 	border: 0;
 	outline: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.add-expense-submit:hover {
+	background: #E03C3C;
 }
 .menu-block {
 	position: absolute;
@@ -283,4 +315,18 @@ a {
 	font-weight: inherit;
 	line-height: 50px;
 	text-align: center;
+}
+.expense.ng-enter,
+.expense.ng-leave {
+  -webkit-transition:0.5s linear all;
+  transition:0.5s linear all;
+}
+
+.expense.ng-enter,
+.expense.ng-leave.ng-leave-active {
+  opacity:0;
+}
+.expense.ng-leave,
+.expense.ng-enter.ng-enter-active {
+  opacity:1;
 }

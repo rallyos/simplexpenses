@@ -8,16 +8,15 @@ from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
 from django.core.serializers.json import DjangoJSONEncoder
-########
-from django.views.decorators.csrf import csrf_exempt
-########
+
 
 import json
 
 def index(request):
     if request.user.is_authenticated():
         # Expiremental
-        expenses = Expense.objects.filter(user_id__exact=request.user.id)
+        queryset = Expense.objects.filter(user_id__exact=request.user.id)
+        expenses = queryset.order_by('-date')
         serializedBookmarks = ExpenseSerializer(expenses, many=True)
 
         categories = Category.objects.filter(user_id__exact=request.user.id)
@@ -72,7 +71,6 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
-# Put some csrf excerpts to ease the api testing before adding auth
 
 class ExpenseViewSet(viewsets.ModelViewSet):
 
@@ -80,7 +78,8 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
-        return Expense.objects.filter(user_id__exact=self.request.user.id)
+        queryset = Expense.objects.filter(user_id__exact=self.request.user.id)
+        return queryset.order_by('-date')
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
