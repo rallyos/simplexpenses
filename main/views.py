@@ -74,7 +74,6 @@ def logout_user(request):
 
 # Put some csrf excerpts to ease the api testing before adding auth
 
-@csrf_exempt
 class ExpenseViewSet(viewsets.ModelViewSet):
 
     queryset = Expense.objects.all()
@@ -86,7 +85,6 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
-@csrf_exempt
 class CategoryViewSet(viewsets.ModelViewSet):
 
     queryset = Category.objects.all()
@@ -98,7 +96,6 @@ class CategoryViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
-@csrf_exempt
 class PlannedViewSet(viewsets.ModelViewSet):
 
     queryset = Planned.objects.all()
