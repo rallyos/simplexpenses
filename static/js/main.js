@@ -1,7 +1,26 @@
 var expensesApp = angular.module('expenses', ['ngResource', 'ngAnimate']);
 
+function getCookie(name) {
+    var cookieValue = null;
+    if (document.cookie && document.cookie != '') {
+        var cookies = document.cookie.split(';');
+        for (var i = 0; i < cookies.length; i++) {
+            var cookie = jQuery.trim(cookies[i]);
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) == (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+var csrftoken = getCookie('csrftoken');
+
+
+
 expensesApp.config(function($httpProvider) {
-	$httpProvider.defaults.headers.post = {'X-CSRFToken': 'Ub9bYgEJj0KLHivfM0AgS0yKRIJjLFH4', 'Content-Type': 'application/json'}
+	$httpProvider.defaults.headers.post = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 })
 
 expensesApp.factory('Expenses', ['$resource', function($resource, $httpProvider) {
