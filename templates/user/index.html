@@ -38,9 +38,10 @@
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="testam()">Add Category</li>
+					<li class="add-expense-new-category">Add Category</li>
 				</ul>
-				<input class="add-expense-submit" type="submit">
+				<!-- Make it button or something more semantic -->
+				<input class="add-expense-submit" ng-click="testam()" type="submit">
 			</div>
 
 			<span class="add-expense" ng-click="translateForm(headerClass)">+</span>

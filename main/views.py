@@ -8,7 +8,9 @@ from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
 from django.core.serializers.json import DjangoJSONEncoder
-
+########
+from django.views.decorators.csrf import csrf_exempt
+########
 
 import json
 
@@ -70,7 +72,9 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
+# Put some csrf excerpts to ease the api testing before adding auth
 
+@csrf_exempt
 class ExpenseViewSet(viewsets.ModelViewSet):
 
     queryset = Expense.objects.all()
@@ -82,6 +86,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
+@csrf_exempt
 class CategoryViewSet(viewsets.ModelViewSet):
 
     queryset = Category.objects.all()
@@ -93,6 +98,7 @@ class CategoryViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
+@csrf_exempt
 class PlannedViewSet(viewsets.ModelViewSet):
 
     queryset = Planned.objects.all()

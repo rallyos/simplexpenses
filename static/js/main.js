@@ -2,14 +2,14 @@ var expensesApp = angular.module('expenses', ['ngResource']);
 
 expensesApp.factory('Expenses', ['$resource', function($resource) {
 
-	return $resource( 'http://floating-tor-5775.herokuapp.com/api/expense/');
+	return $resource( '/api/expense/');
 
 }]);
 
 expensesApp.controller('mainController', function($scope, Expenses) {
 
 	$scope.testam = function() {
-		Expenses.save()
+		Expenses.save({amount: 2.14})
 	}
 	$scope.expenses = expenses
 	$scope.categories = categories
