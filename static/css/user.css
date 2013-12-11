@@ -318,15 +318,21 @@ a {
 }
 .expense.ng-enter,
 .expense.ng-leave {
-  -webkit-transition:0.5s linear all;
-  transition:0.5s linear all;
+	-webkit-transition:0.5s linear all;
+	transition:0.5s linear all;
 }
 
 .expense.ng-enter,
 .expense.ng-leave.ng-leave-active {
-  opacity:0;
+	-ms-transform: scale(1.2);
+	-webkit-transform: scale(1.2);
+	transform: scale(1.2);
+	opacity:0;
 }
 .expense.ng-leave,
 .expense.ng-enter.ng-enter-active {
-  opacity:1;
+	-ms-transform: scale(1);
+	-webkit-transform: scale(1);
+	transform: scale(1);
+	opacity:1;
 }
