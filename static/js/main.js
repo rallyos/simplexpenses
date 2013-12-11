@@ -1,7 +1,7 @@
 var expensesApp = angular.module('expenses', ['ngResource', 'ngAnimate']);
 
 expensesApp.config(function($httpProvider) {
-	$httpProvider.defaults.headers.post = {'X-CSRFToken': 'FGeDoCXffpjAduo7FpuLDvcJljBc8hhZ', 'Content-Type': 'application/json'}
+	$httpProvider.defaults.headers.post = {'X-CSRFToken': 'Ub9bYgEJj0KLHivfM0AgS0yKRIJjLFH4', 'Content-Type': 'application/json'}
 })
 
 expensesApp.factory('Expenses', ['$resource', function($resource, $httpProvider) {
