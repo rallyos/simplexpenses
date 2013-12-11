@@ -111,6 +111,7 @@
 	background-size: 20px;
 	background-repeat: no-repeat;
 	cursor: pointer;
+	outline: 0;
 }
 .add-expense-category-selected {
 	background-image: url(http://floating-tor-5775.herokuapp.com/static/img/rt.png);
@@ -239,6 +240,7 @@ a {
 }
 .graph {
 	width: 100%;
+	height: 400px;
 }
 .category {
 	width: 40px;
@@ -324,15 +326,9 @@ a {
 
 .expense.ng-enter,
 .expense.ng-leave.ng-leave-active {
-	-ms-transform: scale(1.2);
-	-webkit-transform: scale(1.2);
-	transform: scale(1.2);
-	opacity:0;
+  opacity:0;
 }
 .expense.ng-leave,
 .expense.ng-enter.ng-enter-active {
-	-ms-transform: scale(1);
-	-webkit-transform: scale(1);
-	transform: scale(1);
-	opacity:1;
+  opacity:1;
 }
