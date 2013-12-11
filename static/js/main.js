@@ -1,47 +1,18 @@
 var expensesApp = angular.module('expenses', ['ngResource']);
 
+expensesApp.factory('Expenses', ['$resource', function($resource) {
 
-expensesApp.factory('appData', function($http) {
+	return $resource( 'http://floating-tor-5775.herokuapp.com/api/expense/');
 
-	var data = {
-		
-		testu: function() {
+}]);
 
-			var expenses = $http.get('/api/expense/', function (edno) {
-				return edno.data;
-			});
+expensesApp.controller('mainController', function($scope, Expenses) {
 
-			// Return the promise to the controller
-			return expenses
-		},
-
-		testuv: function() {
-			var categories = $http.get('/api/category/', function (dve) {
-				return dve.data;
-			});
-
-			return categories
-		}
-
-
-	};
-
-	return data;
-});
-
-
-expensesApp.controller('mainController', function($scope, appData) {
-
-	appData.testu().then(function(d) {
-		console.log(d)
-		$scope.expenses = d.data
-	});
-
-	appData.testuv().then(function(c) {
-		console.log(c)
-		$scope.categories = c.data
-	});
-
+	$scope.testam = function() {
+		Expenses.save()
+	}
+	$scope.expenses = expenses
+	$scope.categories = categories
 
 	$scope.selectCategory = function() {
 		this.categoryClass = !this.categoryClass;
@@ -56,54 +27,25 @@ expensesApp.controller('mainController', function($scope, appData) {
 		return 'background: ' + color
 	}
 
-});
 
-/* From stackoverflow
-app.factory('myService', function($http, $q) {
-  myService.async = function() {
-    return $http.get('test.json')
-    .then(function (response) {
-      var data = reponse.data;
-      console.log(data);
-      return data;
-    });
-  };
+	$scope.sumExpenses = function () {
+		sum = 0
 
-  return myService;
-});
+		for (i=0; expenses.length > i;i++) {
 
-app.controller('MainCtrl', function( myService,$scope) {
-  $scope.asyncData = myService.async();
-  $scope.$watch('asyncData', function(asyncData) {
-    if(angular.isDefined(asyncData)) {
-      // Do something with the returned data, angular handle promises fine, you don't have to reassign the value to the scope if you just want to use it with angular directives
-    }
-  });
-
-});
-*/
-/*
-expensesApp.factory('categoriesData', function($http) {
-
-	var myService = {
-		
-		testu: function() {
-
-			var promise = $http.get('/api/category/').then(function (response) {
-				console.log(response);
-				return response.data;
-			});
-
-			// Return the promise to the controller
-			return promise;
+			var number = Number(expenses[i].amount)
+			sum = sum + number
 		}
-	};
 
-  return myService;
+		var amount = sum.toFixed(2);
+		$scope.thisMonthAmount = amount
+	}
+
+	$scope.sumPlanned = function() {
+		$scope.nextMonthAmount = 143.21
+	}
+
 });
-*/
-
-
 
 
 

@@ -7,9 +7,22 @@ from django.contrib.auth.forms import UserCreationForm
 from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
 
+from django.core.serializers.json import DjangoJSONEncoder
+
+
+import json
+
 def index(request):
     if request.user.is_authenticated():
-    	return render(request, 'user/index.html')
+        # Expiremental
+        expenses = Expense.objects.filter(user_id__exact=request.user.id)
+        serializedBookmarks = ExpenseSerializer(expenses, many=True)
+
+        categories = Category.objects.filter(user_id__exact=request.user.id)
+        serializedBookmarkCollections = CategorySerializer(categories, many=True)
+
+        bootstrapped_data = {'expenses': json.dumps(serializedBookmarks.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedBookmarkCollections.data, cls=DjangoJSONEncoder)}
+        return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
 

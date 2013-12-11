@@ -6,6 +6,16 @@
 	<meta charset="UTF-8">
 	<title>Simplexpense</title>
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.3/angular-resource.min.js"></script>
+	<script src="{% static "js/main.js" %}"></script>
+	<script>
+		c = '{{categories|escapejs}}'
+		categories = JSON.parse(c)
+
+		e = '{{expenses|escapejs}}'
+		expenses = JSON.parse(e);
+	</script>
 </head>
 <body>
 	{% verbatim %}			
@@ -28,7 +38,7 @@
 				<input class="add-expense-sum" type="text" value="0.00">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
-					<li class="add-expense-new-category">Add Category</li>
+					<li class="add-expense-new-category" ng-click="testam()">Add Category</li>
 				</ul>
 				<input class="add-expense-submit" type="submit">
 			</div>
@@ -37,7 +47,7 @@
 		</header>
 
 		<section class="this-month-block">
-			<span class="sum-expenses">{{testing}}</span>
+			<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
 			<div class="graph">
 				<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
 			</div>
@@ -45,9 +55,9 @@
 		</section>
 
 		<section class="planned-block">
-			<span class="sum-planned">68.24</span>
+			<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
 			<div class="graph">
-				<canvas class="category red" ng-repeat="category in categories"></canvas>
+				<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
 			</div>
 			<h3 class="graph-expl">Planned</h3>
 		</section>
@@ -55,7 +65,7 @@
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span class="category-square" ng-init="stil = testas()" style="{{stil}}"></span>
+					<span class="category-square" ng-init="stil=testas()" style="{{stil}}"></span>
 					<span class="expense-sum">{{expense.amount}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
 					<h3 class="expense-date">{{expense.date}}</h3>
@@ -67,8 +77,5 @@
 	</div>
 	<!-- Let's see how the things will end up -->
 	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.3/angular-resource.min.js"></script>
-	<script src="{% static "js/main.js" %}"></script>
 </body>
 </html>
