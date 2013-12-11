@@ -7,7 +7,7 @@ from main import views
 #admin.autodiscover()
 
 # Routers provide an easy way of automatically determining the URL conf
-router = routers.DefaultRouter(trailing_slash=False)
+router = routers.DefaultRouter()
 router.register(r'expense', views.ExpenseViewSet)
 router.register(r'category', views.CategoryViewSet)
 router.register(r'planned', views.PlannedViewSet)
