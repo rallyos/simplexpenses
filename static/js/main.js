@@ -2,7 +2,7 @@ var expensesApp = angular.module('expenses', ['ngResource']);
 
 expensesApp.factory('Expenses', ['$resource', function($resource) {
 
-	return $resource( '/api/expense/');
+	return $resource( '/api/expense');
 
 }]);
 
