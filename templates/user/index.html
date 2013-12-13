@@ -1,7 +1,7 @@
 {% load staticfiles %}
 
 <!doctype html>
-<html lang="en" ng-app="expenses">
+<html lang="en" ng-app="expensesApp">
 <head>
 	<meta charset="UTF-8">
 	<title>Simplexpense</title>
@@ -39,7 +39,7 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="testamdve($event)">Add Category</li>
+					<li class="add-expense-new-category" ng-click="testamdve($event)" ng-keydown="addCategory($event.which)">Add Category</li>
 				</ul>
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">
@@ -54,16 +54,16 @@
 			<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
 			<div class="graph">
 				<canvas class="category" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+				<h3 class="graph-expl">This month</h3>
 			</div>
-			<h3 class="graph-expl">This month</h3>
 		</section>
 
 		<section class="planned-block">
 			<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
 			<div class="graph">
 				<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
+				<h3 class="graph-expl">Planned</h3>
 			</div>
-			<h3 class="graph-expl">Planned</h3>
 		</section>
 
 		<section class="expenses-block">

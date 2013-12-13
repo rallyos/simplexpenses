@@ -1,4 +1,9 @@
-var expensesApp = angular.module('expenses', ['ngResource', 'ngAnimate']);
+
+// ..... don't be shameful of this here... :)
+var ENTER_KEY = 13;
+
+
+var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 
 
 expensesApp.config(function($httpProvider) {
@@ -25,10 +30,31 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 	}
 
 	$scope.testamdve = function(event) {
-		$scope.categories.push({'title': 'Testing', 'description': 'a new category', 'color': '#6FC28E'});
-		lastCategory = event.target.previousElementSibling
-		lastCategory.setAttribute('contenteditable', 'true')
-		lastCategory.focus()
+
+		$scope.addCategoryButton = event.target
+		$scope.addCategoryButton.textContent = ''
+		$scope.addCategoryButton.setAttribute('contenteditable', 'true')
+		$scope.addCategoryButton.style.cursor = 'text'
+		$scope.addCategoryButton.focus()
+
+		// Temporary solution till I find how to chain it...
+		/*setTimeout(function() {
+			lastCategory = event.target.previousElementSibling
+			lastCategory.setAttribute('contenteditable', 'true')
+			lastCategory.focus()
+			lastCategory.style.cursor = 'text'
+		}, 50)
+*/
+	}
+
+	$scope.addCategory = function(key) {
+		if (key == ENTER_KEY) {
+			$scope.categories.push({'title': 'Testing', 'description': 'a new category', 'color': '#6FC28E'});
+			$scope.addCategoryButton.textContent = 'Add Category'
+			$scope.addCategoryButton.removeAttribute('contenteditable')
+			$scope.addCategoryButton.style.cursor = 'pointer'
+			return false
+		}
 	}
 
 	$scope.dsa = function() {
