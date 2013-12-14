@@ -249,6 +249,10 @@ a {
 	height: 240px;
 	justify-content: center;
 	align-items: flex-end;
+	/* ... */
+	display: -webkit-flex;
+	-webkit-justify-content: center;
+	-webkit-align-items: flex-end;
 }
 .category {
 	width: 30px;
@@ -263,7 +267,7 @@ a {
 }
 .graph-expl {
 	width: 100%;
-	margin: 0;
+	margin: 10px;
 	font-weight: 300;
 	text-align: center;
 }
