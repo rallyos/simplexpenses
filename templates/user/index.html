@@ -39,7 +39,7 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="testamdve($event)" ng-keydown="addCategory($event.which)">Add Category</li>
+					<li class="add-expense-new-category" ng-click="testamdve($event)" ng-keydown="addCategory($event)">Add Category</li>
 				</ul>
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">

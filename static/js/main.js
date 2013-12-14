@@ -48,11 +48,15 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 	}
 
 	$scope.addCategory = function(key) {
-		if (key == ENTER_KEY) {
-			$scope.categories.push({'title': 'Testing', 'description': 'a new category', 'color': '#6FC28E'});
-			$scope.addCategoryButton.textContent = 'Add Category'
-			$scope.addCategoryButton.removeAttribute('contenteditable')
-			$scope.addCategoryButton.style.cursor = 'pointer'
+		if (key.which == ENTER_KEY) {
+			var title = key.target.textContent
+			Category.save({'title': title, 'description': 'a new category', 'color': '#ff6138'}, function(response) {
+				$scope.categories.push(response);
+				$scope.addCategoryButton.textContent = 'Add Category'
+				$scope.addCategoryButton.removeAttribute('contenteditable')
+				$scope.addCategoryButton.style.cursor = 'pointer'
+			})
+
 			return false
 		}
 	}
@@ -80,6 +84,14 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 	$scope.categories = categories
 
 	$scope.selectCategory = function() {
+		// again highly expiremental
+
+		catgs = document.getElementsByClassName('add-expense-category')
+		for (i=0; catgs.length > i; i++) {
+			catgs[i].className = 'add-expense-category';
+		}
+
+
 		this.categoryClass = !this.categoryClass;
 	}
 
