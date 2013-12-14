@@ -238,9 +238,9 @@ a {
 .sum-planned {
 	display: block;
 	margin: 20px 0;
-	font-family: 'Roboto', sans-serif
+	font-family: 'Roboto', sans-serif;
 	font-size: 3rem;
-	font-weight: 300;
+	font-weight: 100;
 	text-align: center;
 }
 .graph {
