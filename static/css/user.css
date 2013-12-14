@@ -256,7 +256,9 @@ a {
 }
 .category {
 	width: 30px;
+	height: 5px;
 	margin-right: 20px;
+	cursor: pointer;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 }
@@ -344,4 +346,12 @@ a {
 .expense.ng-leave,
 .expense.ng-enter.ng-enter-active {
   opacity:1;
+}
+.testovobrat {
+	position: absolute;
+	width: 200px;
+	height: 100px;
+	color: #fff;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }

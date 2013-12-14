@@ -20,10 +20,34 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 
 expensesApp.controller('mainController', function($scope, Expense, Category) {
 
-	$scope.testam = function(cat_id) {
+	$scope.testclick = function() {
+
+ 		for (i=0;$scope.expenses.length > i;i++) {
+
+			if ($scope.expenses[i].category_id == this.category.id) {
+				var number = Number($scope.expenses[i].amount)
+				sum = sum + number
+				var amount = sum.toFixed(2);
+			} else {
+				continue
+			}
+		}
+
+		//amount = amount.toFixed(2)
+		$scope.testovobratdisplay = true;
+
+		testovobrat = document.getElementsByClassName('testovobrat')[0]
+
+		//testovobrat.style.display = 'block'
+		testovobrat.style.background = this.category.color
+		testovobrat.textContent = this.category.title + ' - ' + amount
+		console.log(this.category.title + ' - ' + amount)
+	}
+
+	$scope.testam = function() {
 
 		description = 'from the form'
-		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': cat_id},function(response) {
+		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCat},function(response) {
 			$scope.expenses.unshift(response);
 			$scope.sumExpenses()
 		});
@@ -83,9 +107,10 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 	$scope.expenses = expenses
 	$scope.categories = categories
 
-	$scope.selectCategory = function() {
+	$scope.selectCategory = function(soDark) {
 		// again highly expiremental
-
+		console.log(soDark.category.id)
+		$scope.selectedCat = soDark.category.id
 		catgs = document.getElementsByClassName('add-expense-category')
 		for (i=0; catgs.length > i; i++) {
 			catgs[i].className = 'add-expense-category';
