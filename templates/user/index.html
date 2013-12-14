@@ -33,9 +33,8 @@
 				<li class="menu-link-item"><a href="settings">Settings</a></li>
 			</ul>
 		</nav>
-		<header class="test" ng-class="headerClass ? 'add-expense-translate' : ''">
-
-			<div class="expense-form">
+		<div class="test">
+			<div class="expense-form" ng-class="headerClass ? 'add-expense-translate' : ''">
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
@@ -45,27 +44,25 @@
 				<input class="add-expense-description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label"><i>(Description)</i></label>
 				<input class="add-expense-submit" ng-click="testam(3)" type="submit">
+				<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
 			</div>
-
-			<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
-		</header>
-
-		<section class="this-month-block">
-			<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
-			<div class="graph">
-				<canvas class="category" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+		</div>
+		<div class="monthly-graphs">
+			<section class="this-month-block">
+				<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
+				<div class="graph">
+					<canvas class="category" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+				</div>
 				<h3 class="graph-expl">This month</h3>
-			</div>
-		</section>
-
-		<section class="planned-block">
-			<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
-			<div class="graph">
-				<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
+			</section>
+			<section class="planned-block">
+				<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
+				<div class="graph">
+					<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
+				</div>
 				<h3 class="graph-expl">Planned</h3>
-			</div>
-		</section>
-
+			</section>
+		</div>
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
