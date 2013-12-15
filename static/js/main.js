@@ -20,7 +20,7 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 
 expensesApp.controller('mainController', function($scope, Expense, Category) {
 
-	$scope.testclick = function() {
+	$scope.testclick = function(event) {
 
  		for (i=0;$scope.expenses.length > i;i++) {
 
@@ -38,10 +38,14 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 
 		testovobrat = document.getElementsByClassName('testovobrat')[0]
 
+		console.log(event)
 		//testovobrat.style.display = 'block'
 		testovobrat.style.background = this.category.color
-		testovobrat.textContent = this.category.title + ' - ' + amount
+		testovobrat.style.left = event.target.offsetLeft + 'px'
+		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
+		testovobrat.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
 		console.log(this.category.title + ' - ' + amount)
+
 	}
 
 	$scope.testam = function() {

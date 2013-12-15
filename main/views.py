@@ -17,12 +17,15 @@ def index(request):
         # Expiremental
         queryset = Expense.objects.filter(user_id__exact=request.user.id)
         expenses = queryset.order_by('-date')
-        serializedBookmarks = ExpenseSerializer(expenses, many=True)
+        serializedExpenses = ExpenseSerializer(expenses, many=True)
 
         categories = Category.objects.filter(user_id__exact=request.user.id)
-        serializedBookmarkCollections = CategorySerializer(categories, many=True)
+        serializedCategories = CategorySerializer(categories, many=True)
 
-        bootstrapped_data = {'expenses': json.dumps(serializedBookmarks.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedBookmarkCollections.data, cls=DjangoJSONEncoder)}
+        planned = Planned.objects.filter(user_id__exact=request.user.id)
+        serializedPlanned = PlannedSerializer(planned, many=True)
+
+        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')

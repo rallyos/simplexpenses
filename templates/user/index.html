@@ -55,7 +55,7 @@
 			<section class="this-month-block">
 				<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="testclick(); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="testclick($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>

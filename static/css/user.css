@@ -349,8 +349,8 @@ a {
 }
 .testovobrat {
 	position: absolute;
-	width: 200px;
-	height: 100px;
+	padding: 8px 15px;
+	font-weight: 300;
 	color: #fff;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
