@@ -17,6 +17,6 @@ class Expense(models.Model):
 
 class Planned(models.Model):
 	user = models.ForeignKey(User)
-	cateogory = models.ForeignKey(Category)
+	category = models.ForeignKey(Category)
 	planned_amount = models.DecimalField(max_digits=12, decimal_places=2)
 	planned_month = models.DateField(auto_now_add=True)
