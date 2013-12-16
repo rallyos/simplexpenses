@@ -1,5 +1,6 @@
 
 // ..... don't be shameful of this here... :)
+// And change the name of 'planned'
 var ENTER_KEY = 13;
 
 
@@ -18,7 +19,15 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 	return $resource( '/api/category/');
 }]);
 
-expensesApp.controller('mainController', function($scope, Expense, Category) {
+expensesApp.factory('Planned', ['$resource', function($resource) {
+	return $resource( '/api/planned/');
+}]);
+
+expensesApp.controller('mainController', function($scope, Expense, Category, Planned) {
+
+	$scope.expenses = expenses
+	$scope.categories = categories
+	$scope.planned = planned
 
 	$scope.testclick = function(event) {
 
@@ -45,6 +54,32 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
 		testovobrat.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
 		console.log(this.category.title + ' - ' + amount)
+
+	}
+
+	$scope.testclick_clone = function(event) {
+
+		plamount = this.plan.planned_amount
+
+		//amount = amount.toFixed(2)
+		$scope.testovobratdisplay = true;
+
+		testovobrat = document.getElementsByClassName('testovobrat')[0]
+
+		for (i=0; $scope.categories.length > i; i++) {
+			if ( $scope.categories[i].id == this.plan.category_id ) {
+				console.log($scope.categories[i])
+				color = $scope.categories[i].color
+				title = $scope.categories[i].title
+			}
+		}
+
+		//testovobrat.style.display = 'block'
+		testovobrat.style.background = color
+		testovobrat.style.left = event.target.offsetLeft + 'px'
+		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
+		testovobrat.textContent = 'You planned to spend ' + plamount + ' лв. for ' + title + ' this month.'
+		console.log(title + ' - ' + plamount)
 
 	}
 
@@ -107,9 +142,29 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 		return amount + '%'
 	}
 
+	$scope.dsa_clone = function() {
+		// highly expiremental
+		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
+		amount = in_percent.toFixed(2)
+		return amount + '%'
 
-	$scope.expenses = expenses
-	$scope.categories = categories
+		/*
+		this_category = this.category.id
+		sum = 0
+ 		for (i=0;$scope.expenses.length > i;i++) {
+			if ($scope.expenses[i].category_id == this_category) {
+				var number = Number($scope.expenses[i].amount)
+				sum = sum + number
+				var amount = sum.toFixed(2);
+			} else {
+				continue
+			}
+		}
+		amount = amount / $scope.thisMonthAmount * 100
+		amount = amount.toFixed(2)
+		return amount + '%'
+		*/
+	}
 
 	$scope.selectCategory = function(soDark) {
 		// again highly expiremental
@@ -141,6 +196,19 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 		return 'background: ' + color
 	}
 
+	$scope.testas_clone = function() {
+		// fix this mess
+		vab = this.plan.category_id
+ 
+ 		for (i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == vab) {
+				color = $scope.categories[i].color
+			}
+		}
+
+		return color
+	}
+
 	$scope.sumExpenses = function () {
 		sum = 0
 
@@ -155,7 +223,16 @@ expensesApp.controller('mainController', function($scope, Expense, Category) {
 	}
 
 	$scope.sumPlanned = function() {
-		$scope.nextMonthAmount = 143.21
+		sum = 0
+
+		for (i=0; planned.length > i;i++) {
+
+			var number = Number(planned[i].planned_amount)
+			sum = sum + number
+		}
+
+		var amount = sum.toFixed(2);
+		$scope.nextMonthAmount = amount
 	}
 
 });

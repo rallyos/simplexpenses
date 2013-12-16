@@ -17,6 +17,10 @@
 
 		e = '{{expenses|escapejs}}'
 		expenses = JSON.parse(e);
+
+		d = '{{planned|escapejs}}'
+		planned = JSON.parse(d);
+
 	</script>
 </head>
 <body>
@@ -62,7 +66,7 @@
 			<section class="planned-block">
 				<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
 				<div class="graph">
-					<canvas class="category" style="background: {{category.color}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="testclick_clone($event); testovobratdisplay" ng-init="stil_clone=testas_clone()" style="background: {{stil_clone}}; height: {{dsa_clone()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
