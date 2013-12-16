@@ -47,7 +47,7 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 
 		testovobrat = document.getElementsByClassName('testovobrat')[0]
 
-		console.log(event)
+		console.log(amount)
 		//testovobrat.style.display = 'block'
 		testovobrat.style.background = this.category.color
 		testovobrat.style.left = event.target.offsetLeft + 'px'
@@ -147,23 +147,6 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
 		amount = in_percent.toFixed(2)
 		return amount + '%'
-
-		/*
-		this_category = this.category.id
-		sum = 0
- 		for (i=0;$scope.expenses.length > i;i++) {
-			if ($scope.expenses[i].category_id == this_category) {
-				var number = Number($scope.expenses[i].amount)
-				sum = sum + number
-				var amount = sum.toFixed(2);
-			} else {
-				continue
-			}
-		}
-		amount = amount / $scope.thisMonthAmount * 100
-		amount = amount.toFixed(2)
-		return amount + '%'
-		*/
 	}
 
 	$scope.selectCategory = function(soDark) {
