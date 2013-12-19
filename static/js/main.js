@@ -85,7 +85,6 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
 		testovobrat.textContent = 'You planned to spend ' + plamount + ' лв. for ' + title + ' this month.'
 		console.log(title + ' - ' + plamount)
-
 	}
 
 	$scope.testam = function() {
@@ -94,6 +93,8 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCat},function(response) {
 			$scope.expenses.unshift(response);
 			$scope.sumExpenses()
+			$scope.exp_description = ''
+			$scope.exp_amount = '0.00'
 		});
 	}
 
@@ -156,7 +157,6 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 
 	$scope.selectCategory = function(soDark) {
 		// again highly expiremental
-		console.log(soDark.category.id)
 		$scope.selectedCat = soDark.category.id
 		catgs = document.getElementsByClassName('add-expense-category')
 		for (i=0; catgs.length > i; i++) {
