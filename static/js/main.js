@@ -31,12 +31,17 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 
 	$scope.testclick = function(event) {
 
+		sum = 0;
+
  		for (i=0;$scope.expenses.length > i;i++) {
 
 			if ($scope.expenses[i].category_id == this.category.id) {
+				console.log('initial value is ' + $scope.expenses[i].amount)
 				var number = Number($scope.expenses[i].amount)
 				sum = sum + number
+				console.log('then the sum variable becomes ' + sum)
 				var amount = sum.toFixed(2);
+				console.log('and the final amount is ' + amount)
 			} else {
 				continue
 			}

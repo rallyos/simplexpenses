@@ -202,7 +202,6 @@
 	border-radius: 2px;
 }
 .menu-links {
-	display: none;
 	list-style: none;
 }
 .menu-link-item {
@@ -255,7 +254,7 @@ a {
 	-webkit-align-items: flex-end;
 }
 .category {
-	width: 30px;
+	width: 26px;
 	height: 5px;
 	margin-right: 20px;
 	cursor: pointer;
@@ -280,7 +279,7 @@ a {
 	text-align: center;
 }
 .expenses-block {
-	width: 90%;
+	width: 84%;
 	margin: 0 auto 50px;
 	clear: both;
 	overflow: hidden;
@@ -294,30 +293,27 @@ a {
 	width: 100%;
 	height: 50px;
 	float: left;
-	border-top: solid 1px #dadada;
-	border-left: solid 1px #dadada;
-	border-right: solid 1px #dadada;
+	margin: 0 0 10px 0;
 	font-size: 1.2rem;
-	-moz-box-sizing: border-box;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
-.expense:last-child {
-	border-bottom: solid 1px #dadada;
+.expense:hover {
+	background: #FDFDFD;
 }
 .category-square {
-	width: 5%;
+	width: 1%;
 	height: 50px;
 	float: left;
 }
 .expense-sum {
-	width: 8%;
+	width: 12%;
 	margin: 0 4% 0 2%;
 	float: left;
 	line-height: 50px;
 }
 .expense-description {
-	width: 70%;
+	width: 68%;
 	padding: 1px 0;
 	float: left;
 	font-size: 1.1rem;
@@ -326,7 +322,7 @@ a {
 	line-height: 50px;
 }
 .expense-date {
-	width: 11%;
+	width: 13%;
 	float: left;
 	font-size: inherit;
 	font-weight: inherit;
