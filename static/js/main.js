@@ -223,6 +223,16 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		$scope.nextMonthAmount = amount
 	}
 
+	$scope.showSettings = function() {
+		settingsBlock = document.getElementsByClassName('settings-block')[0]
+
+		if (settingsBlock.className == 'settings-block') {
+			settingsBlock.className += ' show-settings-block'
+		} else {
+			settingsBlock.className = 'settings-block'
+		}
+	}
+
 });
 
 
