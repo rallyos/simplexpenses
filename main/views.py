@@ -33,7 +33,8 @@ def index(request):
 def plan(request):
     if request.user.is_authenticated():
         categories = Category.objects.filter(user_id__exact=request.user.id)
-        return render(request, 'user/plan.html', categories)
+        #varsa = { 'categories': categories }
+        return render(request, 'user/plan.html', {'categories': categories})
     else:
         return render(request, 'index.html')
 

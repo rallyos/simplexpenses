@@ -365,3 +365,14 @@ a {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
+/* plan expirement */
+.sum-planned-amount {
+	width: 70%;
+	margin: 100px auto 10px;
+	padding-bottom: 20px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 4rem;
+	font-weight: 100;
+	text-align: center;
+	border-bottom: solid 2px #BABABA
+}
