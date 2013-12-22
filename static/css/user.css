@@ -1,7 +1,7 @@
 .settings-block {
 	width: 300px;
 	margin-bottom: 30px;
-	padding-top: 30px;
+	/*padding-top: 30px; */
 	position: fixed;
 	right: 0;
 	background: #fff;
@@ -21,12 +21,46 @@
 	transform: translateX(0);
 }
 .settings-heading {
+	margin-top: 0;
 	padding: 6px 0 6px 14px;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
 	color: #fff;
 	background: #72D0F5;
-
+}
+.input-password {
+	display: block;
+	width: 80%;
+	margin: 0 auto 10px;
+	padding: 4px;
+	font-family: inherit;
+	font-size: 0.9rem;
+	color: #747474;
+	font-weight: 300;
+	border: solid 2px #a2a2a2;
+	border-radius: 3px;
+	text-indent: 4px;
+	outline: 0;
+}
+.submit-password {
+	display: block;
+	margin: 16px auto 10px;
+	padding: 4px 14px;
+	color: #BEEDA9;
+	font-family: inherit;
+	font-size: 1rem;
+	text-align: center;
+	border: solid 2px #BEEDA9;
+	background: #fff;
+	border-radius: 4px;
+	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.submit-password:hover {
+	background: #90E06F;
+	color: #fff;
+	border: solid 2px #90E06F;
 }
 .test {
 	width: 100%;
@@ -389,6 +423,25 @@ a {
 .summed-plan-amount {
 	text-align: center;
 	font-weight: 100;
+}
+.plan-small-graph {
+	width: 90%;
+	margin: 0 auto;
+	height: 100px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-end;
+	/* ... */
+	display: -webkit-flex;
+	-webkit-justify-content: center;
+	-webkit-align-items: flex-end;
+}
+.plan-small-category {
+	width: 15px;
+	height: 3px;
+	margin: 0 8px;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
 }
 .plan-categories-list {
 	width: 90%;

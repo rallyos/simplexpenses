@@ -29,11 +29,14 @@
 			<div class="plan-right-block">
 				<span class="test-button" ng-click="showPlanned()">></span>
 				<h1 class="summed-plan-amount">{{nextMonthAmount}}</h1>
+				<div class="plan-small-graph">
+				<canvas class="plan-small-category" ng-init="stil_clone=testas_clone()" style="background: {{stil_clone}}; height: {{dsa_clone()}}" ng-repeat="plan in planned"></canvas>
+				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
 							<span class="plan-category-title">{{category.title}}</span>
-							<input class="planned-category-amount" ng-init="planned_am=getPlannedAmount()" type="text" value="{{planned_am}}">
+							<input class="planned-category-amount" ng-init="planned_am=getPlannedAmount()" ng-keydown="updatePlanned($event)" type="number" value="{{planned_am}}">
 						</li>
 					</ul>
 				</div>
@@ -47,7 +50,11 @@
 			</ul>
 			<div class="settings-block">
 				<h4 class="settings-heading">App Preferences</h4>
-				<h4 class="settings-heading">Password</h4>
+				<div class="password-change">
+					<h4 class="settings-heading">Password</h4>
+					<input class="input-password" type="password" placeholder="New Password" ng-model="newPass" ng-click="submPassButton=true">
+					<button class="submit-password ng-hide" ng-show="submPassButton" ng-click="changePassword()">Confirm</button>
+				</div>
 			</div>
 		</div>
 		<div class="test">

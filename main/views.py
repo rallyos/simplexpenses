@@ -74,6 +74,13 @@ def logout_user(request):
     logout(request)
     return redirect('/')
 
+def password_change(request):
+    if request.method == 'POST':
+        user = request.user
+        password = request.POST['data']
+        user.set_password(password)
+        user.save()
+        return HttpResponse(status=200)
 
 class ExpenseViewSet(viewsets.ModelViewSet):
 

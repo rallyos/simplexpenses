@@ -23,7 +23,7 @@ expensesApp.factory('Planned', ['$resource', function($resource) {
 	return $resource( '/api/planned/');
 }]);
 
-expensesApp.controller('mainController', function($scope, Expense, Category, Planned) {
+expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned) {
 
 	$scope.expenses = expenses
 	$scope.categories = categories
@@ -172,6 +172,7 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 	}
 
 	$scope.testas = function() {
+		
 		// fix this mess
 		vab = this.expense.category_id
  
@@ -185,6 +186,7 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 	}
 
 	$scope.testas_clone = function() {
+
 		// fix this mess
 		vab = this.plan.category_id
  
@@ -223,6 +225,19 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		$scope.nextMonthAmount = amount
 	}
 
+	$scope.updatePlanned = function(event) {
+
+		if (event.which == ENTER_KEY) {
+			for (i=0; $scope.planned.length > i;i++) {
+				if ($scope.planned[i].category_id == this.category.id) {
+					$scope.planned[i].planned_amount = Number(event.target.value)
+					$scope.sumPlanned()
+				}
+			}
+		}
+
+	}
+
 	$scope.showSettings = function() {
 		settingsBlock = document.getElementsByClassName('settings-block')[0]
 
@@ -254,6 +269,12 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		}
 
 		return amount
+	}
+
+	$scope.changePassword = function() {
+		$http.post('password_change', {data: 'test'}).success(function(response) {
+			console.log(response)
+		});
 	}
 
 });
