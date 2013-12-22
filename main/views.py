@@ -77,7 +77,7 @@ def logout_user(request):
 def password_change(request):
     if request.method == 'POST':
         user = request.user
-        password = request.POST['data']
+        password = request.body['data']
         user.set_password(password)
         user.save()
         return HttpResponse(status=200)
