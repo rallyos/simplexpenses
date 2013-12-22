@@ -233,6 +233,29 @@ expensesApp.controller('mainController', function($scope, Expense, Category, Pla
 		}
 	}
 
+	$scope.showPlanned = function() {
+		plannedBlock = document.getElementsByClassName('plan-right-block')[0]
+
+		if (plannedBlock.className == 'plan-right-block') {
+			plannedBlock.className += ' show-plan-right-block'
+		} else {
+			plannedBlock.className = 'plan-right-block'
+		}
+	}
+
+	$scope.getPlannedAmount = function() {
+	
+		amount = 0
+
+ 		for (i=0;$scope.planned.length > i;i++) {
+			if ($scope.planned[i].category_id == this.category.id) {
+				amount = $scope.planned[i].planned_amount
+			}
+		}
+
+		return amount
+	}
+
 });
 
 

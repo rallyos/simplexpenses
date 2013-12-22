@@ -30,15 +30,6 @@ def index(request):
     else:
         return render(request, 'index.html')
 
-def plan(request):
-    if request.user.is_authenticated():
-        categories = Category.objects.filter(user_id__exact=request.user.id)
-        #varsa = { 'categories': categories }
-        return render(request, 'user/plan.html', {'categories': categories})
-    else:
-        return render(request, 'index.html')
-
-
 def register_user(request):
     if request.method == 'POST':
         form = UserCreationForm(request.POST)

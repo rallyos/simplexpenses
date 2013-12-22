@@ -2,12 +2,13 @@
 	width: 300px;
 	margin-bottom: 30px;
 	padding-top: 30px;
-	position: absolute;
+	position: fixed;
+	right: 0;
 	background: #fff;
-	right: -15px; /* not final !!! */
 	border-top: solid 2px #BABABA;
 	border-left: solid 2px #BABABA;
 	border-bottom: solid 2px #BABABA;
+	z-index: 2;
 	-webkit-transform: translateX(100%);
 	-ms-transform: translateX(100%);
 	transform: translateX(100%);
@@ -170,9 +171,10 @@
 	background: #E03C3C;
 }
 .menu-block {
+	padding: 15px 15px 0 0;
 	position: absolute;
-	top: 15px;
-	right: 15px;
+	top: 0;
+	right: 0;
 }
 .menu-toggle {
 	cursor: pointer;
@@ -227,6 +229,7 @@
 body {
 	margin: 0;
 	padding: 0;
+	color: #343534;
 	font-family: 'Open Sans', sans-serif;
 }
 ul, p, h3, img {
@@ -312,9 +315,6 @@ a {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
-.expense:hover {
-	background: #FDFDFD;
-}
 .category-square {
 	width: 1%;
 	height: 50px;
@@ -365,14 +365,70 @@ a {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
-/* plan expirement */
-.sum-planned-amount {
-	width: 70%;
-	margin: 100px auto 10px;
-	padding-bottom: 20px;
-	font-family: 'Roboto', sans-serif;
-	font-size: 4rem;
-	font-weight: 100;
+/* planned block */
+.plan-right-block {
+	width: 320px;
+	position: fixed;
+	right: 0;
+	background: #fff;
+	border-top: solid 2px #BABABA;
+	border-left: solid 2px #BABABA;
+	border-bottom: solid 2px #BABABA;
+	z-index: 2;
+	-webkit-transform: translateX(100%);
+	-ms-transform: translateX(100%);
+	transform: translateX(100%);
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.show-plan-right-block {
+	-webkit-transform: translateX(0);
+	-ms-transform: translateX(0);
+	transform: translateX(0);
+}
+.summed-plan-amount {
 	text-align: center;
-	border-bottom: solid 2px #BABABA
+	font-weight: 100;
+}
+.plan-categories-list {
+	width: 90%;
+	margin: 0 auto;
+	list-style: none;
+}
+.plan-categories-item {
+	margin: 20px 0;
+	overflow: hidden;
+}
+.plan-category-title {
+	float: left;
+}
+.planned-category-amount {
+	width: 30%;
+	float: right;
+	font-size: 1rem;
+	text-align: right;
+	border: 0;
+	outline: 0;
+}
+.test-button {
+	display: block;
+	width: 28px;
+	height: 28px;
+	margin: 15px 15px 0 0;
+	float: right;
+	line-height: 30px;
+	font-size: 1.2rem;
+	color: #bababa;
+	text-align: center;
+	border-radius: 30px;
+	border: solid 2px #bababa;
+	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.test-button:hover {
+	background: #FF6557;
+	color: #fff;
+	border: solid 2px #FF6557;
+
 }

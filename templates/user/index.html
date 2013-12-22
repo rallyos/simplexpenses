@@ -26,15 +26,21 @@
 	{% verbatim %}			
 	<div class="wrapper" ng-controller="mainController">
 		<div class="menu-block">
-<!--			<div ng-click="showMenu ? true : false" class="menu-toggle">
-				<span class="menu-toggle-line"></span>
-				<span class="menu-toggle-line"></span>
-				<span class="menu-toggle-line"></span>
+			<div class="plan-right-block">
+				<span class="test-button" ng-click="showPlanned()">></span>
+				<h1 class="summed-plan-amount">{{nextMonthAmount}}</h1>
+				<div class="plan-categories-wrap">
+					<ul class="plan-categories-list">
+						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
+							<span class="plan-category-title">{{category.title}}</span>
+							<input class="planned-category-amount" ng-init="planned_am=getPlannedAmount()" type="text" value="{{planned_am}}">
+						</li>
+					</ul>
+				</div>
 			</div>
--->
 			<ul class="menu-links">
 	{% endverbatim %}			
-				<li class="menu-link-item"><a href="plan"><span class="testes">Plan</span><img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30"></a></li>
+				<li class="menu-link-item"><a href="#"><span class="testes">Plan</span><img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()"></a></li>
 				<li class="menu-link-item"><a href="#"><span class="testes">History</span><img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30"></a></li>
 				<li class="menu-link-item"><a href="#"><span class="testes">Settings</span><img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()"></a></li>
 	{% verbatim %}
