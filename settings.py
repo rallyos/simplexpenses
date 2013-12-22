@@ -84,6 +84,8 @@ STATICFILES_FINDERS = (
 
 LANGUAGE_CODE = 'en-us'
 
+DATE_INPUT_FORMATS = ('%d-%m-%Y','%Y-%m-%d')
+
 TIME_ZONE = 'UTC'
 
 USE_I18N = True
