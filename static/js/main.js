@@ -272,10 +272,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.changePassword = function() {
-/*		$http.post('password_change', {'data': $scope.newPass}).success(function(response) {
-			console.log(response)
-		});
-*/
+		$http({
+		    method: 'POST',
+		    url: 'password_change',
+		    data: 'csrfmiddlewaretoken=' + encodeURIComponent(csrftoken) + '&data=' + encodeURIComponent($scope.newPass),
+		    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
+		}).success(function() {
+			$scope.newPass = ''
+			$scope.submPassButton = false
+		})
 	}
 
 });

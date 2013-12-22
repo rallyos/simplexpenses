@@ -13,7 +13,7 @@ class Expense(models.Model):
 	amount = models.DecimalField(max_digits=12, decimal_places=2)
 	description = models.CharField(max_length=80)
 	category = models.ForeignKey(Category)
-	date = models.DateField(auto_now_add=True)
+	date = models.DateField(auto_now_add=True, input_formats=['%d/%m/%Y'])
 
 class Planned(models.Model):
 	user = models.ForeignKey(User)
