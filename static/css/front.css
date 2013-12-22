@@ -56,6 +56,11 @@ a {
 	font-size: 1.1rem;
 	text-indent: 4px;
 	outline: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.form-input:focus {
+	border: solid 2px #90e06f;
 }
 .signin-input {
 	width: 80%;
