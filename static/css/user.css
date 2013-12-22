@@ -28,6 +28,29 @@
 	color: #fff;
 	background: #72D0F5;
 }
+.log-out {
+	display: block;
+	width: 36%;
+	margin: 16px auto 10px;
+	padding: 4px 0;
+	color: #e54a4f;
+	text-align: center;
+	border: solid 2px #e54a4f;
+	background: #fff;
+	border-radius: 4px;
+	cursor: pointer;
+	opacity: 0.6;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.log-out:hover {
+	background: #e54a4f;
+	color: #fff;
+	border: solid 2px #e54a4f;
+	opacity: 1;
+}
+
+
 .input-password {
 	display: block;
 	width: 80%;
