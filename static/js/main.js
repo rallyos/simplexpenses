@@ -272,9 +272,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.changePassword = function() {
-		$http.post('password_change', {data: 'test'}).success(function(response) {
+/*		$http.post('password_change', {'data': $scope.newPass}).success(function(response) {
 			console.log(response)
 		});
+*/
 	}
 
 });
