@@ -22,8 +22,12 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 expensesApp.factory('Planned', ['$resource', function($resource) {
 	return $resource( '/api/planned/');
 }]);
+// TEEEEEST
+expensesApp.factory('Expens', ['$resource', function($resource) {
+	return $resource( '/api/expense/:id');
+}]);
 
-expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned) {
+expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens) {
 
 	$scope.expenses = expenses
 	$scope.categories = categories
@@ -284,7 +288,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.del_test = function(idx) {
-		$scope.expenses.splice(idx, 1)
+		// until i found a way to use $resource for this
+
+		$http({
+		    method: 'DELETE',
+		    url: 'api/expense/' + this.expense.id,
+		    headers: {'X-CSRFToken': csrftoken}
+		}).success(function() {
+			$scope.expenses.splice(idx, 1)
+		})
 	}
 
 });

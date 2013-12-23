@@ -182,6 +182,7 @@ input {
 	.feature {
 		float: left;
 		width: 45%;
+		margin: 0 2.5%;
 	}
 }
 @media screen and (max-width: 668px) {
