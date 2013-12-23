@@ -167,6 +167,9 @@ input {
 	.signin-form {
 		margin: 25px auto;
 	}
+	.features-block {
+		margin-top: 40px;
+	}
 	.feature {
 		width: 70%;
 	}
@@ -176,5 +179,8 @@ input {
 	.signup-input {
 		width: 70%;
 		margin: 12px 0;
+	}
+	.signup-submit {
+		margin-top: 20px;
 	}
 }
