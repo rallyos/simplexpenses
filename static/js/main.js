@@ -9,6 +9,7 @@ var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 
 expensesApp.config(function($httpProvider) {
 	$httpProvider.defaults.headers.post = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
+	$httpProvider.defaults.headers.delete = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 })
 
 expensesApp.factory('Expense', ['$resource', function($resource) {
@@ -289,7 +290,12 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.del_test = function(idx) {
 		// until i found a way to use $resource for this
-
+		console.log('its now working???')
+		Expens.delete({id: this.expense.id},function() {
+			$scope.expenses.splice(idx, 1)
+		})
+	}
+/*
 		$http({
 		    method: 'DELETE',
 		    url: 'api/expense/' + this.expense.id,
@@ -298,7 +304,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			$scope.expenses.splice(idx, 1)
 		})
 	}
-
+*/
 });
 
 
