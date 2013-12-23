@@ -283,6 +283,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		})
 	}
 
+	$scope.del_test = function(idx) {
+		$scope.expenses.splice(idx, 1)
+	}
+
 });
 
 

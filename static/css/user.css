@@ -391,7 +391,7 @@ a {
 	line-height: 50px;
 }
 .expense-date {
-	width: 13%;
+	width: 10%;
 	float: left;
 	font-size: inherit;
 	font-weight: inherit;
@@ -505,4 +505,23 @@ a {
 	color: #fff;
 	border: solid 2px #FF6557;
 
+}
+.nov-test {
+	display: block;
+	width: 19px;
+	height: 19px;
+	margin: 15px 0;
+	float: right;
+	font-size: 0.8rem;
+	color: #bababa;
+	text-align: center;
+	line-height: 19px;
+	border: solid 1px #bababa;
+	border-radius: 19px;
+	cursor: pointer;
+}
+.nov-test:hover {
+	background: #F3462C;
+	border-color: #F3462C;
+	color: #fff;
 }

@@ -23,7 +23,6 @@ input {
 .nav-list {
 	margin: 30px 0;
 	display: inline-block;
-	font-family: 'Roboto', sans-serif;
 	font-size: 1.1rem;
 	color: #747474;
 }
@@ -39,7 +38,6 @@ input {
 	text-decoration: underline;
 }
 .main-heading {
-	font-family: 'Roboto', sans-serif;
 	font-size: 1.5rem;
 	font-weight: 300;
 	text-align: center;
