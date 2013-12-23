@@ -11,50 +11,48 @@ a {
 input {
 	-webkit-appearance: none;
 }
+.wrapper {
+	text-align: center;
+}
 .logo {
 	width: 115px;
 	position: absolute;
+	left: 0;
 	margin: 15px;
 }
 .nav-block {
 	width: 100%;
-	text-align: center;
 }
 .nav-list {
 	margin: 30px 0;
 	display: inline-block;
 	font-size: 1.1rem;
 	color: #747474;
-}
-.nav-item {
-	margin-left: 40px;
-	float: left;
 	list-style: none;
 }
-.nav-item:first-child {
-	margin-left: 0;
+.nav-item {
+	margin: 0 20px;
+	float: left;
 }
 .nav-item-link:hover {
+	color: #90E06F;
 	text-decoration: underline;
 }
 .main-heading {
-	font-size: 1.5rem;
 	font-weight: 300;
-	text-align: center;
 }
 .signin-form {
 	width: 300px;
 	margin: 50px auto;
-	text-align: center;
 }
 .form-input {
 	padding: 4px;
+	font-size: 1.1rem;
 	font-family: inherit;
 	font-weight: 300;
 	color: #747474;
 	border: solid 2px #a2a2a2;
 	border-radius: 4px;
-	font-size: 1.1rem;
 	text-indent: 4px;
 	outline: 0;
 	-webkit-transition: border-color 0.3s;
@@ -62,10 +60,6 @@ input {
 }
 .form-input:focus {
 	border: solid 2px #90e06f;
-}
-.signin-input {
-	width: 80%;
-	margin: 12px 10%;
 }
 .form-submit {
 	padding: 7px 35px;
@@ -80,6 +74,10 @@ input {
 	-webkit-transition: background 0.3s;
 	transition: background 0.3s;
 }
+.signin-input {
+	width: 80%;
+	margin: 12px 0;
+}
 .signin-submit {
 	display: inline-block;
 	margin-top: 15px;
@@ -90,16 +88,11 @@ input {
 }
 .features-block {
 	margin-top: 80px;
-	text-align: center;
 }
 .feature {
 	display: inline-block;
 	width: 22%;
 	margin: 0 3%;
-}
-.feature-img {
-	display: block;
-	margin: 0 auto;
 }
 .feature-text {
 	font-size: 1.2rem;
@@ -107,26 +100,19 @@ input {
 	color: #747474;
 	text-align: left;
 }
-.beta-heading {
-	width: 100%;
-	float: left;
+.signup-heading {
 	margin: 30px 0;
 	font-size: 2rem;
 	font-weight: 100;
-	text-align: center;
 	color: #747474;
 }
 .signup-form {
-	display: block;
 	width: 80%;
 	margin: 0 auto;
-	text-align: center;
-	overflow: hidden;
 }
 .signup-input {
 	width: 25%;
-	margin-left: 5%;
-	float: left;
+	margin: 0 2.5%;
 }
 .signup-submit {
 	margin-top: 40px;
@@ -137,7 +123,6 @@ input {
 }
 .footer {
 	margin: 40px 0 5px 0;
-	text-align: center;
 }
 .footer-links {
 	display: inline-block;
@@ -150,7 +135,6 @@ input {
 	color: #343534;
 }
 .madeby {
-	display: block;
 	margin: 15px 0;
 	font-weight: 300;
 	color: #A2A2A2;
@@ -160,4 +144,37 @@ input {
 }
 .me:hover {
 	text-decoration: underline;
+}
+@media screen and (max-width: 1024px) {
+	.feature {
+		margin: 0 5%;
+	}
+}
+@media screen and (max-width: 768px) {
+
+}
+@media screen and (max-width: 568px) {
+	.logo {
+		position: static;
+	}
+	.nav-list {
+		margin: 5px 0 15px 0;
+	}
+	.main-heading {
+		width: 96%;
+		font-size: 1.2rem;
+	}
+	.signin-form {
+		margin: 25px auto;
+	}
+	.feature {
+		width: 70%;
+	}
+	.signup-form {
+		width: 100%;
+	}
+	.signup-input {
+		width: 70%;
+		margin: 12px 0;
+	}
 }

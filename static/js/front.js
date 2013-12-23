@@ -40,6 +40,7 @@ signInForm.onsubmit = function() {
 	xhr.send()
 
 	if ( xhr.status == 200) {
+		signInForm.children[3].style.background = '#90E06F'
 		location.reload()
 	} else if ( xhr.status == 404) {
 
