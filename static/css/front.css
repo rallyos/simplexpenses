@@ -39,6 +39,7 @@ input {
 	text-decoration: underline;
 }
 .main-heading {
+	margin: 25px 0 20px;
 	font-weight: 300;
 }
 .signin-form {
@@ -147,40 +148,63 @@ input {
 }
 @media screen and (max-width: 1024px) {
 	.feature {
-		margin: 0 5%;
+		width: 28%;
+		margin: 6px 2%;
+	}
+	.feature-text {
+		font-size: 1.1rem;
 	}
 }
 @media screen and (max-width: 768px) {
-
-}
-@media screen and (max-width: 568px) {
 	.logo {
 		position: static;
 	}
 	.nav-list {
 		margin: 5px 0 15px 0;
 	}
-	.main-heading {
-		width: 96%;
-		font-size: 1.2rem;
-	}
 	.signin-form {
 		margin: 25px auto;
-	}
-	.features-block {
-		margin-top: 40px;
-	}
-	.feature {
-		width: 70%;
 	}
 	.signup-form {
 		width: 100%;
 	}
 	.signup-input {
+		max-width: 300px;
+	}
+	.feature-text {
+		text-align: center;
+	}
+}
+@media screen and (max-width: 767px) {
+	.features-block {
+		float: left;
+	}
+	.feature {
+		float: left;
+		width: 45%;
+	}
+}
+@media screen and (max-width: 668px) {
+	.signup-input {
 		width: 70%;
-		margin: 12px 0;
+		margin: 12px 15%;
 	}
 	.signup-submit {
 		margin-top: 20px;
+	}
+}
+@media screen and (max-width: 468px) {
+	.features-block,
+	.feature {
+		float: none;
+	}
+
+	.main-heading {
+		width: 96%;
+		font-size: 1.2rem;
+	}
+	.feature {
+		width: 80%;
+		margin: 0 auto;
 	}
 }
