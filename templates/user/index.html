@@ -1,5 +1,4 @@
 {% load staticfiles %}
-
 <!doctype html>
 <html lang="en" ng-app="expensesApp">
 <head>
@@ -30,7 +29,7 @@
 				<span class="test-button" ng-click="showPlanned()">></span>
 				<h1 class="summed-plan-amount">{{nextMonthAmount}}</h1>
 				<div class="plan-small-graph">
-				<canvas class="plan-small-category" ng-init="stil_clone=testas_clone()" style="background: {{stil_clone}}; height: {{dsa_clone()}}" ng-repeat="plan in planned"></canvas>
+				<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
@@ -60,6 +59,25 @@
 				</div>
 			</div>
 		</div>
+		
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 		<div class="test">
 			<div class="expense-form" ng-class="headerClass ? 'add-expense-translate' : ''">
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
@@ -75,20 +93,18 @@
 			</div>
 		</div>
 		<div class="monthly-graphs">
-			<div class="testovobrat" ng-show="testovobratdisplay">
-				
-			</div>
+			<div class="testovobrat" ng-show="testovobratdisplay"></div>
 			<section class="this-month-block">
-				<span class="sum-expenses" ng-init="sumExpenses()">{{thisMonthAmount}}</span>
+				<span class="sum-expenses">{{thisMonthAmount}}</span>
 				<div class="graph">
 					<canvas class="category" ng-click="testclick($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
 			<section class="planned-block">
-				<span class="sum-planned" ng-init="sumPlanned()">{{nextMonthAmount}}</span>
+				<span class="sum-planned">{{nextMonthAmount}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="testclick_clone($event); testovobratdisplay" ng-init="stil_clone=testas_clone()" style="background: {{stil_clone}}; height: {{dsa_clone()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="testclick_clone($event); testovobratdisplay" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
@@ -107,7 +123,5 @@
 		{% endverbatim %}
 
 	</div>
-	<!-- Let's see how the things will end up -->
-	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script> -->
 </body>
 </html>

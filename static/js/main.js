@@ -23,10 +23,11 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 expensesApp.factory('Planned', ['$resource', function($resource) {
 	return $resource( '/api/planned/');
 }]);
-// TEEEEEST
+
 expensesApp.factory('Expens', ['$resource', function($resource) {
 	return $resource( '/api/expense/:id');
 }]);
+
 
 expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens) {
 
@@ -41,12 +42,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
  		for (i=0;$scope.expenses.length > i;i++) {
 
 			if ($scope.expenses[i].category_id == this.category.id) {
-				console.log('initial value is ' + $scope.expenses[i].amount)
 				var number = Number($scope.expenses[i].amount)
 				sum = sum + number
-				console.log('then the sum variable becomes ' + sum)
 				var amount = sum.toFixed(2);
-				console.log('and the final amount is ' + amount)
 			} else {
 				continue
 			}
@@ -88,7 +86,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		testovobrat.style.background = color
 		testovobrat.style.left = event.target.offsetLeft + 'px'
 		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-		testovobrat.textContent = 'You planned to spend ' + plamount + ' лв. for ' + title + ' this month.'
+		testovobrat.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
 		console.log(title + ' - ' + plamount)
 	}
 
@@ -110,15 +108,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		$scope.addCategoryButton.setAttribute('contenteditable', 'true')
 		$scope.addCategoryButton.style.cursor = 'text'
 		$scope.addCategoryButton.focus()
-
-		// Temporary solution till I find how to chain it...
-		/*setTimeout(function() {
-			lastCategory = event.target.previousElementSibling
-			lastCategory.setAttribute('contenteditable', 'true')
-			lastCategory.focus()
-			lastCategory.style.cursor = 'text'
-		}, 50)
-*/
 	}
 
 	$scope.addCategory = function(key) {
@@ -153,7 +142,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		return amount + '%'
 	}
 
-	$scope.dsa_clone = function() {
+	$scope.setChartHeight = function() {
 		// highly expiremental
 		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
 		amount = in_percent.toFixed(2)
@@ -190,7 +179,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		return 'background: ' + color
 	}
 
-	$scope.testas_clone = function() {
+	$scope.setChartColor = function() {
 
 		// fix this mess
 		vab = this.plan.category_id
@@ -236,7 +225,16 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			for (i=0; $scope.planned.length > i;i++) {
 				if ($scope.planned[i].category_id == this.category.id) {
 					$scope.planned[i].planned_amount = Number(event.target.value)
-					$scope.sumPlanned()
+
+					// just testing before i make a method for this...
+					$http({
+					    method: 'PUT',
+					    url: '/api/planned/' + $scope.planned[i].id,
+					    data: {planned_amount: $scope.planned[i].planned_amount},
+					    headers: {'X-CSRFToken': csrftoken}
+					}).success(function() {
+						$scope.sumPlanned()
+					})
 				}
 			}
 		}
@@ -289,22 +287,13 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.del_test = function(idx) {
-		// until i found a way to use $resource for this
-		console.log('its now working???')
 		Expens.delete({id: this.expense.id},function() {
 			$scope.expenses.splice(idx, 1)
 		})
 	}
-/*
-		$http({
-		    method: 'DELETE',
-		    url: 'api/expense/' + this.expense.id,
-		    headers: {'X-CSRFToken': csrftoken}
-		}).success(function() {
-			$scope.expenses.splice(idx, 1)
-		})
-	}
-*/
+
+	$scope.sumExpenses();
+	$scope.sumPlanned();
 });
 
 
