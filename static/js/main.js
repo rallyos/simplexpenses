@@ -35,7 +35,57 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.categories = categories
 	$scope.planned = planned
 
-	$scope.testclick = function(event) {
+
+	$scope.translateForm = function() {
+		$scope.headerClass = !$scope.headerClass;
+	}
+
+
+	$scope.selectCategory = function(soDark) {
+		// again highly expiremental
+		$scope.selectedCat = soDark.category.id
+		catgs = document.getElementsByClassName('add-expense-category')
+		for (i=0; catgs.length > i; i++) {
+			catgs[i].className = 'add-expense-category';
+		}
+
+		this.categoryClass = !this.categoryClass;
+	}
+
+	$scope.addExpense = function() {
+
+		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCat},function(response) {
+			$scope.expenses.unshift(response);
+			$scope.sumExpenses()
+			$scope.exp_description = ''
+			$scope.exp_amount = '0.00'
+		});
+	}
+
+	$scope.addCategory = function(event) {
+
+		$scope.addCategoryButton = event.target
+		$scope.addCategoryButton.textContent = ''
+		$scope.addCategoryButton.setAttribute('contenteditable', 'true')
+		$scope.addCategoryButton.style.cursor = 'text'
+		$scope.addCategoryButton.focus()
+	}
+
+	$scope.createOnEnter = function(key) {
+		if (key.which == ENTER_KEY) {
+			var title = key.target.textContent
+			Category.save({'title': title, 'description': 'a new category', 'color': '#ff6138'}, function(response) {
+				$scope.categories.push(response);
+				$scope.addCategoryButton.textContent = 'Add Category'
+				$scope.addCategoryButton.removeAttribute('contenteditable')
+				$scope.addCategoryButton.style.cursor = 'pointer'
+			})
+
+			return false
+		}
+	}
+
+	$scope.showSpendingsOnCategory = function(event) {
 
 		sum = 0;
 
@@ -50,104 +100,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			}
 		}
 
-		//amount = amount.toFixed(2)
-		$scope.testovobratdisplay = true;
-
 		testovobrat = document.getElementsByClassName('testovobrat')[0]
 
-		console.log(amount)
-		//testovobrat.style.display = 'block'
 		testovobrat.style.background = this.category.color
 		testovobrat.style.left = event.target.offsetLeft + 'px'
 		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
 		testovobrat.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
-		console.log(this.category.title + ' - ' + amount)
 
 	}
 
-	$scope.testclick_clone = function(event) {
-
-		plamount = this.plan.planned_amount
-
-		//amount = amount.toFixed(2)
-		$scope.testovobratdisplay = true;
-
-		testovobrat = document.getElementsByClassName('testovobrat')[0]
-
-		for (i=0; $scope.categories.length > i; i++) {
-			if ( $scope.categories[i].id == this.plan.category_id ) {
-				console.log($scope.categories[i])
-				color = $scope.categories[i].color
-				title = $scope.categories[i].title
-			}
-		}
-
-		//testovobrat.style.display = 'block'
-		testovobrat.style.background = color
-		testovobrat.style.left = event.target.offsetLeft + 'px'
-		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-		testovobrat.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
-		console.log(title + ' - ' + plamount)
-	}
-
-	$scope.testam = function() {
-
-		description = 'from the form'
-		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCat},function(response) {
-			$scope.expenses.unshift(response);
-			$scope.sumExpenses()
-			$scope.exp_description = ''
-			$scope.exp_amount = '0.00'
-		});
-	}
-
-	$scope.testamdve = function(event) {
-
-		$scope.addCategoryButton = event.target
-		$scope.addCategoryButton.textContent = ''
-		$scope.addCategoryButton.setAttribute('contenteditable', 'true')
-		$scope.addCategoryButton.style.cursor = 'text'
-		$scope.addCategoryButton.focus()
-	}
-
-	$scope.addCategory = function(key) {
-		if (key.which == ENTER_KEY) {
-			var title = key.target.textContent
-			Category.save({'title': title, 'description': 'a new category', 'color': '#ff6138'}, function(response) {
-				$scope.categories.push(response);
-				$scope.addCategoryButton.textContent = 'Add Category'
-				$scope.addCategoryButton.removeAttribute('contenteditable')
-				$scope.addCategoryButton.style.cursor = 'pointer'
-			})
-
-			return false
-		}
-	}
-
-	$scope.dsa = function() {
-		// highly expiremental
-		this_category = this.category.id
-		sum = 0
- 		for (i=0;$scope.expenses.length > i;i++) {
-			if ($scope.expenses[i].category_id == this_category) {
-				var number = Number($scope.expenses[i].amount)
-				sum = sum + number
-				var amount = sum.toFixed(2);
-			} else {
-				continue
-			}
-		}
-		amount = amount / $scope.thisMonthAmount * 100
-		amount = amount.toFixed(2)
-		return amount + '%'
-	}
-
-	$scope.setChartHeight = function() {
-		// highly expiremental
-		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
-		amount = in_percent.toFixed(2)
-		return amount + '%'
-	}
 
 	$scope.selectCategory = function(soDark) {
 		// again highly expiremental
@@ -159,24 +120,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 		this.categoryClass = !this.categoryClass;
-	}
-
-	$scope.translateForm = function() {
-		$scope.headerClass = !$scope.headerClass;
-	}
-
-	$scope.testas = function() {
-		
-		// fix this mess
-		vab = this.expense.category_id
- 
- 		for (i=0;$scope.categories.length > i;i++) {
-			if ($scope.categories[i].id == vab) {
-				color = $scope.categories[i].color
-			}
-		}
-
-		return 'background: ' + color
 	}
 
 	$scope.setChartColor = function() {
@@ -191,6 +134,13 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 
 		return color
+	}
+
+	$scope.setChartHeight = function() {
+		// highly expiremental
+		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
+		amount = in_percent.toFixed(2)
+		return amount + '%'
 	}
 
 	$scope.sumExpenses = function () {
@@ -274,6 +224,75 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		return amount
 	}
 
+
+
+
+
+
+	$scope.testclick_clone = function(event) {
+
+		plamount = this.plan.planned_amount
+
+		$scope.testovobratdisplay = true;
+
+		testovobrat = document.getElementsByClassName('testovobrat')[0]
+
+		for (i=0; $scope.categories.length > i; i++) {
+			if ( $scope.categories[i].id == this.plan.category_id ) {
+				console.log($scope.categories[i])
+				color = $scope.categories[i].color
+				title = $scope.categories[i].title
+			}
+		}
+
+		testovobrat.style.background = color
+		testovobrat.style.left = event.target.offsetLeft + 'px'
+		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
+		testovobrat.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
+		console.log(title + ' - ' + plamount)
+	}
+
+	$scope.dsa = function() {
+		// highly expiremental
+		this_category = this.category.id
+		sum = 0
+ 		for (i=0;$scope.expenses.length > i;i++) {
+			if ($scope.expenses[i].category_id == this_category) {
+				var number = Number($scope.expenses[i].amount)
+				sum = sum + number
+				var amount = sum.toFixed(2);
+			} else {
+				continue
+			}
+		}
+		amount = amount / $scope.thisMonthAmount * 100
+		amount = amount.toFixed(2)
+		return amount + '%'
+	}
+
+
+
+
+
+
+
+
+
+
+	$scope.setCategoryColor = function() {
+		
+		// fix this mess
+		vab = this.expense.category_id
+ 
+ 		for (i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == vab) {
+				color = $scope.categories[i].color
+			}
+		}
+
+		return color
+	}
+
 	$scope.changePassword = function() {
 		$http({
 		    method: 'POST',
@@ -286,7 +305,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		})
 	}
 
-	$scope.del_test = function(idx) {
+	$scope.deleteExpense = function(idx) {
 		Expens.delete({id: this.expense.id},function() {
 			$scope.expenses.splice(idx, 1)
 		})

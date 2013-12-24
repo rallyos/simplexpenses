@@ -83,12 +83,12 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="testamdve($event)" ng-keydown="addCategory($event)">Add Category</li>
+					<li class="add-expense-new-category" ng-click="addCategory($event)" ng-keydown="createOnEnter($event)">Add Category</li>
 				</ul>
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label"><i>(Description)</i></label>
-				<input class="add-expense-submit" ng-click="testam()" type="submit">
+				<input class="add-expense-submit" ng-click="addExpense()" type="submit">
 				<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
 			</div>
 		</div>
@@ -97,7 +97,7 @@
 			<section class="this-month-block">
 				<span class="sum-expenses">{{thisMonthAmount}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="testclick($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showSpendingsOnCategory($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
@@ -112,11 +112,11 @@
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
-					<span class="category-square" ng-init="stil=testas()" style="{{stil}}"></span>
+					<span class="category-square" style="background: {{setCategoryColor()}}"></span>
 					<span class="expense-sum">{{expense.amount}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
 					<h3 class="expense-date">{{expense.date}}</h3>
-					<span class="nov-test" ng-click="del_test($index)">x</span>
+					<span class="nov-test" ng-click="deleteExpense($index)">x</span>
 				</li>
 			</ul>
 		</section>
