@@ -82,7 +82,7 @@
 			<div class="expense-form" ng-class="headerClass ? 'add-expense-translate' : ''">
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
-					<li class="add-expense-category" style="background: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
+					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
 					<li class="add-expense-new-category" ng-click="addCategory($event)" ng-keydown="createOnEnter($event)">Add Category</li>
 				</ul>
 				<!-- Make it button or something more semantic -->
