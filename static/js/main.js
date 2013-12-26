@@ -45,6 +45,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		// again highly expiremental
 		$scope.selectedCat = soDark.category.id
 		catgs = document.getElementsByClassName('add-expense-category')
+
 		for (i=0; catgs.length > i; i++) {
 			catgs[i].className = 'add-expense-category';
 		}

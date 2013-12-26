@@ -96,6 +96,7 @@
 	width: 30%;
 	text-align: center;
 	background: #fff;
+	border-radius: 3px;
 	-webkit-transform: translateY(-85%);
 	-ms-transform: translateY(-85%);
 	transform: translateY(-85%);
@@ -111,7 +112,7 @@
 	display: block;
 	width: 40px;
 	height: 40px;
-	margin: 50px auto 0;
+	margin: 40px auto 10px;
 	font-weight: 300;
 	font-size: 2rem;
 	text-align: center;
@@ -133,6 +134,7 @@
 	-webkit-transform: translateY(0);
 	-ms-transform: translateY(0);
 	transform: translateY(0);
+	box-shadow: 0 2px 3px #BABABA;
 }
 .add-expense-categories-list {
 	width: 100%;
@@ -142,19 +144,27 @@
 }
 .add-expense-category {
 	width: 45%;
-	margin: 10px 2.5%;
+	padding: 10px 2.5%;
 	float: left;
+	color: #fff;
 	font-size: 1rem;
-	text-align: left;
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/rtn.png);
+	font-weight: 300;
 	background-position: 96%;
 	background-size: 20px;
 	background-repeat: no-repeat;
 	cursor: pointer;
 	outline: 0;
+	opacity: 0.5;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 .add-expense-category-selected {
 	background-image: url(http://simplexpenses.herokuapp.com/static/img/rt.png);
+	opacity: 1;
+	font-weight: 400;
+}
+.not-selected {
+	opacity: 0.3;
 }
 .add-expense-new-category {
 	width: 45%;
@@ -351,15 +361,18 @@ a {
 	text-align: center;
 }
 .expenses-block {
-	width: 84%;
+	width: 100%;
 	margin: 0 auto 50px;
 	clear: both;
 	overflow: hidden;
+	background: #EEF2F5;
+	border-top: solid 2px #EBEBEB;
 }
 .expenses-list {
-	width: 100%;
+	width: 80%;
+	margin: 10px 10%;
 	list-style: none;
-	font-weight: 300;
+	font-weight: 400;
 }
 .expense {
 	width: 100%;
@@ -385,7 +398,7 @@ a {
 	width: 68%;
 	padding: 1px 0;
 	float: left;
-	font-size: 1.1rem;
+	font-size: 1rem;
 	font-weight: inherit;
 	text-align: center;
 	line-height: 50px;
