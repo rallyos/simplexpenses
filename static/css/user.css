@@ -365,7 +365,7 @@ a {
 	margin: 0 auto 50px;
 	clear: both;
 	overflow: hidden;
-	background: #EEF2F5;
+	background: #fff;
 	border-top: solid 2px #EBEBEB;
 }
 .expenses-list {
@@ -380,13 +380,16 @@ a {
 	float: left;
 	margin: 0 0 10px 0;
 	font-size: 1.2rem;
+	border-bottom: solid 1px #DAD8D8;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
-.category-square {
-	width: 1%;
-	height: 50px;
+.category-circle {
+	width: 30px;
+	height: 30px;
+	margin: 10px -0px;
 	float: left;
+	border-radius: 30px;
 }
 .expense-sum {
 	width: 12%;
