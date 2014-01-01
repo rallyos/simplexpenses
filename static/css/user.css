@@ -5,9 +5,9 @@
 	position: fixed;
 	right: 0;
 	background: #fff;
-	border-top: solid 2px #BABABA;
-	border-left: solid 2px #BABABA;
-	border-bottom: solid 2px #BABABA;
+	border-top: solid 2px #72D0F5;
+	border-left: solid 2px #72D0F5;
+	border-bottom: solid 2px #72D0F5;
 	z-index: 2;
 	-webkit-transform: translateX(100%);
 	-ms-transform: translateX(100%);
@@ -28,11 +28,24 @@
 	color: #fff;
 	background: #72D0F5;
 }
+.settings-label {
+	float: left;
+	margin-left: 12px;
+}
+.settings-input {
+	width: 25%;
+	margin: 0 12px 10px 0;
+	padding: 3px 0;
+	float: right;
+	font-size: 0.9rem;
+	text-indent: 4px;
+}
 .log-out {
 	display: block;
 	width: 36%;
 	margin: 16px auto 10px;
 	padding: 4px 0;
+	clear: both;
 	color: #e54a4f;
 	text-align: center;
 	border: solid 2px #e54a4f;
@@ -233,7 +246,7 @@
 	transition: 0.3s;
 }
 .add-expense-submit:hover {
-	background: #E03C3C;
+	background: #1D9650;
 }
 .menu-block {
 	padding: 15px 15px 0 0;
@@ -366,7 +379,6 @@ a {
 	clear: both;
 	overflow: hidden;
 	background: #fff;
-	border-top: solid 2px #EBEBEB;
 }
 .expenses-list {
 	width: 80%;
@@ -380,7 +392,7 @@ a {
 	float: left;
 	margin: 0 0 10px 0;
 	font-size: 1.2rem;
-	border-bottom: solid 1px #DAD8D8;
+	border-bottom: solid 1px #F5F5F5;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
@@ -398,7 +410,7 @@ a {
 	line-height: 50px;
 }
 .expense-description {
-	width: 68%;
+	width: 67%;
 	padding: 1px 0;
 	float: left;
 	font-size: 1rem;
