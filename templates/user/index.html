@@ -85,8 +85,16 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="addCategory($event)" ng-keydown="createOnEnter($event)">Add Category</li>
+					<li class="add-expense-new-category" ng-click="showCategorySetter=!showCategorySetter">Add Category</li>
 				</ul>
+				<div class="category-creation-box" ng-show="showCategorySetter">
+					<div class="color-picker" ng-show="showColorPicker">
+						<input type="range" value="1" min="0" max="20" step="1" ng-model="tovaetest" ng-change="probvai()">
+					</div>
+					<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
+					<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="newCategoryName">
+					<button class="category-creation-input create-button" ng-click="createCategory()">Create</button>
+				</div>
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label"><i>(Description)</i></label>

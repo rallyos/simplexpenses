@@ -35,6 +35,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.categories = categories
 	$scope.planned = planned
 
+	$scope.thecolor = '#343534'
 
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
@@ -63,27 +64,18 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		});
 	}
 
-	$scope.addCategory = function(event) {
-
-		$scope.addCategoryButton = event.target
-		$scope.addCategoryButton.textContent = ''
-		$scope.addCategoryButton.setAttribute('contenteditable', 'true')
-		$scope.addCategoryButton.style.cursor = 'text'
-		$scope.addCategoryButton.focus()
-	}
-
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			var title = key.target.textContent
-			Category.save({'title': title, 'description': 'a new category', 'color': '#ff6138'}, function(response) {
-				$scope.categories.push(response);
-				$scope.addCategoryButton.textContent = 'Add Category'
-				$scope.addCategoryButton.removeAttribute('contenteditable')
-				$scope.addCategoryButton.style.cursor = 'pointer'
-			})
+			//Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+				$scope.categories.push({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor});
+			//})
 
 			return false
 		}
+	}
+
+	$scope.createCategory = function() {
+		$scope.categories.push({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor});
 	}
 
 	$scope.showSpendingsOnCategory = function(event) {
@@ -227,7 +219,14 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 
-
+	$scope.probvai = function() {
+		console.log($scope.tovaetest)
+		colors = ['#087E7E', '#1AF923', '#C2474C', '#BFA41A', '#60E879', '#603885',
+				'#76CB49', '#91F70D', '#704FF5', '#E15FD6', '#F4BECB', '#C68600',
+				'#17249B', '#9320B7', '#C3A31A', '#A2BCEA', '#AC2D9C', '#F0E589',
+				'#6F9976', '#874DDC']
+		$scope.thecolor = colors[$scope.tovaetest]
+	}
 
 
 	$scope.testclick_clone = function(event) {
