@@ -9,20 +9,23 @@ from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSeria
 
 from django.core.serializers.json import DjangoJSONEncoder
 
+import datetime
 
 import json
+
+today = datetime.date.today()
 
 def index(request):
     if request.user.is_authenticated():
         # Expiremental
-        queryset = Expense.objects.filter(user_id__exact=request.user.id)
+        queryset = Expense.objects.filter(user_id__exact=request.user.id, date__month=today.month)
         expenses = queryset.order_by('-date')
         serializedExpenses = ExpenseSerializer(expenses, many=True)
 
         categories = Category.objects.filter(user_id__exact=request.user.id)
         serializedCategories = CategorySerializer(categories, many=True)
 
-        planned = Planned.objects.filter(user_id__exact=request.user.id)
+        planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__month=today.month)
         serializedPlanned = PlannedSerializer(planned, many=True)
 
         bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
@@ -88,7 +91,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
-        queryset = Expense.objects.filter(user_id__exact=self.request.user.id)
+        queryset = Expense.objects.filter(user_id__exact=self.request.user.id, date__month=today.month)
         return queryset.order_by('-date')
 
     def pre_save(self, obj):
@@ -111,7 +114,7 @@ class PlannedViewSet(viewsets.ModelViewSet):
     serializer_class = PlannedSerializer
 
     def get_queryset(self):
-        return Planned.objects.filter(user_id__exact=self.request.user.id)
+        return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__month=today.month)
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id

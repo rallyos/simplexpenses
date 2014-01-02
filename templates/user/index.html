@@ -27,7 +27,7 @@
 		<div class="menu-block">
 			<div class="plan-right-block">
 				<span class="test-button" ng-click="showPlanned()">></span>
-				<h1 class="summed-plan-amount">{{nextMonthAmount}}</h1>
+				<h1 class="summed-plan-amount">{{nextMonthAmount}}{{currency}}</h1>
 				<div class="plan-small-graph">
 				<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
@@ -51,7 +51,7 @@
 				<div class="app-preferences">
 					<h4 class="settings-heading">App Preferences</h4>
 					<label class="settings-label" for="currency">Currency</label>
-					<input class="settings-input" id="currency" type="text" placeholder="Symbol">
+					<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency">
 					<a href="logout" class="log-out">Sign Out</a>
 				</div>
 				<div class="password-change">
@@ -105,14 +105,14 @@
 		<div class="monthly-graphs">
 			<div class="testovobrat" ng-show="testovobratdisplay"></div>
 			<section class="this-month-block">
-				<span class="sum-expenses">{{thisMonthAmount}}</span>
+				<span class="sum-expenses">{{thisMonthAmount}}{{currency}}</span>
 				<div class="graph">
 					<canvas class="category" ng-click="showSpendingsOnCategory($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
 			<section class="planned-block">
-				<span class="sum-planned">{{nextMonthAmount}}</span>
+				<span class="sum-planned">{{nextMonthAmount}}{{currency}}</span>
 				<div class="graph">
 					<canvas class="category" ng-click="testclick_clone($event); testovobratdisplay" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
@@ -123,7 +123,7 @@
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">
 					<span class="category-circle" style="background: {{setCategoryColor()}}"></span>
-					<span class="expense-sum">{{expense.amount}}</span>
+					<span class="expense-sum">{{expense.amount}}{{currency}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
 					<h3 class="expense-date">{{expense.date}}</h3>
 					<span class="nov-test" ng-click="deleteExpense($index)">x</span>
