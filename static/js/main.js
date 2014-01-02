@@ -298,7 +298,18 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 		return name
 	}
+	$scope.setOnEnter = function(key) {
+		if (key.which == ENTER_KEY) {
 
+			$http({
+			    method: 'POST',
+			    url: 'set_currency',
+			    data: {'currency': $scope.currency},
+			})
+
+			return false
+		}
+	}
 
 
 
