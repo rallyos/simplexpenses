@@ -35,6 +35,8 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.categories = categories
 	$scope.planned = planned
 
+	$scope.currency = currency
+
 	$scope.thecolor = '#343534'
 
 	$scope.translateForm = function() {

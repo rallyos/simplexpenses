@@ -48,7 +48,9 @@ def index(request):
         planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=today.year, planned_month__month=today.month)
         serializedPlanned = PlannedSerializer(planned, many=True)
 
-        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
+        app_settings = AppSettings.objects.get(user_id__exact=request.user.id)
+
+        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder), 'currency': app_settings.currency}
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
