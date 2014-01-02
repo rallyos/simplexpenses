@@ -20,3 +20,7 @@ class Planned(models.Model):
 	category = models.ForeignKey(Category)
 	planned_amount = models.DecimalField(max_digits=12, decimal_places=2)
 	planned_month = models.DateField(auto_now_add=True)
+
+class AppSettings(models.Model):
+	user = models.ForeignKey(User)
+	currency = models.CharField(max_length=10)

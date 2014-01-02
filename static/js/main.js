@@ -82,6 +82,8 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 		sum = 0;
 
+		$scope.testovobratdisplay = true;
+
  		for (i=0;$scope.expenses.length > i;i++) {
 
 			if ($scope.expenses[i].category_id == this.category.id) {
@@ -94,11 +96,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 
 		testovobrat = document.getElementsByClassName('testovobrat')[0]
-
+		testovotext = document.getElementsByClassName('testovotext')[0]
 		testovobrat.style.background = this.category.color
 		testovobrat.style.left = event.target.offsetLeft + 'px'
 		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-		testovobrat.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
+		testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
 
 	}
 
@@ -167,7 +169,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		if (event.which == ENTER_KEY) {
 			for (i=0; $scope.planned.length > i;i++) {
 				if ($scope.planned[i].category_id == this.category.id) {
+
 					$scope.planned[i].planned_amount = Number(event.target.value)
+
+					is_found = true;
 
 					// just testing before i make a method for this...
 					$http({
@@ -178,7 +183,18 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 					}).success(function() {
 						$scope.sumPlanned()
 					})
+					break
+				} else {
+					is_found = false;
 				}
+			}
+
+			if (!is_found) {
+				console.log('SAVE SAVE SAVE')
+				Planned.save({'category_id': this.category.id, 'planned_amount': event.target.value},function(response) {
+						planned.push(response);
+						$scope.sumPlanned()
+				});
 			}
 		}
 
@@ -272,8 +288,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.setCategoryName = function() {
 		this_category = this.expense.category_id
 
-		name = ''
-
  		for (i=0;$scope.categories.length > i;i++) {
 			if ($scope.categories[i].id == this_category) {
 				name = $scope.categories[i].title
@@ -281,7 +295,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 				continue
 			}
 		}
-		
+
 		return name
 	}
 
