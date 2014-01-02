@@ -55,8 +55,7 @@ def index(request):
 
 def set_currency(request):
     if request.method == 'POST':
-        json.loads(request.body)
-        currency = request.POST['currency']
+        currency = json.loads(request.body).get('currency', None)
         AppSettings.objects.create(user_id=request.user.id, currency=currency)
 
         return HttpResponse(status=201)
