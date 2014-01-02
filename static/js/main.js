@@ -269,7 +269,21 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		amount = amount.toFixed(2)
 		return amount + '%'
 	}
+	$scope.setCategoryName = function() {
+		this_category = this.expense.category_id
 
+		name = ''
+
+ 		for (i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == this_category) {
+				name = $scope.categories[i].title
+			} else {
+				continue
+			}
+		}
+		
+		return name
+	}
 
 
 

@@ -447,6 +447,22 @@ a {
 	margin: 10px -0px;
 	float: left;
 	border-radius: 30px;
+	position: relative;
+}
+.expense-show-category-name {
+	display: block;
+	position: absolute;
+	top: 3px;
+	left: -25px;
+	padding: 2px 4px;
+	font-size: 0.9rem;
+	opacity: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3;s
+}
+.category-circle:hover .expense-show-category-name {
+	opacity: 1;
+	left: -50px;
 }
 .expense-sum {
 	width: 12%;

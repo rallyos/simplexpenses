@@ -91,7 +91,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
-        queryset = Expense.objects.filter(user_id__exact=self.request.user.id, date__month=today.month)
+        queryset = Expense.objects.filter(user_id__exact=self.request.user.id, date__year=today.year, date__month=today.month)
         return queryset.order_by('-date')
 
     def pre_save(self, obj):
@@ -114,7 +114,7 @@ class PlannedViewSet(viewsets.ModelViewSet):
     serializer_class = PlannedSerializer
 
     def get_queryset(self):
-        return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__month=today.month)
+        return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__year=today.year, planned_month__month=today.month)
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
