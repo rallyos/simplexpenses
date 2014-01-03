@@ -107,6 +107,7 @@
 	position: absolute;
 	left: 35%;
 	width: 30%;
+	min-width: 320px;
 	text-align: center;
 	background: #fff;
 	border-radius: 3px;
@@ -122,10 +123,14 @@
 	transform: translateY(0);
 }
 .category-creation-box {
-	position: absolute;
-	height: 50px;
-	background: #fff;
-	border: solid 2px #ECECEC;
+	position: relative;
+	width: 45%;
+	height: 42px;
+	margin: 10px 2.5%;
+	float: left;
+	font-size: 1rem;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 .color-picker {
 	position: absolute;
@@ -142,27 +147,33 @@
 	height: 30px;
 	margin: 10px 2px;
 	float: left;
+	border-radius: 30px;
 	cursor: pointer;
 }
 .category-creation-input {
 	display: block;
+	width: 58%;
 	height: 24px;
+	padding-right: 30px;
 	margin: 10px 6px;
 	float: left;
 	font-size: 0.9rem;
+	text-indent: 2px;
+	border: solid 2px #bababa;
+	outline: 0;
+	-webkit-appearance: none;
 }
 .create-button {
+	position: absolute;
+	right: 5px;
 	height: 30px;
-	padding: 4px 6px;
+	margin: 10px 0;
+	padding: 2px 6px;
 	color: #fff;
 	background: #1D9650;
 	border: 0;
-	border-radius: 2px;
-	opacity: 0.7;
+	border-radius: 6px;
 	cursor: pointer;
-}
-.create-button:hover {
-	opacity: 1;
 }
 .add-expense {
 	display: block;
@@ -223,20 +234,6 @@
 }
 .not-selected {
 	opacity: 0.3;
-}
-.add-expense-new-category {
-	width: 45%;
-	margin: 10px 2.5%;
-	float: left;
-	font-size: 1rem;
-	color: #FF6558;
-	text-align: left;
-	cursor: pointer;
-	opacity: 0.5;
-	outline: 0;
-}
-.add-expense-new-category:hover {
-	opacity: 1;
 }
 .add-expense-sum {
 	display: block;
@@ -613,4 +610,12 @@ a {
 	background: #F3462C;
 	border-color: #F3462C;
 	color: #fff;
+}
+
+/* delete when you see this */
+
+@media screen and (max-width: 767px) {
+	.expense-form {
+		min-width: 432px;
+	}
 }

@@ -3,6 +3,9 @@
 // And change the name of 'planned'
 var ENTER_KEY = 13;
 
+// maybe delete when the classes if you have own toggle func
+var tick = new Image()
+tick.src = 'http://simplexpenses.herokuapp.com/static/img/rt.png'
 
 var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 
@@ -10,6 +13,7 @@ var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 expensesApp.config(function($httpProvider) {
 	$httpProvider.defaults.headers.post = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 	$httpProvider.defaults.headers.delete = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
+	$httpProvider.defaults.headers.put = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 })
 
 expensesApp.factory('Expense', ['$resource', function($resource) {
@@ -31,13 +35,22 @@ expensesApp.factory('Expens', ['$resource', function($resource) {
 
 expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens) {
 
-	$scope.expenses = expenses
-	$scope.categories = categories
-	$scope.planned = planned
-
+	$scope.categories = JSON.parse(c)
+	$scope.expenses = JSON.parse(e);
+	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
 
+
+	testovobrat = document.getElementsByClassName('testovobrat')[0]
+	testovotext = document.getElementsByClassName('testovotext')[0]
+	wrapper = document.getElementsByClassName('wrapper')[0]
+
+
 	$scope.thecolor = '#343534'
+
+	// offfff :( delete these two lines
+	settingsBlock = document.getElementsByClassName('settings-block')[0]
+	plannedBlock = document.getElementsByClassName('plan-right-block')[0]
 
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
@@ -80,30 +93,46 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		$scope.categories.push({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor});
 	}
 
-	$scope.showSpendingsOnCategory = function(event) {
+	$scope.showPlnCategoryDetails = function() {
 
-		sum = 0;
+			plamount = this.plan.planned_amount
 
-		$scope.testovobratdisplay = true;
+			$scope.testovobratdisplay = true;
 
- 		for (i=0;$scope.expenses.length > i;i++) {
 
-			if ($scope.expenses[i].category_id == this.category.id) {
-				var number = Number($scope.expenses[i].amount)
-				sum = sum + number
-				var amount = sum.toFixed(2);
-			} else {
-				continue
+			for (i=0; $scope.categories.length > i; i++) {
+				if ( $scope.categories[i].id == this.plan.category_id ) {
+					color = $scope.categories[i].color
+					title = $scope.categories[i].title
+				}
 			}
-		}
 
-		testovobrat = document.getElementsByClassName('testovobrat')[0]
-		testovotext = document.getElementsByClassName('testovotext')[0]
-		testovobrat.style.background = this.category.color
-		testovobrat.style.left = event.target.offsetLeft + 'px'
-		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-		testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
+			testovobrat.style.background = color
+			testovobrat.style.left = event.target.offsetLeft + 'px'
+			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
+			testovotext.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
+	}
 
+	$scope.showExpCategoryDetails = function() {		
+			sum = 0;
+
+			$scope.testovobratdisplay = true;
+
+	 		for (i=0;$scope.expenses.length > i;i++) {
+
+				if ($scope.expenses[i].category_id == this.category.id) {
+					var number = Number($scope.expenses[i].amount)
+					sum = sum + number
+					var amount = sum.toFixed(2);
+				} else {
+					continue
+				}
+			}
+
+			testovobrat.style.background = this.category.color
+			testovobrat.style.left = event.target.offsetLeft + 'px'
+			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
+			testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
 	}
 
 
@@ -143,9 +172,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.sumExpenses = function () {
 		sum = 0
 
-		for (i=0; expenses.length > i;i++) {
+		for (i=0; $scope.expenses.length > i;i++) {
 
-			var number = Number(expenses[i].amount)
+			var number = Number($scope.expenses[i].amount)
 			sum = sum + number
 		}
 
@@ -156,9 +185,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.sumPlanned = function() {
 		sum = 0
 
-		for (i=0; planned.length > i;i++) {
+		for (i=0; $scope.planned.length > i;i++) {
 
-			var number = Number(planned[i].planned_amount)
+			var number = Number($scope.planned[i].planned_amount)
 			sum = sum + number
 		}
 
@@ -194,7 +223,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			if (!is_found) {
 				console.log('SAVE SAVE SAVE')
 				Planned.save({'category_id': this.category.id, 'planned_amount': event.target.value},function(response) {
-						planned.push(response);
+						$scope.planned.push(response);
 						$scope.sumPlanned()
 				});
 			}
@@ -203,20 +232,42 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.showSettings = function() {
+
 		settingsBlock = document.getElementsByClassName('settings-block')[0]
 
 		if (settingsBlock.className == 'settings-block') {
 			settingsBlock.className += ' show-settings-block'
+
+			closeSettingsOnClick = function(click) {
+				// settings
+				if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+					settingsBlock.className = 'settings-block'
+					wrapper.removeEventListener('click', closeSettingsOnClick)
+				}
+			}
+
+			wrapper.addEventListener('click', closeSettingsOnClick)
+
 		} else {
 			settingsBlock.className = 'settings-block'
 		}
 	}
 
 	$scope.showPlanned = function() {
+
 		plannedBlock = document.getElementsByClassName('plan-right-block')[0]
 
 		if (plannedBlock.className == 'plan-right-block') {
 			plannedBlock.className += ' show-plan-right-block'
+
+			closePlannedOnClick = function(click) {
+				if (click.target.offsetParent.classList[0] != 'plan-right-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+					plannedBlock.className = 'plan-right-block'
+					wrapper.removeEventListener('click', closePlannedOnClick)
+				}				
+			}
+
+			wrapper.addEventListener('click', closePlannedOnClick)
 		} else {
 			plannedBlock.className = 'plan-right-block'
 		}
@@ -246,28 +297,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		$scope.thecolor = colors[$scope.tovaetest]
 	}
 
-
-	$scope.testclick_clone = function(event) {
-
-		plamount = this.plan.planned_amount
-
-		$scope.testovobratdisplay = true;
-
-		testovobrat = document.getElementsByClassName('testovobrat')[0]
-
-		for (i=0; $scope.categories.length > i; i++) {
-			if ( $scope.categories[i].id == this.plan.category_id ) {
-				console.log($scope.categories[i])
-				color = $scope.categories[i].color
-				title = $scope.categories[i].title
-			}
+	$scope.hideElements = function(click) {
+		if (click.target.classList[0] != 'category' && $scope.testovobratdisplay == true) {
+			$scope.testovobratdisplay = false;		
 		}
-
-		testovobrat.style.background = color
-		testovobrat.style.left = event.target.offsetLeft + 'px'
-		testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-		testovobrat.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
-		console.log(title + ' - ' + plamount)
 	}
 
 	$scope.dsa = function() {
@@ -302,12 +335,21 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 	$scope.setOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-
-			$http({
-			    method: 'POST',
-			    url: 'set_currency',
-			    data: {'currency': $scope.currency},
-			})
+			// if not set - post
+			if (currency == '') {
+				$http({
+				    method: 'POST',
+				    url: 'set_currency',
+				    data: {'currency': $scope.currency},
+				})
+			// if set - put
+			} else {
+				$http({
+				    method: 'PUT',
+				    url: 'set_currency',
+				    data: {'currency': $scope.currency},
+				})
+			}
 
 			return false
 		}

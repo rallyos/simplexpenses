@@ -15,26 +15,6 @@ import json
 
 today = datetime.date.today()
 
-def freeworld(request, year, month):
-
-    if request.user.is_authenticated():
-        if year is not None:
-            # Expiremental
-            queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=year, date__month=month)
-            expenses = queryset.order_by('-date')
-            serializedExpenses = ExpenseSerializer(expenses, many=True)
-
-            categories = Category.objects.filter(user_id__exact=request.user.id)
-            serializedCategories = CategorySerializer(categories, many=True)
-
-            planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=year, planned_month__month=month)
-            serializedPlanned = PlannedSerializer(planned, many=True)
-
-            bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
-            return render(request, 'user/index.html', bootstrapped_data)
-        else:
-            return redirect('/')
-
 def index(request):
     if request.user.is_authenticated():
         # Expiremental
@@ -59,6 +39,11 @@ def set_currency(request):
     if request.method == 'POST':
         currency = json.loads(request.body).get('currency', None)
         AppSettings.objects.create(user_id=request.user.id, currency=currency)
+
+        return HttpResponse(status=201)
+    else:
+        currency = json.loads(request.body).get('currency', None)
+        AppSettings.objects.filter(user_id=request.user.id).update(currency=currency)
 
         return HttpResponse(status=201)
 
@@ -154,3 +139,26 @@ class PlannedViewSet(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
+
+
+def freeworld(request, year, month):
+
+    if request.user.is_authenticated():
+        if year is not None:
+            # Expiremental
+            queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=year, date__month=month)
+            expenses = queryset.order_by('-date')
+            serializedExpenses = ExpenseSerializer(expenses, many=True)
+
+            categories = Category.objects.filter(user_id__exact=request.user.id)
+            serializedCategories = CategorySerializer(categories, many=True)
+
+            planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=year, planned_month__month=month)
+            serializedPlanned = PlannedSerializer(planned, many=True)
+
+            bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
+            return render(request, 'user/index.html', bootstrapped_data)
+        else:
+            return redirect('/')
+
+

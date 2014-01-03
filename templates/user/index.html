@@ -3,29 +3,24 @@
 <html lang="en" ng-app="expensesApp">
 <head>
 	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>Simplexpense</title>
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic|Open+Sans:400,300' rel='stylesheet' type='text/css'>
-	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.3/angular.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.3/angular-resource.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.3/angular-animate.min.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
 	<script src="{% static "js/main.js" %}"></script>
 	<script>
 		c = '{{categories|escapejs}}'
-		categories = JSON.parse(c)
-
 		e = '{{expenses|escapejs}}'
-		expenses = JSON.parse(e);
-
-		d = '{{planned|escapejs}}'
-		planned = JSON.parse(d);
-
+		p = '{{planned|escapejs}}'
 		currency = '{{currency|escapejs}}'
 	</script>
 </head>
 <body>
 	{% verbatim %}			
-	<div class="wrapper" ng-controller="mainController">
+	<div class="wrapper" ng-controller="mainController" ng-click="hideElements($event)">
 		<div class="menu-block">
 			<div class="plan-right-block">
 				<span class="test-button" ng-click="showPlanned()">></span>
@@ -45,7 +40,7 @@
 			<ul class="menu-links">
 	{% endverbatim %}			
 				<li class="menu-link-item"><a href="#"><span class="testes">Plan</span><img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()"></a></li>
-				<li class="menu-link-item"><a href="#"><span class="testes">History</span><img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30"></a></li>
+				<li class="menu-link-item"><a href="#"><span class="testes">Not Available Yet</span><img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30"></a></li>
 				<li class="menu-link-item"><a href="#"><span class="testes">Settings</span><img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()"></a></li>
 	{% verbatim %}
 			</ul>
@@ -56,6 +51,14 @@
 					<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency" ng-keydown="setOnEnter($event)">
 					<a href="logout" class="log-out">Sign Out</a>
 				</div>
+				<div class="edit-categories">
+					<h4 class="settings-heading">Categories</h4>
+					<ul class="plan-categories-list">
+						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
+							<span class="plan-category-title">{{category.title}}</span>
+						</li>
+					</ul>
+				</div>				
 				<div class="password-change">
 					<h4 class="settings-heading">Password</h4>
 					<input class="input-password" type="password" placeholder="New Password" ng-model="newPass" ng-click="submPassButton=true">
@@ -87,16 +90,15 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
-					<li class="add-expense-new-category" ng-click="showCategorySetter=!showCategorySetter">Add Category</li>
-				</ul>
-				<div class="category-creation-box" ng-show="showCategorySetter">
-					<div class="color-picker" ng-show="showColorPicker">
-						<input type="range" value="1" min="0" max="20" step="1" ng-model="tovaetest" ng-change="probvai()">
-					</div>
-					<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
-					<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="newCategoryName">
-					<button class="category-creation-input create-button" ng-click="createCategory()">Create</button>
-				</div>
+					<li class="category-creation-box">
+						<div class="color-picker" ng-show="showColorPicker">
+							<input type="range" value="1" min="0" max="20" step="1" ng-model="tovaetest" ng-change="probvai()">
+						</div>
+						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
+						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="newCategoryName" placeholder="New Category">
+						<button class="create-button" ng-click="createCategory()">Create</button>
+					</li>
+				</ul>			
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label"><i>(Description)</i></label>
@@ -105,18 +107,18 @@
 			</div>
 		</div>
 		<div class="monthly-graphs">
-			<div class="testovobrat" ng-show="testovobratdisplay"></div>
+			<div class="testovobrat" ng-show="testovobratdisplay"><span class="testovotext"></span></div>
 			<section class="this-month-block">
 				<span class="sum-expenses">{{thisMonthAmount}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="showSpendingsOnCategory($event); testovobratdisplay" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showExpCategoryDetails()" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
 			<section class="planned-block">
 				<span class="sum-planned">{{nextMonthAmount}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="testclick_clone($event); testovobratdisplay" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="showPlnCategoryDetails()" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
