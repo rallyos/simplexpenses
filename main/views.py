@@ -30,7 +30,7 @@ def index(request):
 
         app_settings = AppSettings.objects.get(user_id__exact=request.user.id)
 
-        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder), 'currency': app_settings.currency}
+        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder), 'currency': app_settings.currency, 'showNewCatButton': bool(app_settings.show_newCatButton)}
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
@@ -38,7 +38,7 @@ def index(request):
 def set_currency(request):
     if request.method == 'POST':
         currency = json.loads(request.body).get('currency', None)
-        AppSettings.objects.create(user_id=request.user.id, currency=currency)
+        AppSettings.objects.create(user_id=request.user.id, currency=currency, show_newCatButton=True)
 
         return HttpResponse(status=201)
     else:

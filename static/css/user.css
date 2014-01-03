@@ -28,17 +28,29 @@
 	color: #fff;
 	background: #72D0F5;
 }
+.settings-group {
+	float: left;
+	margin: 8px 0;
+}
 .settings-label {
 	float: left;
 	margin-left: 12px;
 }
 .settings-input {
 	width: 25%;
-	margin: 0 12px 10px 0;
+	margin: 0 12px 0 0;
 	padding: 3px 0;
 	float: right;
 	font-size: 0.9rem;
 	text-indent: 4px;
+}
+.settings-checkbox {
+	float: right;
+	margin: 0 12px 0 0;
+	background-image: url(http://simplexpenses.herokuapp.com/static/img/1.png)
+}
+.settings-checkbox:checked {
+	background-image: url(http://simplexpenses.herokuapp.com/static/img/2.png)
 }
 .log-out {
 	display: block;

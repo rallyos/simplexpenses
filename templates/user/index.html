@@ -16,6 +16,7 @@
 		e = '{{expenses|escapejs}}'
 		p = '{{planned|escapejs}}'
 		currency = '{{currency|escapejs}}'
+		showNewCatButton = Boolean('{{showNewCatButton|escapejs}}')
 	</script>
 </head>
 <body>
@@ -47,8 +48,14 @@
 			<div class="settings-block">
 				<div class="app-preferences">
 					<h4 class="settings-heading">App Preferences</h4>
-					<label class="settings-label" for="currency">Currency</label>
-					<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency" ng-keydown="setOnEnter($event)">
+					<div class="settings-group">
+						<label class="settings-label" for="showNewButton">Show new category button</label>
+						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="showNewCatButton">
+					</div>
+					<div class="settings-group">
+						<label class="settings-label" for="currency">Currency</label>
+						<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency" ng-keydown="setOnEnter($event)">
+					</div>
 					<a href="logout" class="log-out">Sign Out</a>
 				</div>
 				<div class="edit-categories">
@@ -90,7 +97,7 @@
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
-					<li class="category-creation-box">
+					<li class="category-creation-box" ng-if="showNewCatButton">
 						<div class="color-picker" ng-show="showColorPicker">
 							<input type="range" value="1" min="0" max="20" step="1" ng-model="tovaetest" ng-change="probvai()">
 						</div>
