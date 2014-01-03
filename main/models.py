@@ -24,3 +24,4 @@ class Planned(models.Model):
 class AppSettings(models.Model):
 	user = models.ForeignKey(User)
 	currency = models.CharField(max_length=10)
+	show_newCatButton = models.BooleanField(default=True)
