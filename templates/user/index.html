@@ -50,7 +50,7 @@
 					<h4 class="settings-heading">App Preferences</h4>
 					<div class="settings-group">
 						<label class="settings-label" for="showNewButton">Show new category button</label>
-						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="showNewCatButton">
+						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="showNewCatButton" ng-change="toggleNcButton()">
 					</div>
 					<div class="settings-group">
 						<label class="settings-label" for="currency">Currency</label>

@@ -35,6 +35,7 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+# maybe create one function for all settings
 def set_currency(request):
     if request.method == 'POST':
         currency = json.loads(request.body).get('currency', None)
@@ -45,6 +46,11 @@ def set_currency(request):
         currency = json.loads(request.body).get('currency', None)
         AppSettings.objects.filter(user_id=request.user.id).update(currency=currency)
 
+        return HttpResponse(status=201)
+
+def toggleNewCgButton(request):
+        newCgButton = bool(json.loads(request.body).get('showNewCatButton', None))
+        AppSettings.objects.create(user_id=request.user.id, show_newCatButton=newCgButton)
         return HttpResponse(status=201)
 
 def register_user(request):

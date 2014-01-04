@@ -354,7 +354,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			return false
 		}
 	}
-
+	$scope.toggleNcButton = function() {
+		setTimeout(function() {
+			$http({
+			    method: 'PUT',
+			    url: 'toggleNewCgButton',
+			    data: {'showNewCatButton': $scope.showNewCatButton},
+			})
+		}, 3000);
+	}
 
 
 
