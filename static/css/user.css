@@ -29,8 +29,9 @@
 	background: #72D0F5;
 }
 .settings-group {
+	width: 100%;
 	float: left;
-	margin: 8px 0;
+	margin: 10px 0;
 }
 .settings-label {
 	float: left;
@@ -45,9 +46,17 @@
 	text-indent: 4px;
 }
 .settings-checkbox {
+	display: block;
+	width: 25px;
+	height: 25px;
 	float: right;
 	margin: 0 12px 0 0;
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/1.png)
+	background-size: 25px;
+	background-repeat: no-repeat;
+	background-image: url(http://simplexpenses.herokuapp.com/static/img/1.png);
+	/* not working in safar - temporary */
+	-moz-appearance: none;
+	-webkit-appearance: none;
 }
 .settings-checkbox:checked {
 	background-image: url(http://simplexpenses.herokuapp.com/static/img/2.png)
