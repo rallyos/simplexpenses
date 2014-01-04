@@ -50,7 +50,7 @@ def set_currency(request):
 
 def toggleNewCgButton(request):
         newCgButton = bool(json.loads(request.body).get('showNewCatButton', None))
-        AppSettings.objects.create(user_id=request.user.id, show_newCatButton=newCgButton)
+        AppSettings.objects.filter(user_id=request.user.id).update(show_newCatButton=newCgButton)
         return HttpResponse(status=201)
 
 def register_user(request):
