@@ -61,6 +61,20 @@
 .settings-checkbox:checked {
 	background-image: url(http://simplexpenses.herokuapp.com/static/img/2.png)
 }
+.edit-category-color-picker {
+	background: #FFF;
+}
+.edit-category-color {
+	display: block;
+	float: left;
+	margin: 0 6px 0 0;
+	width: 22px;
+	height: 22px;
+	cursor: pointer;
+}
+.edit-category-delete {
+	float: right;
+}
 .log-out {
 	display: block;
 	width: 36%;

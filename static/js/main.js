@@ -32,14 +32,18 @@ expensesApp.factory('Expens', ['$resource', function($resource) {
 	return $resource( '/api/expense/:id');
 }]);
 
+expensesApp.factory('Catego', ['$resource', function($resource) {
+	return $resource( '/api/category/:id');
+}]);
 
-expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens) {
+expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens, Catego) {
 
 	$scope.categories = JSON.parse(c)
 	$scope.expenses = JSON.parse(e);
 	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
 
+	$scope.showNewCatButton = showNewCatButton
 
 	testovobrat = document.getElementsByClassName('testovobrat')[0]
 	testovotext = document.getElementsByClassName('testovotext')[0]
@@ -47,6 +51,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 	$scope.thecolor = '#343534'
+
+	colors = ['#087E7E', '#1AF923', '#C2474C', '#BFA41A', '#60E879', '#603885',
+				'#76CB49', '#91F70D', '#704FF5', '#E15FD6', '#F4BECB', '#C68600',
+				'#17249B', '#9320B7', '#C3A31A', '#A2BCEA', '#AC2D9C', '#F0E589',
+				'#6F9976', '#874DDC']
 
 	// offfff :( delete these two lines
 	settingsBlock = document.getElementsByClassName('settings-block')[0]
@@ -81,16 +90,18 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			//Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
-				$scope.categories.push({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor});
-			//})
+			Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+				$scope.categories.push(response);
+			})
 
 			return false
 		}
 	}
 
 	$scope.createCategory = function() {
-		$scope.categories.push({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor});
+		Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+			$scope.categories.push(response);
+		})
 	}
 
 	$scope.showPlnCategoryDetails = function() {
@@ -290,10 +301,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.probvai = function() {
 		console.log($scope.tovaetest)
-		colors = ['#087E7E', '#1AF923', '#C2474C', '#BFA41A', '#60E879', '#603885',
-				'#76CB49', '#91F70D', '#704FF5', '#E15FD6', '#F4BECB', '#C68600',
-				'#17249B', '#9320B7', '#C3A31A', '#A2BCEA', '#AC2D9C', '#F0E589',
-				'#6F9976', '#874DDC']
 		$scope.thecolor = colors[$scope.tovaetest]
 	}
 
@@ -354,6 +361,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			return false
 		}
 	}
+
 	$scope.toggleNcButton = function() {
 		setTimeout(function() {
 			$http({
@@ -364,9 +372,32 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}, 3000);
 	}
 
+	$scope.editCategoryColor = function(tovaetesta) {
+		this.category.color = colors[tovaetesta]
+		cat = this.category
+		// time for put method in directives...
+		if(typeof t !== "undefined"){
+		  clearTimeout(t);
+		}
+		t = setTimeout(function() {
+			$http({
+			    method: 'PUT',
+			    url: '/api/category/' + cat.id,
+			    // remove title, description and tell the backend not to need them
+			    data: {title: cat.title, description: 'Edited',color: cat.color},
+			    headers: {'X-CSRFToken': csrftoken}
+			})
+	
+			console.log('started')
+		}, 3000)
+	}
 
-
-
+	$scope.deleteCategory = function(idx) {
+		//something is wrok
+		Catego.delete({id: this.category.id},function() {
+			$scope.categories.splice(idx, 1)
+		})		
+	}
 
 
 
