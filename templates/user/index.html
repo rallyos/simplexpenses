@@ -63,10 +63,10 @@
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" ng-repeat="category in categories">
 							<div class="edit-category-color-picker" ng-show="showColorPicker">
-								<input type="range" value="1" min="0" max="20" step="1" ng-model="tovaetesta" ng-change="editCategoryColor(tovaetesta)">
+								<input type="range" value="1" min="0" max="35" step="1" ng-model="tovaetesta" ng-change="editCategoryColor(tovaetesta)">
 							</div>
 							<span class="edit-category-color" style="background: {{category.color}}" ng-click="showColorPicker=!showColorPicker"></span>
-							<span class="edit-category-title">{{category.title}}</span>
+							<span class="edit-category-title" ng-click="editCategoryName($event)" ng-keydown="setNameOnEnter($event)" contenteditable="{{contentedit}}">{{category.title}}</span>
 							<button class="edit-category-delete" ng-click="deleteCategory($index)">Delete</button>
 						</li>
 					</ul>
@@ -104,7 +104,7 @@
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
 					<li class="category-creation-box" ng-if="showNewCatButton">
 						<div class="color-picker" ng-show="showColorPicker">
-							<input type="range" value="1" min="0" max="20" step="1" ng-model="$parent.tovaetest" ng-change="probvai()">
+							<input type="range" value="1" min="0" max="35" step="1" ng-model="$parent.tovaetest" ng-change="probvai()">
 						</div>
 						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
 						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="New Category">

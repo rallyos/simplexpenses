@@ -72,6 +72,10 @@
 	height: 22px;
 	cursor: pointer;
 }
+.edit-category-title {
+	cursor: pointer;
+	outline: 0;
+}
 .edit-category-delete {
 	float: right;
 }
@@ -140,11 +144,13 @@
 }
 .expense-form {
 	position: absolute;
-	left: 35%;
+	margin-left: auto;
+	margin-right: auto;
+	left: 0;
+	right: 0;
 	width: 30%;
 	min-width: 320px;
 	text-align: center;
-	background: #fff;
 	border-radius: 3px;
 	-webkit-transform: translateY(-85%);
 	-ms-transform: translateY(-85%);
@@ -187,7 +193,7 @@
 }
 .category-creation-input {
 	display: block;
-	width: 58%;
+	width: 55%;
 	height: 24px;
 	padding-right: 30px;
 	margin: 10px 6px;
@@ -196,7 +202,6 @@
 	text-indent: 2px;
 	border: solid 2px #bababa;
 	outline: 0;
-	-webkit-appearance: none;
 }
 .create-button {
 	position: absolute;
@@ -236,6 +241,7 @@
 	-webkit-transform: translateY(0);
 	-ms-transform: translateY(0);
 	transform: translateY(0);
+	background: #fff;
 	box-shadow: 0 2px 3px #BABABA;
 }
 .add-expense-categories-list {
@@ -394,6 +400,10 @@ ul, p, h3, img {
 a {
 	color: #343534;
 	text-decoration: none;
+}
+.category-creation-input,
+.add-expense-submit {
+	-webkit-appearance: none;
 }
 .monthly-graphs {
 	width: 100%;
@@ -649,8 +659,30 @@ a {
 
 /* delete when you see this */
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 768px) {
 	.expense-form {
 		min-width: 432px;
 	}
+	.planned-block,
+	.this-month-block {
+		width: 45%;
+	}
+}
+@media screen and (max-width: 568px) {
+	.expense-form {
+		min-width: 432px;
+	}
+	.monthly-graphs {
+		margin-top: 100px;
+	}
+	.planned-block,
+	.this-month-block {
+		width: 100%;
+		margin: 0 0 30px 0;
+	}
+}
+@media screen and (max-width: 432px) {
+	.expense-form {
+		width: 100%;
+		min-width: 0;
 }

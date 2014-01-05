@@ -52,10 +52,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.thecolor = '#343534'
 
-	colors = ['#087E7E', '#1AF923', '#C2474C', '#BFA41A', '#60E879', '#603885',
-				'#76CB49', '#91F70D', '#704FF5', '#E15FD6', '#F4BECB', '#C68600',
-				'#17249B', '#9320B7', '#C3A31A', '#A2BCEA', '#AC2D9C', '#F0E589',
-				'#6F9976', '#874DDC']
+	colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
+			'#126567', '#5e8b1d', '#16a61e', '#7eb400', '#00a478', '#40a800', '#81b71a', '#8cc83b', '#82b548', '#9aca3c', '#5cb868',
+			'#ffcc00', '#ffcc33', '#db7132', '#e47911', '#ff8700', '#dd4814', '#f0503a', '#e51937', '#e54a4f', '#dd4b39', '#cc0f16', '#a82400', '#b9070a']
 
 	// offfff :( delete these two lines
 	settingsBlock = document.getElementsByClassName('settings-block')[0]
@@ -392,8 +391,28 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}, 3000)
 	}
 
+	$scope.editCategoryName = function(click) {
+		$scope.contentedit = true
+		click.target.style.cursor = 'text'
+	}
+
+	$scope.setNameOnEnter = function(key) {
+		if (key.which == ENTER_KEY) {
+			$scope.contentedit = false
+			key.target.style.cursor = 'pointer'
+			this.category.title = key.target.textContent
+			console.log(this.category.title)
+			$http({
+			    method: 'PUT',
+			    url: '/api/category/' + this.category.id,
+			    // remove title, description and tell the backend not to need them
+			    data: {title: this.category.title, description: 'Edited', color: this.category.color},
+			    headers: {'X-CSRFToken': csrftoken}
+			})			
+		}
+	}
+
 	$scope.deleteCategory = function(idx) {
-		//something is wrok
 		Catego.delete({id: this.category.id},function() {
 			$scope.categories.splice(idx, 1)
 		})		
