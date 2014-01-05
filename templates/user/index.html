@@ -20,31 +20,40 @@
 	</script>
 </head>
 <body>
-	{% verbatim %}			
+	{% verbatim %}
 	<div class="wrapper" ng-controller="mainController" ng-click="hideElements($event)">
 		<div class="menu-block">
-			<div class="plan-right-block">
-				<span class="test-button" ng-click="showPlanned()">></span>
-				<h1 class="summed-plan-amount">{{nextMonthAmount}}{{currency}}</h1>
-				<div class="plan-small-graph">
-				<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+			<div class="plan-expenses-block">
+				<span class="hide-plan-expenses-block" ng-click="showPlanned()">></span>
+				<h1 class="plan-expenses-total">{{nextMonthAmount}}{{currency}}</h1>
+				<div class="plan-expenses-small-graph">
+					<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
 							<span class="plan-category-title">{{category.title}}</span>
-							<input class="planned-category-amount" ng-init="planned_am=getPlannedAmount()" ng-keydown="updatePlanned($event)" type="number" value="{{planned_am}}">
+							<input class="plan-category-amount" ng-init="planned_am=getPlannedAmount()" ng-keydown="updatePlanned($event)" type="number" value="{{planned_am}}">
 						</li>
 					</ul>
 				</div>
 			</div>
+			{% endverbatim %}			
 			<ul class="menu-links">
-	{% endverbatim %}			
-				<li class="menu-link-item"><a href="#"><span class="testes">Plan</span><img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()"></a></li>
-				<li class="menu-link-item"><a href="#"><span class="testes">Not Available Yet</span><img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30"></a></li>
-				<li class="menu-link-item"><a href="#"><span class="testes">Settings</span><img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()"></a></li>
-	{% verbatim %}
+				<li class="menu-link-item">
+						<img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()">
+						<span class="menu-link-name">Plan</span>
+				</li>
+				<li class="menu-link-item">
+						<img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30">
+						<span class="menu-link-name">Not Available Yet</span>
+					</li>
+				<li class="menu-link-item">
+						<img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()">
+						<span class="menu-link-name">Settings</span>
+					</li>
 			</ul>
+			{% verbatim %}
 			<div class="settings-block">
 				<div class="app-preferences">
 					<h4 class="settings-heading">App Preferences</h4>
@@ -70,7 +79,7 @@
 							<button class="edit-category-delete" ng-click="deleteCategory($index)">Delete</button>
 						</li>
 					</ul>
-				</div>				
+				</div>
 				<div class="password-change">
 					<h4 class="settings-heading">Password</h4>
 					<input class="input-password" type="password" placeholder="New Password" ng-model="newPass" ng-click="submPassButton=true">
@@ -78,30 +87,22 @@
 				</div>
 			</div>
 		</div>
-		
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+	<!-- REFACTOR BLOCK -->
 
 		<div class="test">
 			<div class="expense-form" ng-class="headerClass ? 'add-expense-translate' : ''">
 				<input class="add-expense-sum" type="text" value="0.00" ng-init="exp_amount='0.00'" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory(soDark)" ng-init="soDark=this">{{category.title}}</li>
+
+
+	<!-- REFACTOR BLOCK -->
+
+
 					<li class="category-creation-box" ng-if="showNewCatButton">
 						<div class="color-picker" ng-show="showColorPicker">
 							<input type="range" value="1" min="0" max="35" step="1" ng-model="$parent.tovaetest" ng-change="probvai()">
@@ -110,7 +111,11 @@
 						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="New Category">
 						<button class="create-button" ng-click="createCategory()">Create</button>
 					</li>
-				</ul>			
+				</ul>
+
+	<!-- REFACTOR BLOCK -->
+
+
 				<!-- Make it button or something more semantic -->
 				<input class="add-expense-description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label"><i>(Description)</i></label>
@@ -118,6 +123,10 @@
 				<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
 			</div>
 		</div>
+
+	<!-- REFACTOR BLOCK -->
+
+
 		<div class="monthly-graphs">
 			<div class="testovobrat" ng-show="testovobratdisplay"><span class="testovotext"></span></div>
 			<section class="this-month-block">
@@ -127,6 +136,11 @@
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
+
+
+	<!-- REFACTOR BLOCK -->
+
+
 			<section class="planned-block">
 				<span class="sum-planned">{{nextMonthAmount}}{{currency}}</span>
 				<div class="graph">
@@ -135,6 +149,10 @@
 				<h3 class="graph-expl">Planned</h3>
 			</section>
 		</div>
+
+	<!-- REFACTOR BLOCK -->
+
+
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li ng-repeat="expense in expenses" class="expense">

@@ -58,7 +58,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	// offfff :( delete these two lines
 	settingsBlock = document.getElementsByClassName('settings-block')[0]
-	plannedBlock = document.getElementsByClassName('plan-right-block')[0]
+	plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
@@ -265,21 +265,21 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.showPlanned = function() {
 
-		plannedBlock = document.getElementsByClassName('plan-right-block')[0]
+		plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
-		if (plannedBlock.className == 'plan-right-block') {
-			plannedBlock.className += ' show-plan-right-block'
+		if (plannedBlock.className == 'plan-expenses-block') {
+			plannedBlock.className += ' show-plan-expenses-block'
 
 			closePlannedOnClick = function(click) {
-				if (click.target.offsetParent.classList[0] != 'plan-right-block' && click.target.offsetParent.classList[0] != 'menu-block') {
-					plannedBlock.className = 'plan-right-block'
+				if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+					plannedBlock.className = 'plan-expenses-block'
 					wrapper.removeEventListener('click', closePlannedOnClick)
 				}				
 			}
 
 			wrapper.addEventListener('click', closePlannedOnClick)
 		} else {
-			plannedBlock.className = 'plan-right-block'
+			plannedBlock.className = 'plan-expenses-block'
 		}
 	}
 
