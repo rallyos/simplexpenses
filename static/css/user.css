@@ -271,274 +271,24 @@ a {
 .edit-category-delete {
 	float: right;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.monthly-graphs {
-	width: 100%;
-	float: left;
-}
-.this-month-block {
-	width: 40%;
-	margin: 0 0 100px 5%;
-	float: left;
-	text-align: center;
-}
-.sum-expenses,
-.sum-planned {
-	display: block;
-	margin: 20px 0;
-	font-family: 'Roboto', sans-serif;
-	font-size: 3rem;
-	font-weight: 100;
-	text-align: center;
-}
-.graph {
-	width: 100%;
-	height: 240px;
-}
-.category {
-	width: 26px;
-	height: 5px;
-	margin-right: 20px;
-	cursor: pointer;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-.category:hover {
-	-webkit-transform: scale(1.05);
-	-ms-transform: scale(1.05);
-	transform: scale(1.05);
-}
-.graph-expl {
-	width: 100%;
-	margin: 10px;
-	font-weight: 300;
-	text-align: center;
-}
-.planned-block {
-	width: 40%;
-	margin: 0 5% 100px 0;
-	float: right;
-	text-align: center;
-}
-.expenses-block {
-	width: 100%;
-	margin: 0 auto 50px;
-	clear: both;
-	overflow: hidden;
-	background: #fff;
-}
-.expenses-list {
-	width: 80%;
-	margin: 10px 10%;
-	list-style: none;
-	font-weight: 400;
-}
-.expense {
-	width: 100%;
-	height: 50px;
-	float: left;
-	margin: 0 0 10px 0;
-	font-size: 1.2rem;
-	border-bottom: solid 1px #F5F5F5;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
-}
-.category-circle {
-	width: 30px;
-	height: 30px;
-	margin: 10px -0px;
-	float: left;
-	border-radius: 30px;
-	position: relative;
-}
-.expense-show-category-name {
-	display: block;
-	position: absolute;
-	top: 3px;
-	left: -25px;
-	padding: 2px 4px;
-	font-size: 0.9rem;
-	opacity: 0;
-	-webkit-transition: 0.3s;
-	transition: 0.3;s
-}
-.category-circle:hover .expense-show-category-name {
-	opacity: 1;
-	left: -50px;
-}
-.expense-sum {
-	width: 12%;
-	margin: 0 4% 0 2%;
-	float: left;
-	line-height: 50px;
-}
-.expense-description {
-	width: 67%;
-	padding: 1px 0;
-	float: left;
-	font-size: 1rem;
-	font-weight: inherit;
-	text-align: center;
-	line-height: 50px;
-}
-.expense-date {
-	width: 10%;
-	float: left;
-	font-size: inherit;
-	font-weight: inherit;
-	line-height: 50px;
-	text-align: center;
-}
-.expense.ng-enter,
-.expense.ng-leave {
-	-webkit-transition:0.5s linear all;
-	transition:0.5s linear all;
-}
-
-.expense.ng-enter,
-.expense.ng-leave.ng-leave-active {
-  opacity:0;
-}
-.expense.ng-leave,
-.expense.ng-enter.ng-enter-active {
-  opacity:1;
-}
-.testovobrat {
-	position: absolute;
-	padding: 8px 15px;
-	font-weight: 300;
-	color: #fff;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
-}
-
-
-
-
-
-
-
-
-.nov-test {
-	display: block;
-	width: 19px;
-	height: 19px;
-	margin: 15px 0;
-	float: right;
-	font-size: 0.8rem;
-	color: #bababa;
-	text-align: center;
-	line-height: 19px;
-	border: solid 1px #bababa;
-	border-radius: 19px;
-	cursor: pointer;
-}
-.nov-test:hover {
-	background: #F3462C;
-	border-color: #F3462C;
-	color: #fff;
-}
-
-
-
-
-
-
-
-
-
-
-
-.test {
+.expense-form-wrapper {
 	width: 100%;
 	float: left;
 	margin-bottom: 20px;
+	text-align: center;
+	font-weight: 300;
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 }
 .expense-form {
 	position: absolute;
+	/* This is hackish - always seek more methods, calc() don't have needed support yet */
 	margin-left: auto;
 	margin-right: auto;
 	left: 0;
 	right: 0;
 	width: 30%;
 	min-width: 320px;
-	text-align: center;
 	border-radius: 3px;
 	-webkit-transform: translateY(-85%);
 	-ms-transform: translateY(-85%);
@@ -550,6 +300,51 @@ a {
 	-webkit-transform: translateY(0);
 	-ms-transform: translateY(0);
 	transform: translateY(0);
+}
+.expense-form-translate {
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
+	background: #fff;
+	box-shadow: 0 2px 3px #BABABA;
+}
+.add-expense-sum {
+	display: block;
+	width: 90%;
+	margin: 0 auto;
+	font-family: inherit;
+	font-size: 3rem;
+	font-weight: inherit;
+	text-align: center;
+	outline: 0;
+	border: 0;
+}
+.add-expense-categories-list {
+	width: 100%;
+	margin: 10px auto 25px;
+	float: left;
+	list-style: none;
+}
+.add-expense-category {
+	width: 45%;
+	padding: 10px 0;
+	margin: 8px 2.5%;
+	float: left;
+	color: #fff;
+	background-position: 94%;
+	background-size: 20px;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	outline: 0;
+	opacity: 0.5;
+	border-radius: 42px;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.add-expense-category-selected {
+	background-image: url(http://simplexpenses.herokuapp.com/static/img/rt.png);
+	opacity: 1;
+	font-weight: 400;
 }
 .category-creation-box {
 	position: relative;
@@ -578,6 +373,8 @@ a {
 	float: left;
 	border-radius: 30px;
 	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 .category-creation-input {
 	display: block;
@@ -597,83 +394,12 @@ a {
 	height: 30px;
 	margin: 10px 0;
 	padding: 2px 6px;
+	font-family: inherit;
 	color: #fff;
 	background: #1D9650;
 	border: 0;
 	border-radius: 6px;
 	cursor: pointer;
-}
-.add-expense {
-	display: block;
-	width: 40px;
-	height: 40px;
-	margin: 40px auto 10px;
-	font-weight: 300;
-	font-size: 2rem;
-	text-align: center;
-	line-height: 40px;
-	color: #fff;
-	background: #343534;
-	border-radius: 40px;
-	cursor: pointer;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-.add-expense:hover {
-	-webkit-transform: scale(1.2);
-	-ms-transform: scale(1.2);
-	transform: scale(1.2);
-	background: #FF6558;
-}
-.add-expense-translate {
-	-webkit-transform: translateY(0);
-	-ms-transform: translateY(0);
-	transform: translateY(0);
-	background: #fff;
-	box-shadow: 0 2px 3px #BABABA;
-}
-.add-expense-categories-list {
-	width: 100%;
-	margin: 10px auto 25px;
-	float: left;
-	list-style: none;
-}
-.add-expense-category {
-	width: 45%;
-	padding: 10px 0;
-	margin: 8px 2.5%;
-	float: left;
-	color: #fff;
-	font-size: 1rem;
-	font-weight: 300;
-	background-position: 94%;
-	background-size: 20px;
-	background-repeat: no-repeat;
-	cursor: pointer;
-	outline: 0;
-	opacity: 0.5;
-	border-radius: 42px;
-	-webkit-transition: 0.3s;
-	transition: 0.3s;
-}
-.add-expense-category-selected {
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/rt.png);
-	opacity: 1;
-	font-weight: 400;
-}
-.not-selected {
-	opacity: 0.3;
-}
-.add-expense-sum {
-	display: block;
-	width: 90%;
-	margin: 0 auto;
-	font-family: inherit;
-	font-size: 3rem;
-	font-weight: 300;
-	text-align: center;
-	outline: 0;
-	border: 0;
 }
 .add-expense-description {
 	display: block;
@@ -682,7 +408,7 @@ a {
 	padding-bottom: 3px;
 	font-family: inherit;
 	font-size: 1.4rem;
-	font-weight: 300;
+	font-weight: inherit;
 	outline: 0;
 	border: 0;
 	border-bottom: dashed 1px #F17F7F;
@@ -697,16 +423,14 @@ a {
 	width: 100%;
 	margin-bottom: 20px;
 	font-family: 'Roboto', sans-serif;
-	font-weight: 300;
 	font-size: 1.2rem;
 	color: #B9B9B9;
-	text-align: center;
 }
 .add-expense-submit {
 	padding: 8px 30px;
 	font-family: inherit;
 	font-size: 1.1rem;
-	font-weight: 300;
+	font-weight: inherit;
 	color: #fff;
 	background: #747474;
 	border-radius: 2px;
@@ -719,21 +443,171 @@ a {
 .add-expense-submit:hover {
 	background: #1D9650;
 }
-.menu-toggle {
-	cursor: pointer;
-}
-.menu-toggle-line {
+.add-expense {
 	display: block;
-	width: 36px;
-	height: 6px;
-	margin: 4px 0;
+	width: 40px;
+	height: 40px;
+	margin: 40px auto 10px;
+	font-size: 2rem;
+	line-height: 40px;
+	color: #fff;
 	background: #343534;
-	border-radius: 2px;
+	border-radius: 40px;
+	cursor: pointer;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
 }
-
-
-
-
+.add-expense:hover {
+	-webkit-transform: scale(1.2);
+	-ms-transform: scale(1.2);
+	transform: scale(1.2);
+	background: #FF6558;
+}
+.monthly-graphs {
+	width: 100%;
+	float: left;
+}
+.graph-information {
+	position: absolute;
+	padding: 8px 15px;
+	font-weight: 300;
+	color: #fff;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.this-month-block {
+	width: 40%;
+	margin: 0 0 100px 5%;
+	float: left;
+	text-align: center;
+}
+.total-expenses,
+.total-planned {
+	display: block;
+	margin: 20px 0;
+	font-family: 'Roboto', sans-serif;
+	font-size: 3rem;
+	font-weight: 100;
+}
+.graph {
+	width: 100%;
+	height: 240px;
+}
+.category {
+	width: 26px;
+	height: 5px;
+	margin: 0 10px;
+	cursor: pointer;
+	-webkit-transition: 0.4s;
+	transition: 0.4s;
+}
+.category:hover {
+	-webkit-transform: scale(1.05);
+	-ms-transform: scale(1.05);
+	transform: scale(1.05);
+}
+.graph-expl {
+	width: 100%;
+	margin: 10px;
+	font-weight: 300;
+}
+.planned-block {
+	width: 40%;
+	margin: 0 5% 100px 0;
+	float: right;
+	text-align: center;
+}
+.expenses-block {
+	width: 100%;
+	margin: 0 auto 50px;
+	clear: both;
+	background: #fff;
+}
+.expenses-list {
+	width: 80%;
+	margin: 10px 10%;
+	list-style: none;
+}
+.expense {
+	width: 100%;
+	height: 50px;
+	float: left;
+	margin: 0 0 10px 0;
+	font-size: 1.2rem;
+	line-height: 50px;
+	border-bottom: solid 1px #F5F5F5;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.category-circle {
+	width: 30px;
+	height: 30px;
+	margin: 10px -0px;
+	float: left;
+	border-radius: 30px;
+	position: relative;
+}
+.expense-show-category-name {
+	display: block;
+	position: absolute;
+	left: -25px;
+	font-size: 0.9rem;
+	line-height: 30px;
+	opacity: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3;s
+}
+.category-circle:hover .expense-show-category-name {
+	opacity: 1;
+	left: -50px;
+}
+.expense-sum {
+	width: 12%;
+	margin: 0 4% 0 2%;
+	float: left;
+}
+.expense-description {
+	width: 67%;
+}
+.expense-date {
+	width: 10%;
+}
+.expense-description,
+.expense-date {
+	float: left;
+	font-size: 1rem;
+	font-weight: inherit;
+	text-align: center;
+}
+.expense-delete {
+	display: block;
+	width: 19px;
+	height: 19px;
+	margin: 14.5px 0;
+	float: right;
+	font-size: 0.8rem;
+	color: #bababa;
+	text-align: center;
+	line-height: 19px;
+	border: solid 1px #bababa;
+	border-radius: 21px;
+	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.expense-delete:hover {
+	background: #F3462C;
+	border-color: #F3462C;
+	color: #fff;
+}
+.expense.ng-enter,
+.expense.ng-leave.ng-leave-active {
+	opacity:0;
+}
+.expense.ng-leave,
+.expense.ng-enter.ng-enter-active {
+	opacity:1;
+}
 
 @media screen and (max-width: 768px) {
 	.expense-form {

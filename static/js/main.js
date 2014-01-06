@@ -45,10 +45,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.showNewCatButton = showNewCatButton
 
-	testovobrat = document.getElementsByClassName('testovobrat')[0]
-	testovotext = document.getElementsByClassName('testovotext')[0]
+	testovobrat = document.getElementsByClassName('graph-information')[0]
+	testovotext = document.getElementsByClassName('graph-information-text')[0]
 	wrapper = document.getElementsByClassName('wrapper')[0]
 
+	$scope.exp_amount = '0.00'
 
 	$scope.thecolor = '#343534'
 
@@ -65,9 +66,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 
-	$scope.selectCategory = function(soDark) {
+	$scope.selectCategory = function() {
 		// again highly expiremental
-		$scope.selectedCat = soDark.category.id
+		$scope.selectedCat = this.category.id
 		catgs = document.getElementsByClassName('add-expense-category')
 
 		for (i=0; catgs.length > i; i++) {
@@ -75,6 +76,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 
 		this.categoryClass = !this.categoryClass;
+
 	}
 
 	$scope.addExpense = function() {
@@ -145,19 +147,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
 	}
 
-
-	$scope.selectCategory = function(soDark) {
-		// again highly expiremental
-		$scope.selectedCat = soDark.category.id
-		catgs = document.getElementsByClassName('add-expense-category')
-		for (i=0; catgs.length > i; i++) {
-			catgs[i].className = 'add-expense-category';
-		}
-
-
-		this.categoryClass = !this.categoryClass;
-	}
-
 	$scope.setChartColor = function() {
 
 		// fix this mess
@@ -174,7 +163,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.setChartHeight = function() {
 		// highly expiremental
-		in_percent = this.plan.planned_amount / $scope.nextMonthAmount * 100
+		in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
 		amount = in_percent.toFixed(2)
 		return amount + '%'
 	}
@@ -202,7 +191,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 
 		var amount = sum.toFixed(2);
-		$scope.nextMonthAmount = amount
+		$scope.nextMonthTotal = amount
 	}
 
 	$scope.updatePlanned = function(event) {
@@ -293,7 +282,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			}
 		}
 
-		return amount
+		return Number(amount)
 	}
 
 
@@ -371,8 +360,8 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}, 3000);
 	}
 
-	$scope.editCategoryColor = function(tovaetesta) {
-		this.category.color = colors[tovaetesta]
+	$scope.editCategoryColor = function(newCategoryColor) {
+		this.category.color = colors[newCategoryColor]
 		cat = this.category
 		// time for put method in directives...
 		if(typeof t !== "undefined"){
@@ -442,7 +431,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		    headers: {'Content-Type': 'application/x-www-form-urlencoded'}
 		}).success(function() {
 			$scope.newPass = ''
-			$scope.submPassButton = false
+			$scope.showSubmPassButton = false
 		})
 	}
 
