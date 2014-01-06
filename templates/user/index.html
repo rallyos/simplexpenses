@@ -20,19 +20,26 @@
 	</script>
 </head>
 <body>
-	{% verbatim %}
 	<div class="wrapper" ng-controller="mainController" ng-click="hideElements($event)">
-		<ul class="menu-links-mobile">
-			<li class="menu-link-item-mobile">
-					<img src="{% static "img/mb_user_plan.png" %}" class="menu-icon-mobile" height="30" width="30" ng-click="showPlanned()">
-			</li>
-			<li class="menu-link-item-mobile">
-					<img src="{% static "img/mb_user_history.png" %}" class="menu-icon-mobile" height="30" width="30">
-			</li>
-			<li class="menu-link-item-mobile">
-					<img src="{% static "img/mb_user_settings.png" %}" class="menu-icon-mobile" height="30" width="30" ng-click="showSettings()">
-			</li>
-		</ul>
+		<div class="menu-block-mobile" ng-class="showMobileMenu ? 'translate-menu-block-mobile' : '';">
+			<div class="menu-toggle-mobile" ng-click="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
+				<span class="menu-toggle-line"></span>
+				<span class="menu-toggle-line"></span>
+				<span class="menu-toggle-line"></span>
+			</div>
+			<ul class="menu-links-mobile">
+				<li class="menu-link-item-mobile">
+						<img src="{% static "img/mb_user_plan.png" %}" class="menu-icon-mobile" height="30" width="30" ng-click="showPlanned()">
+				</li>
+				<li class="menu-link-item-mobile">
+						<img src="{% static "img/mb_user_history.png" %}" class="menu-icon-mobile" height="30" width="30">
+				</li>
+				<li class="menu-link-item-mobile">
+						<img src="{% static "img/mb_user_settings.png" %}" class="menu-icon-mobile" height="30" width="30" ng-click="showSettings()">
+				</li>
+			</ul>
+		</div>
+	{% verbatim %}		
 		<div class="menu-block">
 			<div class="plan-expenses-block">
 				<span class="hide-plan-expenses-block" ng-click="showPlanned()">></span>
@@ -98,8 +105,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="expense-form-wrapper">
-			<div class="expense-form" ng-class="headerClass ? 'expense-form-translate' : ''">
+		<div class="expense-form-wrapper" ng-class="">
+			<div class="expense-form" ng-class="headerClass ? 'expense-form-translate' : '';hideExpenseForm ? 'hide-expense-form' : ''">
 				<input class="add-expense-sum" type="text" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
