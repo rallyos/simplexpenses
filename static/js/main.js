@@ -51,11 +51,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.exp_amount = '0.00'
 
-	$scope.thecolor = '#343534'
+	$scope.tovaetest = '#343534' // should be random color
+
 
 	colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
 			'#126567', '#5e8b1d', '#16a61e', '#7eb400', '#00a478', '#40a800', '#81b71a', '#8cc83b', '#82b548', '#9aca3c', '#5cb868',
 			'#ffcc00', '#ffcc33', '#db7132', '#e47911', '#ff8700', '#dd4814', '#f0503a', '#e51937', '#e54a4f', '#dd4b39', '#cc0f16', '#a82400', '#b9070a']
+
+	$scope.thecolor = colors[Math.floor((Math.random() * 35) + 0)]
+
 
 	// offfff :( delete these two lines
 	settingsBlock = document.getElementsByClassName('settings-block')[0]
@@ -99,17 +103,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 	}
 
-	$scope.createCategory = function() {
-		Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
-			$scope.categories.push(response);
-		})
-	}
-
-	$scope.showPlnCategoryDetails = function() {
+	$scope.showPlnCatDetails = function() {
 
 			plamount = this.plan.planned_amount
 
-			$scope.testovobratdisplay = true;
+			$scope.showGraphInfo = true;
 
 
 			for (i=0; $scope.categories.length > i; i++) {
@@ -125,10 +123,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			testovotext.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
 	}
 
-	$scope.showExpCategoryDetails = function() {		
+	$scope.showExpCatDetails = function() {		
 			sum = 0;
 
-			$scope.testovobratdisplay = true;
+			$scope.showGraphInfo = true;
 
 	 		for (i=0;$scope.expenses.length > i;i++) {
 
@@ -178,7 +176,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		}
 
 		var amount = sum.toFixed(2);
-		$scope.thisMonthAmount = amount
+		$scope.thisMonthTotal = amount
 	}
 
 	$scope.sumPlanned = function() {
@@ -288,13 +286,12 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 	$scope.probvai = function() {
-		console.log($scope.tovaetest)
 		$scope.thecolor = colors[$scope.tovaetest]
 	}
 
 	$scope.hideElements = function(click) {
-		if (click.target.classList[0] != 'category' && $scope.testovobratdisplay == true) {
-			$scope.testovobratdisplay = false;		
+		if (click.target.classList[0] != 'category' && $scope.showGraphInfo == true) {
+			$scope.showGraphInfo = false;		
 		}
 	}
 
@@ -311,7 +308,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 				continue
 			}
 		}
-		amount = amount / $scope.thisMonthAmount * 100
+		amount = amount / $scope.thisMonthTotal * 100
 		amount = amount.toFixed(2)
 		return amount + '%'
 	}
