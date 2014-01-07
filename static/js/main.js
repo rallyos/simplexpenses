@@ -232,6 +232,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		//!!!!
 		// The other function doesn't work, I don't have time to debug it now | Maybe some problem with "offsetParent*
 
+		// The block is not visible if the page is scrolled 
+		window.scrollTo(0)
+
 		if (settingsBlock.className == 'settings-block') {
 			settingsBlock.className += ' show-settings-block'
 		} else {
@@ -241,6 +244,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.mobilePlanned = function() {
+
+		// The block is not visible if the page is scrolled 
+		window.scrollTo(0)
 
 		if (plannedBlock.className == 'plan-expenses-block') {
 			plannedBlock.className += ' show-plan-expenses-block'

@@ -144,13 +144,17 @@
 		<section class="expenses-block">
 			<ul class="expenses-list">
 				<li class="expense" ng-repeat="expense in expenses">
-					<div class="category-circle" style="background: {{setCategoryColor()}}">
-						<span class="expense-show-category-name">{{setCategoryName()}}</span>						
+					<div class="expense-category-sum">
+						<div class="category-circle" style="background: {{setCategoryColor()}}">
+							<span class="expense-show-category-name">{{setCategoryName()}}</span>						
+						</div>
+						<span class="expense-sum">{{expense.amount}}{{currency}}</span>
 					</div>
-					<span class="expense-sum">{{expense.amount}}{{currency}}</span>
 					<h3 class="expense-description">{{expense.description}}</h3>
-					<h3 class="expense-date">{{expense.date}}</h3>
-					<span class="expense-delete" ng-click="deleteExpense($index)">x</span>
+					<div class="expense-date-and-delete">
+						<h3 class="expense-date">{{expense.date}}</h3>
+						<span class="expense-delete" ng-click="deleteExpense($index)">x</span>						
+					</div>
 				</li>
 			</ul>
 		</section>

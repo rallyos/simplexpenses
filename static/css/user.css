@@ -531,10 +531,14 @@ a {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
+.expense-category-sum {
+	width: 21%;
+	float: left;
+}
 .category-circle {
 	width: 30px;
 	height: 30px;
-	margin: 10px -0px;
+	margin: 10px 4px;
 	float: left;
 	border-radius: 30px;
 	position: relative;
@@ -554,15 +558,18 @@ a {
 	left: -50px;
 }
 .expense-sum {
-	width: 12%;
-	margin: 0 4% 0 2%;
+	margin: 0 10%;
 	float: left;
 }
 .expense-description {
-	width: 67%;
+	width: 60%;
+}
+.expense-date-and-delete {
+	width: 19%;
+	float: left;
 }
 .expense-date {
-	width: 10%;
+
 }
 .expense-description,
 .expense-date {
@@ -615,7 +622,7 @@ a {
 	-ms-transform: translateX(90%);
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
-	z-index: 2;
+	z-index: 3;
 	display: none;
 }
 .translate-menu-block-mobile {
@@ -627,12 +634,12 @@ a {
 .menu-toggle-mobile {
 	position: absolute;
 	float: left;
-	margin: 12.5px 0 12.5px 10px;
+	margin: 14px 0 14px 10px;
 }
 .menu-toggle-line {
 	display: block;
-	width: 30px;
-	height: 5px;
+	width: 28px;
+	height: 4px;
 	margin: 5px 0;
 	background: #fff;
 	border-radius: 1px;
@@ -658,6 +665,13 @@ a {
 	.this-month-block {
 		width: 45%;
 	}
+	.expenses-list {
+		width: 98%;
+		margin: 10px 1%;
+	}
+	.expense {
+		font-size: 1rem;
+	}
 }
 @media screen and (max-width: 568px) {
 	.monthly-graphs {
@@ -681,4 +695,9 @@ a {
 	.expense-form {
 		width: 100%;
 		min-width: 0;
+}
+
+@media screen and (max-width: 368px) {
+	.category {
+		width: 22px;
 }
