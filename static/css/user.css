@@ -42,7 +42,6 @@ a {
 .settings-block {
 	width: 320px;
 	position: absolute;
-	top: 60px;
 	right: 0;
 	background: #fff;
 	border-top: solid 2px #BABABA;
@@ -525,14 +524,14 @@ a {
 	height: 50px;
 	float: left;
 	margin: 0 0 10px 0;
-	font-size: 1.2rem;
+	font-size: 1rem;
 	line-height: 50px;
 	border-bottom: solid 1px #F5F5F5;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 }
 .expense-category-sum {
-	width: 21%;
+	width: 26%;
 	float: left;
 }
 .category-circle {
@@ -546,26 +545,29 @@ a {
 .expense-show-category-name {
 	display: block;
 	position: absolute;
-	left: -25px;
+	left: -8px;
 	font-size: 0.9rem;
 	line-height: 30px;
 	opacity: 0;
+	z-index: -1;
 	-webkit-transition: 0.3s;
 	transition: 0.3;s
 }
 .category-circle:hover .expense-show-category-name {
 	opacity: 1;
-	left: -50px;
+	-webkit-transform: translateX(-100%);
+	-ms-transform: translateX(-100%);
+	transform: translateX(-100%);
 }
 .expense-sum {
-	margin: 0 10%;
+	margin: 0 0 0 10%;
 	float: left;
 }
 .expense-description {
-	width: 60%;
+	width: 50%;
 }
 .expense-date-and-delete {
-	width: 19%;
+	width: 24%;
 	float: left;
 }
 .expense-date {
@@ -574,7 +576,7 @@ a {
 .expense-description,
 .expense-date {
 	float: left;
-	font-size: 1rem;
+	font-size: inherit;
 	font-weight: inherit;
 	text-align: center;
 }
@@ -690,6 +692,19 @@ a {
 	.menu-block-mobile {
 		display: block;
 	}
+	.plan-expenses-block,
+	.settings-block {
+		top: 60px;
+	}
+	.category-circle {
+		width: 22px;
+		height: 22px;
+		margin: 14px 4px;
+		border-radius: 22px;
+	}
+	.expense-description, .expense-date {
+		font-size: 0.9rem;
+	}
 }
 @media screen and (max-width: 432px) {
 	.expense-form {
@@ -700,4 +715,17 @@ a {
 @media screen and (max-width: 368px) {
 	.category {
 		width: 22px;
+	}
+	.expense-date {
+		display: none;
+	}
+	.expense-category-sum {
+		width: 35%;
+		float: left;
+	}
+	.expense-description {
+		width: 60%;
+	}
+	.expense-date-and-delete {
+		width: 5%;
 }
