@@ -11,14 +11,13 @@
 	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-touch.min.js"></script>
-	<script src="{% static "js/fastclick.js" %}"></script>
 	<script src="{% static "js/main.js" %}"></script>
 	<script>
-		c = '{{categories|escapejs}}'
-		e = '{{expenses|escapejs}}'
-		p = '{{planned|escapejs}}'
-		currency = '{{currency|escapejs}}'
-		showNewCatButton = Boolean('{{showNewCatButton|escapejs}}')
+		var c = '{{categories|escapejs}}'
+		var e = '{{expenses|escapejs}}'
+		var p = '{{planned|escapejs}}'
+		var currency = '{{currency|escapejs}}'
+		var showNewCatButton = Boolean('{{showNewCatButton|escapejs}}')
 	</script>
 </head>
 <body>
@@ -117,7 +116,7 @@
 							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.tovaetest" ng-change="probvai()">
 						</div>
 						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
-						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="New Category">
+						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="Name">
 					</li>
 				</ul>
 				<input class="add-expense-description" id="description" ng-model="exp_description" type="text">

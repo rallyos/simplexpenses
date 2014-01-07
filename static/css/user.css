@@ -258,7 +258,13 @@ a {
 	border-color: #90E06F;
 }
 .edit-category-color-picker {
+	position: absolute;
+	padding: 0 5px;
+	margin-top: -26px;
 	background: #FFF;
+	border: solid 1px #E9E9E9;
+	box-shadow: 0 2px 3px #EBEBEB;
+	border-radius: 4px;
 }
 .edit-category-color {
 	display: block;
@@ -317,6 +323,7 @@ a {
 	display: block;
 	width: 90%;
 	margin: 0 auto;
+	padding: 0;
 	font-family: inherit;
 	font-size: 3rem;
 	font-weight: inherit;
@@ -383,7 +390,7 @@ a {
 }
 .category-creation-input {
 	display: block;
-	width: 50%;
+	width: 62%;
 	height: 24px;
 	margin: 10px 6px;
 	float: left;

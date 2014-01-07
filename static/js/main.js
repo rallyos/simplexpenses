@@ -1,6 +1,8 @@
-window.addEventListener('load', function() {
-    FastClick.attach(document.body);
-}, false);
+
+'use strict'
+
+
+
 // ..... don't be shameful of this here... :)
 // And change the name of 'planned'
 var ENTER_KEY = 13;
@@ -47,16 +49,16 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.showNewCatButton = showNewCatButton
 
-	testovobrat = document.getElementsByClassName('graph-information')[0]
-	testovotext = document.getElementsByClassName('graph-information-text')[0]
-	wrapper = document.getElementsByClassName('wrapper')[0]
+	var testovobrat = document.getElementsByClassName('graph-information')[0]
+	var testovotext = document.getElementsByClassName('graph-information-text')[0]
+	var wrapper = document.getElementsByClassName('wrapper')[0]
 
 	$scope.exp_amount = '0.00'
 
 	$scope.tovaetest = '#343534' // should be random color
 
 
-	colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
+	var colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
 			'#126567', '#5e8b1d', '#16a61e', '#7eb400', '#00a478', '#40a800', '#81b71a', '#8cc83b', '#82b548', '#9aca3c', '#5cb868',
 			'#ffcc00', '#ffcc33', '#db7132', '#e47911', '#ff8700', '#dd4814', '#f0503a', '#e51937', '#e54a4f', '#dd4b39', '#cc0f16', '#a82400', '#b9070a']
 
@@ -64,8 +66,8 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 	// offfff :( delete these two lines
-	settingsBlock = document.getElementsByClassName('settings-block')[0]
-	plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
+	var settingsBlock = document.getElementsByClassName('settings-block')[0]
+	var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
 	$scope.translateForm = function() {
 		$scope.headerClass = !$scope.headerClass;
@@ -75,9 +77,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.selectCategory = function() {
 		// again highly expiremental
 		$scope.selectedCat = this.category.id
-		catgs = document.getElementsByClassName('add-expense-category')
+		var catgs = document.getElementsByClassName('add-expense-category')
 
-		for (i=0; catgs.length > i; i++) {
+		for (var i=0; catgs.length > i; i++) {
 			catgs[i].className = 'add-expense-category';
 		}
 
@@ -107,15 +109,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.showPlnCatDetails = function() {
 
-			plamount = this.plan.planned_amount
+			var plamount = this.plan.planned_amount
 
 			$scope.showGraphInfo = true;
 
 
-			for (i=0; $scope.categories.length > i; i++) {
+			for (var i=0; $scope.categories.length > i; i++) {
 				if ( $scope.categories[i].id == this.plan.category_id ) {
-					color = $scope.categories[i].color
-					title = $scope.categories[i].title
+					var color = $scope.categories[i].color
+					var title = $scope.categories[i].title
 				}
 			}
 
@@ -126,11 +128,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.showExpCatDetails = function() {		
-			sum = 0;
+			var sum = 0;
 
 			$scope.showGraphInfo = true;
 
-	 		for (i=0;$scope.expenses.length > i;i++) {
+	 		for (var i=0;$scope.expenses.length > i;i++) {
 
 				if ($scope.expenses[i].category_id == this.category.id) {
 					var number = Number($scope.expenses[i].amount)
@@ -150,11 +152,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.setChartColor = function() {
 
 		// fix this mess
-		vab = this.plan.category_id
+		var vab = this.plan.category_id
  
- 		for (i=0;$scope.categories.length > i;i++) {
+ 		for (var i=0;$scope.categories.length > i;i++) {
 			if ($scope.categories[i].id == vab) {
-				color = $scope.categories[i].color
+				var color = $scope.categories[i].color
 			}
 		}
 
@@ -163,15 +165,15 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.setChartHeight = function() {
 		// highly expiremental
-		in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
-		amount = in_percent.toFixed(2)
+		var in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
+		var amount = in_percent.toFixed(2)
 		return amount + '%'
 	}
 
 	$scope.sumExpenses = function () {
-		sum = 0
+		var sum = 0
 
-		for (i=0; $scope.expenses.length > i;i++) {
+		for (var i=0; $scope.expenses.length > i;i++) {
 
 			var number = Number($scope.expenses[i].amount)
 			sum = sum + number
@@ -182,9 +184,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.sumPlanned = function() {
-		sum = 0
+		var sum = 0
 
-		for (i=0; $scope.planned.length > i;i++) {
+		for (var i=0; $scope.planned.length > i;i++) {
 
 			var number = Number($scope.planned[i].planned_amount)
 			sum = sum + number
@@ -197,12 +199,12 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.updatePlanned = function(event) {
 
 		if (event.which == ENTER_KEY) {
-			for (i=0; $scope.planned.length > i;i++) {
+			for (var i=0; $scope.planned.length > i;i++) {
 				if ($scope.planned[i].category_id == this.category.id) {
 
 					$scope.planned[i].planned_amount = Number(event.target.value)
 
-					is_found = true;
+					var is_found = true;
 
 					// just testing before i make a method for this...
 					$http({
@@ -215,7 +217,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 					})
 					break
 				} else {
-					is_found = false;
+					var is_found = false;
 				}
 			}
 
@@ -263,7 +265,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		if (settingsBlock.className == 'settings-block') {
 			settingsBlock.className += ' show-settings-block'
 
-			closeSettingsOnClick = function(click) {
+			var closeSettingsOnClick = function(click) {
 				// settings
 				if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
 					settingsBlock.className = 'settings-block'
@@ -280,12 +282,12 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.showPlanned = function() {
 
-		plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
+		var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
 		if (plannedBlock.className == 'plan-expenses-block') {
 			plannedBlock.className += ' show-plan-expenses-block'
 
-			closePlannedOnClick = function(click) {
+			var closePlannedOnClick = function(click) {
 				if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
 					plannedBlock.className = 'plan-expenses-block'
 					wrapper.removeEventListener('click', closePlannedOnClick)
@@ -300,9 +302,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.getPlannedAmount = function() {
 	
-		amount = 0
+		var amount = 0
 
- 		for (i=0;$scope.planned.length > i;i++) {
+ 		for (var i=0;$scope.planned.length > i;i++) {
 			if ($scope.planned[i].category_id == this.category.id) {
 				amount = $scope.planned[i].planned_amount
 			}
@@ -325,9 +327,9 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.dsa = function() {
 		// highly expiremental
-		this_category = this.category.id
-		sum = 0
- 		for (i=0;$scope.expenses.length > i;i++) {
+		var this_category = this.category.id
+		var sum = 0
+ 		for (var i=0;$scope.expenses.length > i;i++) {
 			if ($scope.expenses[i].category_id == this_category) {
 				var number = Number($scope.expenses[i].amount)
 				sum = sum + number
@@ -341,11 +343,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		return amount + '%'
 	}
 	$scope.setCategoryName = function() {
-		this_category = this.expense.category_id
+		var this_category = this.expense.category_id
 
- 		for (i=0;$scope.categories.length > i;i++) {
+ 		for (var i=0;$scope.categories.length > i;i++) {
 			if ($scope.categories[i].id == this_category) {
-				name = $scope.categories[i].title
+				var name = $scope.categories[i].title
 			} else {
 				continue
 			}
@@ -387,7 +389,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.editCategoryColor = function(newCategoryColor) {
 		this.category.color = colors[newCategoryColor]
-		cat = this.category
+		var cat = this.category
 		// time for put method in directives...
 		if(typeof t !== "undefined"){
 		  clearTimeout(t);
@@ -437,11 +439,11 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.setCategoryColor = function() {
 		
 		// fix this mess
-		vab = this.expense.category_id
+		var vab = this.expense.category_id
  
- 		for (i=0;$scope.categories.length > i;i++) {
+ 		for (var i=0;$scope.categories.length > i;i++) {
 			if ($scope.categories[i].id == vab) {
-				color = $scope.categories[i].color
+				var color = $scope.categories[i].color
 			}
 		}
 
@@ -475,7 +477,7 @@ function getCookie (sKey) {
     return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
 }  
 
-csrftoken = getCookie('csrftoken')
+var csrftoken = getCookie('csrftoken')
 
 
 
