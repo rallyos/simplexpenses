@@ -10,6 +10,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
+	<script src="http://code.angularjs.org/1.2.7/angular-touch.min.js"></script>
 	<script src="{% static "js/main.js" %}"></script>
 	<script>
 		c = '{{categories|escapejs}}'
@@ -21,8 +22,8 @@
 </head>
 <body>
 	<div class="wrapper" ng-controller="mainController" ng-click="hideElements($event)">
-		<div class="menu-block-mobile" ng-class="showMobileMenu ? 'translate-menu-block-mobile' : '';">
-			<div class="menu-toggle-mobile" ng-click="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
+		<div class="menu-block-mobile" ng-class="showMobileMenu ? 'translate-menu-block-mobile' : ''" ng-swipe-right="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
+			<div class="menu-toggle-mobile" ng-click="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm" ng-swipe-left="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
 				<span class="menu-toggle-line"></span>
 				<span class="menu-toggle-line"></span>
 				<span class="menu-toggle-line"></span>

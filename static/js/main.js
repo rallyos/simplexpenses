@@ -7,7 +7,7 @@ var ENTER_KEY = 13;
 var tick = new Image()
 tick.src = 'http://simplexpenses.herokuapp.com/static/img/rt.png'
 
-var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
+var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate', 'ngTouch']);
 
 
 expensesApp.config(function($httpProvider) {
