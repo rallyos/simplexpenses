@@ -280,6 +280,16 @@ a {
 }
 .edit-category-delete {
 	float: right;
+	padding: 2px 6px 2px;
+	background: #FFF;
+	color: #E74B4B;
+	border: solid 1px #E74B4B;
+	border-radius: 4px;
+	-webkit-appearance: none;
+}
+.edit-category-delete:hover {
+	color: #fff;
+	background: #E74B4B;
 }
 .expense-form-wrapper {
 	width: 100%;
