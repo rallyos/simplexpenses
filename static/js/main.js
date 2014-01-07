@@ -1,4 +1,6 @@
-
+window.addEventListener('load', function() {
+    FastClick.attach(document.body);
+}, false);
 // ..... don't be shameful of this here... :)
 // And change the name of 'planned'
 var ENTER_KEY = 13;
