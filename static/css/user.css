@@ -42,6 +42,7 @@ a {
 .settings-block {
 	width: 320px;
 	position: absolute;
+	top: 60px;
 	right: 0;
 	background: #fff;
 	border-top: solid 2px #BABABA;
@@ -615,6 +616,7 @@ a {
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
 	z-index: 2;
+	display: none;
 }
 .translate-menu-block-mobile {
 	border-radius: 0;
@@ -644,7 +646,7 @@ a {
 	float: left;
 }
 .menu-icon-mobile {
-	margin: 15px 30px;
+	margin: 15px 25px;
 }
 .hide-expense-form {
 	-webkit-transform: translateY(-100%);

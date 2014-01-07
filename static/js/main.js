@@ -228,9 +228,29 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	}
 
-	$scope.showSettings = function() {
+	$scope.mobileSettings = function() {
+		//!!!!
+		// The other function doesn't work, I don't have time to debug it now | Maybe some problem with "offsetParent*
 
-		settingsBlock = document.getElementsByClassName('settings-block')[0]
+		if (settingsBlock.className == 'settings-block') {
+			settingsBlock.className += ' show-settings-block'
+		} else {
+			settingsBlock.className = 'settings-block'
+		}
+
+	}
+
+	$scope.mobilePlanned = function() {
+
+		if (plannedBlock.className == 'plan-expenses-block') {
+			plannedBlock.className += ' show-plan-expenses-block'
+		} else {
+			plannedBlock.className = 'plan-expenses-block'
+		}
+	}
+
+
+	$scope.showSettings = function() {
 
 		if (settingsBlock.className == 'settings-block') {
 			settingsBlock.className += ' show-settings-block'
