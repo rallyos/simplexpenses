@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		<div class="expense-form-wrapper" ng-class="">
-			<div class="expense-form" ng-class="headerClass ? 'expense-form-translate' : '';hideExpenseForm ? 'hide-expense-form' : ''">
+			<div class="expense-form" ng-class="[headerClass ? 'expense-form-translate' : '', hideExpenseForm ? 'hide-expense-form' : '']">
 				<input class="add-expense-sum" type="text" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
@@ -121,7 +121,7 @@
 				<input class="add-expense-description" id="description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label" for="description"><i>(Description)</i></label>
 				<input class="add-expense-submit" ng-click="addExpense()" type="submit">
-				<span class="add-expense" ng-click="translateForm(headerClass)">+</span>
+				<span class="add-expense" ng-click="headerClass=!headerClass">+</span>
 			</div>
 		</div>
 		<div class="monthly-graphs">
