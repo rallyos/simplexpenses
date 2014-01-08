@@ -35,6 +35,9 @@ def index(request):
     else:
         return render(request, 'index.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 # maybe create one function for all settings
 def set_currency(request):
     if request.method == 'POST':
@@ -63,6 +66,10 @@ def register_user(request):
             username = request.POST['username']
             password = request.POST['password1']
             user = authenticate(username=username, password=password)
+
+            # Just testing this way
+
+            AppSettings.objects.create(user_id=user.id)
 
             if user is not None:
                 if user.is_active:

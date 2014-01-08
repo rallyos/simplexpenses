@@ -4,6 +4,7 @@ from main import views
 
 urlpatterns = patterns('',
     url(r'^$', views.index, name='index'),
+    url(r'^about', views.about, name='about'),
     url(r'^set_currency', views.set_currency, name='set_currency'),
     url(r'^toggleNewCgButton', views.toggleNewCgButton, name='toggleNewCgButton'),
     url(r'^login', views.login_user, name='login'),

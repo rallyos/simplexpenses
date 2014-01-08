@@ -146,6 +146,28 @@ input {
 .me:hover {
 	text-decoration: underline;
 }
+.app-about {
+
+}
+.app-about-image {
+	width: 880px;
+	max-width: 100%;
+	margin: 30px auto 70px;
+}
+.app-about-heading {
+	margin: 0 0 0 10%;
+	font-weight: 300;
+	color: #90E06F;
+	text-align: left;
+}
+.app-about-text {
+	width: 80%;
+	margin: 5px auto 30px;
+	font-size: 1.1rem;
+	font-weight: 300;
+	color: #787878;
+	text-align: left;
+}
 @media screen and (max-width: 1024px) {
 	.feature {
 		width: 28%;
@@ -183,6 +205,12 @@ input {
 		float: left;
 		width: 45%;
 		margin: 0 2.5%;
+	}
+	.app-about-heading {
+		margin-left: 2%;
+	}
+	.app-about-text {
+		width: 96%;
 	}
 }
 @media screen and (max-width: 668px) {
