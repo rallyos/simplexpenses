@@ -3,17 +3,36 @@
 
 
 
-// ..... don't be shameful of this here... :)
-// And change the name of 'planned'
+function getCookie (sKey) {
+    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
+}  
+
+var csrftoken = getCookie('csrftoken')
+
 var ENTER_KEY = 13;
 
-// maybe delete when the classes if you have own toggle func
+// Preload image
 var tick = new Image()
 tick.src = 'http://simplexpenses.herokuapp.com/static/img/rt.png'
 
-var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate', 'ngTouch']);
+var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
+
+//Some amateurish substitutes of jquery methods
+
+Node.prototype.toggleClass = function(nodeClass) {
+
+	if (this.className.match(nodeClass)) {
+		nodeClass = ' ' + nodeClass
+		nodeClass = this.className.replace(nodeClass, '')
+		this.className = nodeClass
+	} else {
+		this.className += ' ' + nodeClass
+	}
+}
 
 
+
+// Include this header to every request
 expensesApp.config(function($httpProvider) {
 	$httpProvider.defaults.headers.post = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 	$httpProvider.defaults.headers.delete = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
@@ -32,15 +51,15 @@ expensesApp.factory('Planned', ['$resource', function($resource) {
 	return $resource( '/api/planned/');
 }]);
 
-expensesApp.factory('Expens', ['$resource', function($resource) {
+expensesApp.factory('ExpenseSingle', ['$resource', function($resource) {
 	return $resource( '/api/expense/:id');
 }]);
 
-expensesApp.factory('Catego', ['$resource', function($resource) {
+expensesApp.factory('CategorySingle', ['$resource', function($resource) {
 	return $resource( '/api/category/:id');
 }]);
 
-expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, Expens, Catego) {
+expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, ExpenseSingle, CategorySingle) {
 
 	$scope.categories = JSON.parse(c)
 	$scope.expenses = JSON.parse(e);
@@ -55,9 +74,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.exp_amount = '0.00'
 
-	$scope.tovaetest = '#343534' // should be random color
-
-
 	var colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
 			'#126567', '#5e8b1d', '#16a61e', '#7eb400', '#00a478', '#40a800', '#81b71a', '#8cc83b', '#82b548', '#9aca3c', '#5cb868',
 			'#ffcc00', '#ffcc33', '#db7132', '#e47911', '#ff8700', '#dd4814', '#f0503a', '#e51937', '#e54a4f', '#dd4b39', '#cc0f16', '#a82400', '#b9070a']
@@ -65,31 +81,28 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.thecolor = colors[Math.floor((Math.random() * 35) + 0)]
 
 
-	// offfff :( delete these two lines
 	var settingsBlock = document.getElementsByClassName('settings-block')[0]
 	var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
-	$scope.translateForm = function() {
-		$scope.headerClass = !$scope.headerClass;
-	}
-
-
 	$scope.selectCategory = function() {
-		// again highly expiremental
-		$scope.selectedCat = this.category.id
+		// Store the id for syncing 
+		$scope.selectedCategory = this.category.id
+
 		var catgs = document.getElementsByClassName('add-expense-category')
 
+		// Loop over the elements to reset the previously selected category
 		for (var i=0; catgs.length > i; i++) {
 			catgs[i].className = 'add-expense-category';
 		}
 
+		// Apply the .selected class
 		this.categoryClass = !this.categoryClass;
 
 	}
 
 	$scope.addExpense = function() {
 
-		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCat},function(response) {
+		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory},function(response) {
 			$scope.expenses.unshift(response);
 			$scope.sumExpenses()
 			$scope.exp_description = ''
@@ -235,69 +248,42 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.mobileSettings = function() {
 		//!!!!
 		// The other function doesn't work, I don't have time to debug it now | Maybe some problem with "offsetParent*
-
-		// The block is not visible if the page is scrolled 
 		window.scrollTo(0)
-
-		if (settingsBlock.className == 'settings-block') {
-			settingsBlock.className += ' show-settings-block'
-		} else {
-			settingsBlock.className = 'settings-block'
-		}
-
+		settingsBlock.toggleClass('show-settings-block')
 	}
 
 	$scope.mobilePlanned = function() {
-
-		// The block is not visible if the page is scrolled 
 		window.scrollTo(0)
-
-		if (plannedBlock.className == 'plan-expenses-block') {
-			plannedBlock.className += ' show-plan-expenses-block'
-		} else {
-			plannedBlock.className = 'plan-expenses-block'
-		}
+		plannedBlock.toggleClass('show-plan-expenses-block')
 	}
 
 
 	$scope.showSettings = function() {
 
-		if (settingsBlock.className == 'settings-block') {
-			settingsBlock.className += ' show-settings-block'
+		settingsBlock.toggleClass('show-settings-block')
 
-			var closeSettingsOnClick = function(click) {
-				// settings
-				if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
-					settingsBlock.className = 'settings-block'
-					wrapper.removeEventListener('click', closeSettingsOnClick)
-				}
+		var closeSettingsOnClick = function(click) {
+			if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+				settingsBlock.toggleClass('show-settings-block')
+				wrapper.removeEventListener('click', closeSettingsOnClick)
 			}
-
-			wrapper.addEventListener('click', closeSettingsOnClick)
-
-		} else {
-			settingsBlock.className = 'settings-block'
 		}
+
+		wrapper.addEventListener('click', closeSettingsOnClick)
 	}
 
 	$scope.showPlanned = function() {
 
-		var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
+		plannedBlock.toggleClass('show-plan-expenses-block')
 
-		if (plannedBlock.className == 'plan-expenses-block') {
-			plannedBlock.className += ' show-plan-expenses-block'
-
-			var closePlannedOnClick = function(click) {
-				if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
-					plannedBlock.className = 'plan-expenses-block'
-					wrapper.removeEventListener('click', closePlannedOnClick)
-				}				
-			}
-
-			wrapper.addEventListener('click', closePlannedOnClick)
-		} else {
-			plannedBlock.className = 'plan-expenses-block'
+		var closePlannedOnClick = function(click) {
+			if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+				plannedBlock.toggleClass('show-plan-expenses-block')
+				wrapper.removeEventListener('click', closePlannedOnClick)
+			}				
 		}
+
+		wrapper.addEventListener('click', closePlannedOnClick)
 	}
 
 	$scope.getPlannedAmount = function() {
@@ -316,7 +302,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 
 	$scope.probvai = function() {
-		$scope.thecolor = colors[$scope.tovaetest]
+		$scope.thecolor = colors[$scope.selectedColor]
 	}
 
 	$scope.hideElements = function(click) {
@@ -429,12 +415,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.deleteCategory = function(idx) {
-		Catego.delete({id: this.category.id},function() {
+		CategorySingle.delete({id: this.category.id},function() {
 			$scope.categories.splice(idx, 1)
 		})		
 	}
-
-
 
 	$scope.setCategoryColor = function() {
 		
@@ -463,7 +447,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.deleteExpense = function(idx) {
-		Expens.delete({id: this.expense.id},function() {
+		ExpenseSingle.delete({id: this.expense.id},function() {
 			$scope.expenses.splice(idx, 1)
 		})
 	}
@@ -471,13 +455,6 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	$scope.sumExpenses();
 	$scope.sumPlanned();
 });
-
-
-function getCookie (sKey) {
-    return decodeURIComponent(document.cookie.replace(new RegExp("(?:(?:^|.*;)\\s*" + encodeURIComponent(sKey).replace(/[\-\.\+\*]/g, "\\$&") + "\\s*\\=\\s*([^;]*).*$)|^.*$"), "$1")) || null;
-}  
-
-var csrftoken = getCookie('csrftoken')
 
 
 

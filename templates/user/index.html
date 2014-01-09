@@ -10,7 +10,6 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
-	<script src="http://code.angularjs.org/1.2.7/angular-touch.min.js"></script>
 	<script src="{% static "js/main.js" %}"></script>
 	<script>
 		var c = '{{categories|escapejs}}'
@@ -22,8 +21,8 @@
 </head>
 <body>
 	<div class="wrapper" ng-controller="mainController" ng-click="hideElements($event)">
-		<div class="menu-block-mobile" ng-class="showMobileMenu ? 'translate-menu-block-mobile' : ''" ng-swipe-right="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
-			<div class="menu-toggle-mobile" ng-click="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm" ng-swipe-left="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
+		<div class="menu-block-mobile" ng-class="showMobileMenu ? 'translate-menu-block-mobile' : ''">
+			<div class="menu-toggle-mobile" ng-click="showMobileMenu=!showMobileMenu; hideExpenseForm=!hideExpenseForm">
 				<span class="menu-toggle-line"></span>
 				<span class="menu-toggle-line"></span>
 				<span class="menu-toggle-line"></span>
@@ -113,7 +112,7 @@
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
 					<li class="category-creation-box" ng-if="showNewCatButton">
 						<div class="color-picker" ng-show="showColorPicker">
-							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.tovaetest" ng-change="probvai()">
+							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="probvai()">
 						</div>
 						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
 						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="Name">
