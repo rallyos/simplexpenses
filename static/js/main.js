@@ -58,9 +58,12 @@ expensesApp.factory('Expense', ['$resource', function($resource) {
 expensesApp.factory('Category', ['$resource', function($resource) {
 	return $resource( '/api/category/:id',
 		{ id: '@id' }, { 
-			update: { 
+			updateName: { 
 				method: 'PUT',
-			} 
+			},
+			updateColor: {
+				method: 'PUT',
+			}
 		} );
 }]);
 
@@ -386,19 +389,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		  clearTimeout(t);
 		}
 		t = setTimeout(function() {
-
-
-
-			/*
-			$http({
-			    method: 'PUT',
-			    url: '/api/category/' + cat.id,
-			    // remove title, description and tell the backend not to need them
-			    data: {title: cat.title, description: 'Edited',color: cat.color},
-			    headers: {'X-CSRFToken': csrftoken}
-			})
-			*/
-			console.log('started')
+			Category.updateColor({id: this.category.id, color: this.category.color})
 		}, 3000)
 	}
 
@@ -415,7 +406,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			console.log(this.category.title)
 			
 
-			Category.update({id: this.category.id, title: this.category.title, description: 'Edited', color: this.category.color})
+			Category.updateName({id: this.category.id, title: this.category.title)
 /*
 			$http({
 			    method: 'PUT',
