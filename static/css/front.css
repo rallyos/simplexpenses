@@ -151,7 +151,7 @@ input {
 }
 .app-about-image {
 	width: 880px;
-	max-width: 100%;
+	max-width: 96%;
 	margin: 30px auto 70px;
 }
 .app-about-heading {
