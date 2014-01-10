@@ -13,13 +13,13 @@ class ExpenseSerializer(serializers.HyperlinkedModelSerializer):
 class CategorySerializer(serializers.HyperlinkedModelSerializer):
 
   	user_id = serializers.IntegerField(required=False)
-  	title = serializers.CharField(required=False)
+  	name = serializers.CharField(required=False)
   	description = serializers.CharField(required=False)
   	color = serializers.CharField(required=False)
 
 	class Meta:
 		model = Category
-		fields = ('id', 'user_id', 'title', 'description', 'color')
+		fields = ('id', 'user_id', 'name', 'description', 'color')
 
 class PlannedSerializer(serializers.HyperlinkedModelSerializer):
 

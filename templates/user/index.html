@@ -16,7 +16,7 @@
 		var e = '{{expenses|escapejs}}'
 		var p = '{{planned|escapejs}}'
 		var currency = '{{currency|escapejs}}'
-		var showNewCatButton = Boolean('{{showNewCatButton|escapejs}}')
+		var show_CategoryCreationForm = Boolean('{{show_CategoryCreationForm|escapejs}}')
 	</script>
 </head>
 <body>
@@ -50,7 +50,7 @@
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
-							<span class="plan-category-title">{{category.title}}</span>
+							<span class="plan-category-title">{{category.name}}</span>
 							<input class="plan-category-amount" ng-init="planned_am=getPlannedAmount()" ng-keydown="updatePlanned($event)" type="number" min="0" ng-model="planned_am">
 						</li>
 					</ul>
@@ -93,7 +93,7 @@
 								<input type="range" value="1" min="0" max="35" step="1" ng-model="newCategoryColor" ng-change="editCategoryColor(newCategoryColor)">
 							</div>
 							<span class="edit-category-color" style="background: {{category.color}}" ng-click="showColorPicker=!showColorPicker"></span>
-							<span class="edit-category-title" ng-click="editCategoryName($event)" ng-keydown="setNameOnEnter($event)" contenteditable="{{contentedit}}">{{category.title}}</span>
+							<span class="edit-category-title" ng-click="editCategoryName($event)" ng-keydown="setNameOnEnter($event)" contenteditable="{{contentedit}}">{{category.name}}</span>
 							<button class="edit-category-delete" ng-click="deleteCategory($index)">Delete</button>
 						</li>
 					</ul>
@@ -109,7 +109,7 @@
 			<div class="expense-form" ng-class="[headerClass ? 'expense-form-translate' : '', hideExpenseForm ? 'hide-expense-form' : '']">
 				<input class="add-expense-sum" type="text" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
-					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.title}}</li>
+					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.name}}</li>
 					<li class="category-creation-box" ng-if="showNewCatButton">
 						<div class="color-picker" ng-show="showColorPicker">
 							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="probvai()">

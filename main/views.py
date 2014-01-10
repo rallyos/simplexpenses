@@ -30,7 +30,7 @@ def index(request):
 
         app_settings = AppSettings.objects.get(user_id__exact=request.user.id)
 
-        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder), 'currency': app_settings.currency, 'showNewCatButton': bool(app_settings.show_newCatButton)}
+        bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder), 'currency': app_settings.currency, 'show_CategoryCreationForm': bool(app_settings.show_CategoryCreationForm)}
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
@@ -52,8 +52,8 @@ def set_currency(request):
         return HttpResponse(status=201)
 
 def toggleNewCgButton(request):
-        newCgButton = bool(json.loads(request.body).get('showNewCatButton', None))
-        AppSettings.objects.filter(user_id=request.user.id).update(show_newCatButton=newCgButton)
+        show_CategoryCreationForm = bool(json.loads(request.body).get('show_CategoryCreationForm', None))
+        AppSettings.objects.filter(user_id=request.user.id).update(show_CategoryCreationForm=show_CategoryCreationForm)
         return HttpResponse(status=201)
 
 def register_user(request):

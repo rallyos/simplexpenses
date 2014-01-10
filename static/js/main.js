@@ -74,7 +74,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
 
-	$scope.showNewCatButton = showNewCatButton
+	$scope.show_CategoryCreationForm = show_CategoryCreationForm
 
 	var testovobrat = document.getElementsByClassName('graph-information')[0]
 	var testovotext = document.getElementsByClassName('graph-information-text')[0]
@@ -120,7 +120,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			Categories.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+			Categories.save({'name': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
 				$scope.categories.push(response);
 			})
 
@@ -138,14 +138,14 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			for (var i=0; $scope.categories.length > i; i++) {
 				if ( $scope.categories[i].id == this.plan.category_id ) {
 					var color = $scope.categories[i].color
-					var title = $scope.categories[i].title
+					var name = $scope.categories[i].name
 				}
 			}
 
 			testovobrat.style.background = color
 			testovobrat.style.left = event.target.offsetLeft + 'px'
 			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-			testovotext.textContent = 'You plan to spend ' + plamount + ' лв. for ' + title + ' this month.'
+			testovotext.textContent = 'You plan to spend ' + plamount + ' лв. for ' + name + ' this month.'
 	}
 
 	$scope.showExpCatDetails = function() {		
@@ -167,7 +167,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			testovobrat.style.background = this.category.color
 			testovobrat.style.left = event.target.offsetLeft + 'px'
 			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-			testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.title + ' this month.'
+			testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.name + ' this month.'
 	}
 
 	$scope.setChartColor = function() {
@@ -254,8 +254,6 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	}
 
 	$scope.mobileSettings = function() {
-		//!!!!
-		// The other function doesn't work, I don't have time to debug it now | Maybe some problem with "offsetParent*
 		window.scrollTo(0)
 		settingsBlock.toggleClass('show-settings-block')
 	}
@@ -341,7 +339,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
  		for (var i=0;$scope.categories.length > i;i++) {
 			if ($scope.categories[i].id == this_category) {
-				var name = $scope.categories[i].title
+				var name = $scope.categories[i].name
 			} else {
 				continue
 			}
@@ -376,7 +374,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			$http({
 			    method: 'PUT',
 			    url: 'toggleNewCgButton',
-			    data: {'showNewCatButton': $scope.showNewCatButton},
+			    data: {'show_CategoryCreationForm': $scope.show_CategoryCreationForm},
 			})
 		}, 3000);
 	}
@@ -402,16 +400,18 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		if (key.which == ENTER_KEY) {
 			$scope.contentedit = false
 			key.target.style.cursor = 'pointer'
-			this.category.title = key.target.textContent
+			this.category.name = key.target.textContent
 			
-			Category.updateName({id: this.category.id, title: this.category.title})
+			Category.updateName({id: this.category.id, name: this.category.name})
 		}
 	}
 
 	$scope.deleteCategory = function(idx) {
-		Category.delete({id: this.category.id},function() {
-			$scope.categories.splice(idx, 1)
-		})		
+		if (window.confirm("Delete category " + this.category.name + '?')) {
+			Category.delete({id: this.category.id},function() {
+				$scope.categories.splice(idx, 1)
+			})				
+		}
 	}
 
 	$scope.setCategoryColor = function() {
