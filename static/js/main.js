@@ -388,8 +388,8 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		if(typeof t !== "undefined"){
 		  clearTimeout(t);
 		}
-		t = setTimeout(function() {
-			Category.updateColor({id: this.category.id, color: this.category.color})
+		var t = setTimeout(function() {
+			Category.updateColor({id: cat.id, color: cat.color})
 		}, 3000)
 	}
 
@@ -403,19 +403,8 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			$scope.contentedit = false
 			key.target.style.cursor = 'pointer'
 			this.category.title = key.target.textContent
-			console.log(this.category.title)
 			
-
-			Category.updateName({id: this.category.id, title: this.category.title)
-/*
-			$http({
-			    method: 'PUT',
-			    url: '/api/category/' + this.category.id,
-			    // remove title, description and tell the backend not to need them
-			    data: {title: this.category.title, description: 'Edited', color: this.category.color},
-			    headers: {'X-CSRFToken': csrftoken}
-			})		
-*/	
+			Category.updateName({id: this.category.id, title: this.category.title})
 		}
 	}
 
