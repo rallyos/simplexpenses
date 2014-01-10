@@ -39,11 +39,11 @@ expensesApp.config(function($httpProvider) {
 	$httpProvider.defaults.headers.put = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 })
 
-expensesApp.factory('Expense', ['$resource', function($resource) {
-	return $resource( '/api/expense/');
+expensesApp.factory('Expenses', ['$resource', function($resource) {
+	return $resource( '/api/expense/:id');
 }]);
 
-expensesApp.factory('Category', ['$resource', function($resource) {
+expensesApp.factory('Categories', ['$resource', function($resource) {
 	return $resource( '/api/category/');
 }]);
 
@@ -51,15 +51,20 @@ expensesApp.factory('Planned', ['$resource', function($resource) {
 	return $resource( '/api/planned/');
 }]);
 
-expensesApp.factory('ExpenseSingle', ['$resource', function($resource) {
+expensesApp.factory('Expense', ['$resource', function($resource) {
 	return $resource( '/api/expense/:id');
 }]);
 
-expensesApp.factory('CategorySingle', ['$resource', function($resource) {
-	return $resource( '/api/category/:id');
+expensesApp.factory('Category', ['$resource', function($resource) {
+	return $resource( '/api/category/:id',
+		{ id: '@id' }, { 
+			update: { 
+				method: 'PUT',
+			} 
+		} );
 }]);
 
-expensesApp.controller('mainController', function($scope, $http, Expense, Category, Planned, ExpenseSingle, CategorySingle) {
+expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category) {
 
 	$scope.categories = JSON.parse(c)
 	$scope.expenses = JSON.parse(e);
@@ -102,7 +107,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.addExpense = function() {
 
-		Expense.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory},function(response) {
+		Expenses.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory},function(response) {
 			$scope.expenses.unshift(response);
 			$scope.sumExpenses()
 			$scope.exp_description = ''
@@ -112,7 +117,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			Category.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+			Categories.save({'title': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
 				$scope.categories.push(response);
 			})
 
@@ -381,6 +386,10 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 		  clearTimeout(t);
 		}
 		t = setTimeout(function() {
+
+
+
+			/*
 			$http({
 			    method: 'PUT',
 			    url: '/api/category/' + cat.id,
@@ -388,7 +397,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			    data: {title: cat.title, description: 'Edited',color: cat.color},
 			    headers: {'X-CSRFToken': csrftoken}
 			})
-	
+			*/
 			console.log('started')
 		}, 3000)
 	}
@@ -404,18 +413,23 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 			key.target.style.cursor = 'pointer'
 			this.category.title = key.target.textContent
 			console.log(this.category.title)
+			
+
+			Category.update({id: this.category.id, title: this.category.title, description: 'Edited', color: this.category.color})
+/*
 			$http({
 			    method: 'PUT',
 			    url: '/api/category/' + this.category.id,
 			    // remove title, description and tell the backend not to need them
 			    data: {title: this.category.title, description: 'Edited', color: this.category.color},
 			    headers: {'X-CSRFToken': csrftoken}
-			})			
+			})		
+*/	
 		}
 	}
 
 	$scope.deleteCategory = function(idx) {
-		CategorySingle.delete({id: this.category.id},function() {
+		Category.delete({id: this.category.id},function() {
 			$scope.categories.splice(idx, 1)
 		})		
 	}
@@ -447,7 +461,7 @@ expensesApp.controller('mainController', function($scope, $http, Expense, Catego
 	}
 
 	$scope.deleteExpense = function(idx) {
-		ExpenseSingle.delete({id: this.expense.id},function() {
+		Expense.delete({id: this.expense.id},function() {
 			$scope.expenses.splice(idx, 1)
 		})
 	}
