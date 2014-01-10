@@ -8,8 +8,8 @@ from main import views
 
 # Routers provide an easy way of automatically determining the URL conf
 router = routers.DefaultRouter(trailing_slash=False)
-router.register(r'expense', views.ExpenseViewSet)
-router.register(r'category', views.CategoryViewSet)
+router.register(r'expenses', views.ExpenseViewSet)
+router.register(r'categories', views.CategoryViewSet)
 router.register(r'planned', views.PlannedViewSet)
 
 

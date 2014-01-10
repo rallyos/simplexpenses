@@ -15,6 +15,7 @@ class CategorySerializer(serializers.HyperlinkedModelSerializer):
   	user_id = serializers.IntegerField(required=False)
   	title = serializers.CharField(required=False)
   	description = serializers.CharField(required=False)
+  	color = serializers.CharField(required=False)
 
 	class Meta:
 		model = Category

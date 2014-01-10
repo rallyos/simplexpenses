@@ -40,11 +40,11 @@ expensesApp.config(function($httpProvider) {
 })
 
 expensesApp.factory('Expenses', ['$resource', function($resource) {
-	return $resource( '/api/expense/:id');
+	return $resource( '/api/expenses/:id');
 }]);
 
 expensesApp.factory('Categories', ['$resource', function($resource) {
-	return $resource( '/api/category/');
+	return $resource( '/api/categories/');
 }]);
 
 expensesApp.factory('Planned', ['$resource', function($resource) {
@@ -52,11 +52,11 @@ expensesApp.factory('Planned', ['$resource', function($resource) {
 }]);
 
 expensesApp.factory('Expense', ['$resource', function($resource) {
-	return $resource( '/api/expense/:id');
+	return $resource( '/api/expenses/:id');
 }]);
 
 expensesApp.factory('Category', ['$resource', function($resource) {
-	return $resource( '/api/category/:id',
+	return $resource( '/api/categories/:id',
 		{ id: '@id' }, { 
 			updateName: { 
 				method: 'PUT',
