@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 class Category(models.Model):
 	user = models.ForeignKey(User)
 	name = models.CharField(max_length=50)
-	description = models.CharField(max_length=80)
+	description = models.CharField(max_length=80, blank=True)
 	color = models.CharField(max_length=7)
 
 class Expense(models.Model):
