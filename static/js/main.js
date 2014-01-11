@@ -109,7 +109,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	}
 
 	$scope.addExpense = function() {
-
+		console.log($scope.selectedCategory)
 		Expenses.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory},function(response) {
 			$scope.expenses.unshift(response);
 			$scope.sumExpenses()
