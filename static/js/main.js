@@ -120,7 +120,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			Categories.save({'name': $scope.newCategoryName, 'description': 'a new category', 'color': $scope.thecolor}, function(response) {
+			Categories.save({'name': $scope.newCategoryName, 'color': $scope.thecolor}, function(response) {
 				$scope.categories.push(response);
 			})
 

@@ -69,7 +69,7 @@ def register_user(request):
 
             # Just testing this way
 
-            AppSettings.objects.create(user_id=user.id)
+            AppSettings.objects.create(user_id=user.id, show_CategoryCreationForm=True)
 
             if user is not None:
                 if user.is_active:

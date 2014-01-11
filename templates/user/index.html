@@ -77,7 +77,7 @@
 					<h4 class="settings-heading">App Preferences</h4>
 					<div class="settings-group">
 						<label class="settings-label" for="showNewButton">Show new category button</label>
-						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="showNewCatButton" ng-change="toggleNcButton()">
+						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="show_CategoryCreationForm" ng-change="toggleNcButton()">
 					</div>
 					<div class="settings-group">
 						<label class="settings-label" for="currency">Currency</label>
@@ -110,7 +110,7 @@
 				<input class="add-expense-sum" type="text" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.name}}</li>
-					<li class="category-creation-box" ng-if="showNewCatButton">
+					<li class="category-creation-box" ng-if="show_CategoryCreationForm">
 						<div class="color-picker" ng-show="showColorPicker">
 							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="probvai()">
 						</div>
