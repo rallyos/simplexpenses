@@ -129,14 +129,14 @@
 			<section class="this-month-block">
 				<span class="total-expenses">{{thisMonthTotal}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="showExpCatDetails()" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
 			<section class="planned-block">
 				<span class="total-planned">{{nextMonthTotal}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="showPlnCatDetails()" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>

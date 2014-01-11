@@ -67,32 +67,57 @@ expensesApp.factory('Category', ['$resource', function($resource) {
 		} );
 }]);
 
-expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category) {
+expensesApp.factory('Plan', ['$resource', function($resource) {
+	return $resource( '/api/planned/:id',
+	{id: '@id'}, {
+		planCategory: {
+			method: 'PUT'
+		}
 
+	});
+}]);
+
+expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category, Plan) {
+
+
+
+// Set globals
+	// Data collections
 	$scope.categories = JSON.parse(c)
 	$scope.expenses = JSON.parse(e);
 	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
 
+	// Show new category box setting
 	$scope.show_CategoryCreationForm = show_CategoryCreationForm
 
-	var testovobrat = document.getElementsByClassName('graph-information')[0]
-	var testovotext = document.getElementsByClassName('graph-information-text')[0]
+	// Store category details display
+	var detailsDesplay = document.getElementsByClassName('graph-information')[0]
+	var detailsText = document.getElementsByClassName('graph-information-text')[0]
+
+	// Store the wrapper element for binding listeners
 	var wrapper = document.getElementsByClassName('wrapper')[0]
 
+	// I don't like it, but this stays for now
 	$scope.exp_amount = '0.00'
 
+	// All category colors for now
 	var colors = ['#5b009c', '#a086d3', '#c7c5e6', '#003580', '#0039a6', '#0060a3', '#3b5998', '#005cff', '#59a3fc', '#2d72da', '#1d8dd5', '#3287c1',
 			'#126567', '#5e8b1d', '#16a61e', '#7eb400', '#00a478', '#40a800', '#81b71a', '#8cc83b', '#82b548', '#9aca3c', '#5cb868',
 			'#ffcc00', '#ffcc33', '#db7132', '#e47911', '#ff8700', '#dd4814', '#f0503a', '#e51937', '#e54a4f', '#dd4b39', '#cc0f16', '#a82400', '#b9070a']
 
-	$scope.thecolor = colors[Math.floor((Math.random() * 35) + 0)]
+	// Select random color on load
+	$scope.categoryColor = colors[Math.floor((Math.random() * 35) + 0)]
 
-
+	// Store the blocks
 	var settingsBlock = document.getElementsByClassName('settings-block')[0]
 	var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
+
+// Adding expenses
+
 	$scope.selectCategory = function() {
+
 		// Store the id for syncing 
 		$scope.selectedCategory = this.category.id
 
@@ -109,18 +134,21 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	}
 
 	$scope.addExpense = function() {
-		console.log($scope.selectedCategory)
-		Expenses.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory},function(response) {
-			$scope.expenses.unshift(response);
-			$scope.sumExpenses()
-			$scope.exp_description = ''
-			$scope.exp_amount = '0.00'
-		});
+
+		if ($scope.selectedCategory && $scope.exp_description) {
+			Expenses.save({'amount': $scope.exp_amount, 'description': $scope.exp_description, 'category_id': $scope.selectedCategory}, function(response) {
+				$scope.expenses.unshift(response);
+				$scope.sumExpenses()
+				$scope.exp_description = ''
+				$scope.exp_amount = '0.00'
+			});	
+		}
 	}
 
+	// Create category
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			Categories.save({'name': $scope.newCategoryName, 'color': $scope.thecolor}, function(response) {
+			Categories.save({'name': $scope.newCategoryName, 'color': $scope.categoryColor}, function(response) {
 				$scope.categories.push(response);
 			})
 
@@ -128,94 +156,63 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		}
 	}
 
-	$scope.showPlnCatDetails = function() {
 
-			var plamount = this.plan.planned_amount
+// Show window with planned or summed expenses
+// This function is packed from old 2, no need for separated funcs for now
+	$scope.showDetailsWindow = function(is_expenses) {
 
-			$scope.showGraphInfo = true;
+		$scope.showGraphInfo = true;
 
+		var sum = 0
+
+		if (is_expenses) {
+			var color = this.category.color;
+			var name = this.category.name
+
+		 	for (var i=0; $scope.expenses.length > i; i++) {
+				if ($scope.expenses[i].category_id == this.category.id) {
+					var number = Number($scope.expenses[i].amount)
+					sum = sum + number
+					var amount = sum.toFixed(2);
+				}
+			}
+
+			if (!amount) {
+				var amount = 0
+			}
+
+			$scope.updateDetailsWindow(color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
+
+
+		} else {
+			var amount = this.plan.planned_amount
 
 			for (var i=0; $scope.categories.length > i; i++) {
 				if ( $scope.categories[i].id == this.plan.category_id ) {
 					var color = $scope.categories[i].color
 					var name = $scope.categories[i].name
+					break
 				}
 			}
 
-			testovobrat.style.background = color
-			testovobrat.style.left = event.target.offsetLeft + 'px'
-			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-			testovotext.textContent = 'You plan to spend ' + plamount + ' лв. for ' + name + ' this month.'
-	}
-
-	$scope.showExpCatDetails = function() {		
-			var sum = 0;
-
-			$scope.showGraphInfo = true;
-
-	 		for (var i=0;$scope.expenses.length > i;i++) {
-
-				if ($scope.expenses[i].category_id == this.category.id) {
-					var number = Number($scope.expenses[i].amount)
-					sum = sum + number
-					var amount = sum.toFixed(2);
-				} else {
-					continue
-				}
+			if (!amount) {
+				var amount = 0
 			}
 
-			testovobrat.style.background = this.category.color
-			testovobrat.style.left = event.target.offsetLeft + 'px'
-			testovobrat.style.top = event.target.offsetTop - 100 + 'px'
-			testovotext.textContent = 'You spent ' + amount + ' лв. for ' + this.category.name + ' this month.'
-	}
-
-	$scope.setChartColor = function() {
-
-		// fix this mess
-		var vab = this.plan.category_id
- 
- 		for (var i=0;$scope.categories.length > i;i++) {
-			if ($scope.categories[i].id == vab) {
-				var color = $scope.categories[i].color
-			}
+			$scope.updateDetailsWindow(color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
 		}
 
-		return color
 	}
 
-	$scope.setChartHeight = function() {
-		// highly expiremental
-		var in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
-		var amount = in_percent.toFixed(2)
-		return amount + '%'
+	$scope.updateDetailsWindow = function(color, info) {
+		detailsDesplay.style.background = color
+		detailsDesplay.style.left = event.target.offsetLeft + 'px'
+		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'
+		detailsText.textContent = info
 	}
 
-	$scope.sumExpenses = function () {
-		var sum = 0
 
-		for (var i=0; $scope.expenses.length > i;i++) {
 
-			var number = Number($scope.expenses[i].amount)
-			sum = sum + number
-		}
-
-		var amount = sum.toFixed(2);
-		$scope.thisMonthTotal = amount
-	}
-
-	$scope.sumPlanned = function() {
-		var sum = 0
-
-		for (var i=0; $scope.planned.length > i;i++) {
-
-			var number = Number($scope.planned[i].planned_amount)
-			sum = sum + number
-		}
-
-		var amount = sum.toFixed(2);
-		$scope.nextMonthTotal = amount
-	}
 
 	$scope.updatePlanned = function(event) {
 
@@ -228,12 +225,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 					var is_found = true;
 
 					// just testing before i make a method for this...
-					$http({
-					    method: 'PUT',
-					    url: '/api/planned/' + $scope.planned[i].id,
-					    data: {planned_amount: $scope.planned[i].planned_amount},
-					    headers: {'X-CSRFToken': csrftoken}
-					}).success(function() {
+					Plan.planCategory({id: this.category.id, planned_amount: $scope.planned[i].planned_amount}, function() {
 						$scope.sumPlanned()
 					})
 					break
@@ -308,7 +300,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 
 	$scope.probvai = function() {
-		$scope.thecolor = colors[$scope.selectedColor]
+		$scope.categoryColor = colors[$scope.selectedColor]
 	}
 
 	$scope.hideElements = function(click) {
@@ -445,6 +437,70 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			$scope.expenses.splice(idx, 1)
 		})
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// Doing things on start
+	$scope.setChartColor = function() {
+
+		// fix this mess
+		var vab = this.plan.category_id
+ 
+ 		for (var i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == vab) {
+				var color = $scope.categories[i].color
+			}
+		}
+
+		return color
+	}
+
+	$scope.setChartHeight = function() {
+		// highly expiremental
+		var in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
+		var amount = in_percent.toFixed(2)
+		return amount + '%'
+	}
+
+	$scope.sumExpenses = function () {
+		var sum = 0
+
+		for (var i=0; $scope.expenses.length > i;i++) {
+
+			var number = Number($scope.expenses[i].amount)
+			sum = sum + number
+		}
+
+		var amount = sum.toFixed(2);
+		$scope.thisMonthTotal = amount
+	}
+
+	$scope.sumPlanned = function() {
+		var sum = 0
+
+		for (var i=0; $scope.planned.length > i;i++) {
+
+			var number = Number($scope.planned[i].planned_amount)
+			sum = sum + number
+		}
+
+		var amount = sum.toFixed(2);
+		$scope.nextMonthTotal = amount
+	}
+
 
 	$scope.sumExpenses();
 	$scope.sumPlanned();
