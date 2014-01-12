@@ -517,15 +517,15 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 				    url: 'set_currency',
 				    data: {'currency': $scope.currency},
 				})
-*/
 			// If set - update
 			} else {
+*/
 				$http({
 				    method: 'PUT',
 				    url: 'set_currency',
 				    data: {'currency': $scope.currency},
 				})
-			}
+			// }
 
 			return false
 		}
