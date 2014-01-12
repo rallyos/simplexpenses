@@ -135,6 +135,12 @@ input {
 	margin: 0 10px;
 	color: #343534;
 }
+.footer-link-item:hover .not-ready{
+	display: block;
+}
+.footer-link-item:hover .arrow-down{
+	display: block;
+}
 .madeby {
 	margin: 15px 0;
 	font-weight: 300;
