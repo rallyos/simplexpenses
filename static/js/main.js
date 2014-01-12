@@ -79,8 +79,6 @@ expensesApp.factory('Plan', ['$resource', function($resource) {
 
 expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category, Plan) {
 
-
-
 // Set globals
 	// Data collections
 	$scope.categories = JSON.parse(c)
@@ -113,6 +111,101 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	var settingsBlock = document.getElementsByClassName('settings-block')[0]
 	var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
+// Doing things on start
+
+	// Set the chart height based on the % of 100
+	$scope.chartHeight = function() {
+
+		// Store category id
+		var cgid = this.category.id
+		var sum = 0
+
+		// Loop over the expenses and sum the expenses
+		// !! Since this loop is used couple of times, maybe one function that accepts category id parameter and return the sum will be helpful.
+ 		for (var i=0;$scope.expenses.length > i;i++) {
+			if ($scope.expenses[i].category_id == cgid) {
+				var number = Number($scope.expenses[i].amount)
+				sum = sum + number
+				var amount = sum.toFixed(2);
+			} else {
+				continue
+			}
+		}
+
+		amount = amount / $scope.thisMonthTotal * 100
+		amount = amount.toFixed(2)
+		return amount + '%'
+	}
+
+	//
+	$scope.deleteExpense = function(idx) {
+		Expense.delete({id: this.expense.id},function() {
+			$scope.expenses.splice(idx, 1)
+		})
+	}
+
+	// Set the height of this planned chart based on % of total planned amounts
+	$scope.setPlanChartHeight = function() {
+		var in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
+		var amount = in_percent.toFixed(2)
+		return amount + '%'
+	}
+
+	// Set the color of the graph
+	$scope.setPlanChartColor = function() {
+		var cgid = this.plan.category_id
+ 		
+ 		// Loop over categories to find the color of the related one
+ 		for (var i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == cgid) {
+				var color = $scope.categories[i].color
+			}
+		}
+
+		return color
+	}
+
+	// Get planned amount for this category
+	$scope.getPlannedAmount = function() {
+		var cgid = this.category.id
+		var amount = 0
+
+		// Loop over planned to find related category
+ 		for (var i=0;$scope.planned.length > i;i++) {
+			if ($scope.planned[i].category_id == cgid) {
+				amount = $scope.planned[i].planned_amount
+			}
+		}
+
+		return Number(amount)
+	}
+
+	// Sum all expenses
+	$scope.sumExpenses = function () {
+		var sum = 0
+
+		// Loop over the expenses to sum
+		for (var i=0; $scope.expenses.length > i;i++) {
+			var number = Number($scope.expenses[i].amount)
+			sum = sum + number
+		}
+
+		$scope.thisMonthTotal = sum.toFixed(2);
+	}
+
+	// Sum planned
+	$scope.sumPlanned = function() {
+		var sum = 0
+
+		// Loop over the planned to sum
+		for (var i=0; $scope.planned.length > i;i++) {
+
+			var number = Number($scope.planned[i].planned_amount)
+			sum = sum + number
+		}
+
+		$scope.nextMonthTotal = sum.toFixed(2);
+	}
 
 // Adding expenses
 
@@ -145,6 +238,11 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		}
 	}
 
+	// Changing color based on slider value when creating category
+	$scope.changeColor = function() {
+		$scope.categoryColor = colors[$scope.selectedColor]
+	}
+
 	// Create category
 	$scope.createOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
@@ -159,51 +257,71 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 // Show window with planned or summed expenses
 // This function is packed from old 2, no need for separated funcs for now
+
+	// Show the window and calculate
+	// Simplify the calculations in the future
 	$scope.showDetailsWindow = function(is_expenses) {
 
+		// Show 
 		$scope.showGraphInfo = true;
-
 		var sum = 0
 
+		// Is expenses, or planned?
 		if (is_expenses) {
+
+			// Store color and name of the category
 			var color = this.category.color;
 			var name = this.category.name
+			var cgid = this.category.id
 
+			// Loop over the expenses 
+			// If expense's category id are equal with this category - get the amount 
+			// sum all amounts and store the number
+			// Angular .get method will be helpful when added...
 		 	for (var i=0; $scope.expenses.length > i; i++) {
-				if ($scope.expenses[i].category_id == this.category.id) {
+				if ($scope.expenses[i].category_id == cgid) {
 					var number = Number($scope.expenses[i].amount)
 					sum = sum + number
 					var amount = sum.toFixed(2);
 				}
 			}
 
+			// If undefined - show 0 (Fixing 'You spent <undefined> for ...')
 			if (!amount) {
 				var amount = 0
 			}
 
+			// Show the information
 			$scope.updateDetailsWindow(color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
-
-
 		} else {
+
+			// Store related category id and planned amount
+			var cgid = this.plan.category_id
 			var amount = this.plan.planned_amount
 
+			// Loop over the categories
+			// When the related category is found - store color and name, then break the loop
+			// Angular .get method will be helpful when added...
 			for (var i=0; $scope.categories.length > i; i++) {
-				if ( $scope.categories[i].id == this.plan.category_id ) {
+				if ( $scope.categories[i].id == cgid ) {
 					var color = $scope.categories[i].color
 					var name = $scope.categories[i].name
 					break
 				}
 			}
 
+			// If undefined - show 0 (Fixing 'You spent <undefined> for ...')
 			if (!amount) {
 				var amount = 0
 			}
 
+			// Show the information
 			$scope.updateDetailsWindow(color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
 		}
 
 	}
 
+	// Set window color like the category color and show the information
 	$scope.updateDetailsWindow = function(color, info) {
 		detailsDesplay.style.background = color
 		detailsDesplay.style.left = event.target.offsetLeft + 'px'
@@ -211,31 +329,95 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		detailsText.textContent = info
 	}
 
+// Show and hide settings and plan blocks
+	
+	$scope.showSettings = function() {
 
+		// Show
+		settingsBlock.toggleClass('show-settings-block')
 
+		// Hide block when clicked outside and remove listener
+		// Checks if the click is not somewhere in the block (bugs expected)
+		var closeSettingsOnClick = function(click) {
+			if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+				settingsBlock.toggleClass('show-settings-block')
+				wrapper.removeEventListener('click', closeSettingsOnClick)
+			}
+		}
 
+		// Add listener for click outside the block to close (BASIC VERSION)
+		wrapper.addEventListener('click', closeSettingsOnClick)
+	}
+
+	$scope.showPlanned = function() {
+
+		// show
+		plannedBlock.toggleClass('show-plan-expenses-block')
+
+		// Hide block when clicked outside and remove listener
+		// Checks if the click is not somewhere in the block (bugs expected)
+		var closePlannedOnClick = function(click) {
+			if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
+				plannedBlock.toggleClass('show-plan-expenses-block')
+				wrapper.removeEventListener('click', closePlannedOnClick)
+			}				
+		}
+
+		// Add listener for click outside the block to close (BASIC VERSION)
+		wrapper.addEventListener('click', closePlannedOnClick)
+	}
+
+	// Hide other elements (detailsDisplay for now)
+	// Activated by click in wrapper...
+	$scope.hideElements = function(click) {
+		if (click.target.classList[0] != 'category' && $scope.showGraphInfo == true) {
+			$scope.showGraphInfo = false;		
+		}
+	}
+
+	// Show settings on mobile | Scroll to 0 because the block won't be visible
+	$scope.mobileSettings = function() {
+		window.scrollTo(0)
+		settingsBlock.toggleClass('show-settings-block')
+	}
+
+	// Show planned on mobile | Scroll to 0 because the block won't be visible
+	$scope.mobilePlanned = function() {
+		window.scrollTo(0)
+		plannedBlock.toggleClass('show-plan-expenses-block')
+	}
+
+	// Update planend amount
 	$scope.updatePlanned = function(event) {
 
-		if (event.which == ENTER_KEY) {
-			for (var i=0; $scope.planned.length > i;i++) {
-				if ($scope.planned[i].category_id == this.category.id) {
+		cgid = this.category.id
 
+		// On enter
+		if (event.which == ENTER_KEY) {
+
+			// Loop over planned to find related category
+			for (var i=0; $scope.planned.length > i;i++) {
+				if ($scope.planned[i].category_id == cgid) {
+
+					// Update the planned amount
 					$scope.planned[i].planned_amount = Number(event.target.value)
 
+					// Set is(related category)_find to true
 					var is_found = true;
 
-					// just testing before i make a method for this...
+					// Sync with the server
 					Plan.planCategory({id: this.category.id, planned_amount: $scope.planned[i].planned_amount}, function() {
 						$scope.sumPlanned()
 					})
 					break
 				} else {
+					// Related category is not found, therefor send post request to server
 					var is_found = false;
 				}
 			}
 
+			// Send post request to create new planned object
 			if (!is_found) {
-				console.log('SAVE SAVE SAVE')
 				Planned.save({'category_id': this.category.id, 'planned_amount': event.target.value},function(response) {
 						$scope.planned.push(response);
 						$scope.sumPlanned()
@@ -245,92 +427,59 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	}
 
-	$scope.mobileSettings = function() {
-		window.scrollTo(0)
-		settingsBlock.toggleClass('show-settings-block')
-	}
-
-	$scope.mobilePlanned = function() {
-		window.scrollTo(0)
-		plannedBlock.toggleClass('show-plan-expenses-block')
-	}
-
-
-	$scope.showSettings = function() {
-
-		settingsBlock.toggleClass('show-settings-block')
-
-		var closeSettingsOnClick = function(click) {
-			if (click.target.offsetParent.classList[0] != 'settings-block' && click.target.offsetParent.classList[0] != 'menu-block') {
-				settingsBlock.toggleClass('show-settings-block')
-				wrapper.removeEventListener('click', closeSettingsOnClick)
-			}
-		}
-
-		wrapper.addEventListener('click', closeSettingsOnClick)
-	}
-
-	$scope.showPlanned = function() {
-
-		plannedBlock.toggleClass('show-plan-expenses-block')
-
-		var closePlannedOnClick = function(click) {
-			if (click.target.offsetParent.classList[0] != 'plan-expenses-block' && click.target.offsetParent.classList[0] != 'menu-block') {
-				plannedBlock.toggleClass('show-plan-expenses-block')
-				wrapper.removeEventListener('click', closePlannedOnClick)
-			}				
-		}
-
-		wrapper.addEventListener('click', closePlannedOnClick)
-	}
-
-	$scope.getPlannedAmount = function() {
+// Edit categories block
 	
-		var amount = 0
+	// Called when slider position is changed
+	// On change a 3s timeout is called to sync with the server
+	$scope.editCategoryColor = function(newCategoryColor) {
+		// Set color
+		this.category.color = colors[newCategoryColor]
 
- 		for (var i=0;$scope.planned.length > i;i++) {
-			if ($scope.planned[i].category_id == this.category.id) {
-				amount = $scope.planned[i].planned_amount
-			}
+		// If timeout t is running - stop it
+		if(typeof t !== "undefined"){
+		  clearTimeout(t);
 		}
 
-		return Number(amount)
+		// Sync with the server
+		var t = setTimeout(function() {
+			Category.updateColor({id: this.category.id, color: this.category.color})
+		}, 3000)
 	}
 
-
-
-	$scope.probvai = function() {
-		$scope.categoryColor = colors[$scope.selectedColor]
+	// On click change element to contenteditable
+	$scope.editCategoryName = function(click) {
+		$scope.contentedit = true
+		click.target.style.cursor = 'text'
 	}
 
-	$scope.hideElements = function(click) {
-		if (click.target.classList[0] != 'category' && $scope.showGraphInfo == true) {
-			$scope.showGraphInfo = false;		
+	// On Enter return the element to it's default form
+	// Change name and sync with the server
+	$scope.setNameOnEnter = function(key) {
+		if (key.which == ENTER_KEY) {
+			$scope.contentedit = false
+			key.target.style.cursor = 'pointer'
+			this.category.name = key.target.textContent
+			Category.updateName({id: this.category.id, name: this.category.name})
 		}
 	}
 
-	$scope.dsa = function() {
-		// highly expiremental
-		var this_category = this.category.id
-		var sum = 0
- 		for (var i=0;$scope.expenses.length > i;i++) {
-			if ($scope.expenses[i].category_id == this_category) {
-				var number = Number($scope.expenses[i].amount)
-				sum = sum + number
-				var amount = sum.toFixed(2);
-			} else {
-				continue
-			}
+	// Delete on confirmation
+	$scope.deleteCategory = function(idx) {
+		if (window.confirm("Delete category " + this.category.name + '?')) {
+			Category.delete({id: this.category.id},function() {
+				$scope.categories.splice(idx, 1)
+			})				
 		}
-		amount = amount / $scope.thisMonthTotal * 100
-		amount = amount.toFixed(2)
-		return amount + '%'
 	}
-	$scope.setCategoryName = function() {
-		var this_category = this.expense.category_id
 
+	// Get the category of this expense
+	$scope.getCategoryName = function() {
+
+		var cgid = this.expense.category_id
+
+		// Loop over the categories to find the related one
  		for (var i=0;$scope.categories.length > i;i++) {
-			if ($scope.categories[i].id == this_category) {
+			if ($scope.categories[i].id == cgid) {
 				var name = $scope.categories[i].name
 			} else {
 				continue
@@ -339,16 +488,37 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 		return name
 	}
+
+	// Get the category color of this expense
+	$scope.getCategoryColor = function() {
+
+		var cgid = this.expense.category_id
+ 		
+ 		// Loop over to get the color
+ 		for (var i=0;$scope.categories.length > i;i++) {
+			if ($scope.categories[i].id == cgid) {
+				var color = $scope.categories[i].color
+			}
+		}
+
+		return color
+	}
+
+// App settings
+	
+	// Set used currency
 	$scope.setOnEnter = function(key) {
 		if (key.which == ENTER_KEY) {
-			// if not set - post
+/*
+			// If not set before - create new model object
 			if (currency == '') {
 				$http({
 				    method: 'POST',
 				    url: 'set_currency',
 				    data: {'currency': $scope.currency},
 				})
-			// if set - put
+*/
+			// If set - update
 			} else {
 				$http({
 				    method: 'PUT',
@@ -361,7 +531,10 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		}
 	}
 
+	// Show or hide New category creation block
 	$scope.toggleNcButton = function() {
+
+		// When checked/unchecked set timeout to sync with server after 3s
 		setTimeout(function() {
 			$http({
 			    method: 'PUT',
@@ -371,55 +544,8 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		}, 3000);
 	}
 
-	$scope.editCategoryColor = function(newCategoryColor) {
-		this.category.color = colors[newCategoryColor]
-		var cat = this.category
-		// time for put method in directives...
-		if(typeof t !== "undefined"){
-		  clearTimeout(t);
-		}
-		var t = setTimeout(function() {
-			Category.updateColor({id: cat.id, color: cat.color})
-		}, 3000)
-	}
-
-	$scope.editCategoryName = function(click) {
-		$scope.contentedit = true
-		click.target.style.cursor = 'text'
-	}
-
-	$scope.setNameOnEnter = function(key) {
-		if (key.which == ENTER_KEY) {
-			$scope.contentedit = false
-			key.target.style.cursor = 'pointer'
-			this.category.name = key.target.textContent
-			
-			Category.updateName({id: this.category.id, name: this.category.name})
-		}
-	}
-
-	$scope.deleteCategory = function(idx) {
-		if (window.confirm("Delete category " + this.category.name + '?')) {
-			Category.delete({id: this.category.id},function() {
-				$scope.categories.splice(idx, 1)
-			})				
-		}
-	}
-
-	$scope.setCategoryColor = function() {
-		
-		// fix this mess
-		var vab = this.expense.category_id
- 
- 		for (var i=0;$scope.categories.length > i;i++) {
-			if ($scope.categories[i].id == vab) {
-				var color = $scope.categories[i].color
-			}
-		}
-
-		return color
-	}
-
+	// Change password
+	// ToDo (Confirmation message needed)
 	$scope.changePassword = function() {
 		$http({
 		    method: 'POST',
@@ -432,79 +558,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		})
 	}
 
-	$scope.deleteExpense = function(idx) {
-		Expense.delete({id: this.expense.id},function() {
-			$scope.expenses.splice(idx, 1)
-		})
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Doing things on start
-	$scope.setChartColor = function() {
-
-		// fix this mess
-		var vab = this.plan.category_id
- 
- 		for (var i=0;$scope.categories.length > i;i++) {
-			if ($scope.categories[i].id == vab) {
-				var color = $scope.categories[i].color
-			}
-		}
-
-		return color
-	}
-
-	$scope.setChartHeight = function() {
-		// highly expiremental
-		var in_percent = this.plan.planned_amount / $scope.nextMonthTotal * 100
-		var amount = in_percent.toFixed(2)
-		return amount + '%'
-	}
-
-	$scope.sumExpenses = function () {
-		var sum = 0
-
-		for (var i=0; $scope.expenses.length > i;i++) {
-
-			var number = Number($scope.expenses[i].amount)
-			sum = sum + number
-		}
-
-		var amount = sum.toFixed(2);
-		$scope.thisMonthTotal = amount
-	}
-
-	$scope.sumPlanned = function() {
-		var sum = 0
-
-		for (var i=0; $scope.planned.length > i;i++) {
-
-			var number = Number($scope.planned[i].planned_amount)
-			sum = sum + number
-		}
-
-		var amount = sum.toFixed(2);
-		$scope.nextMonthTotal = amount
-	}
-
-
+	// Sum on load
 	$scope.sumExpenses();
 	$scope.sumPlanned();
 });
-
-
-

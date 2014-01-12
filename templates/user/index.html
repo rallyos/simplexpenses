@@ -112,7 +112,7 @@
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.name}}</li>
 					<li class="category-creation-box" ng-if="show_CategoryCreationForm">
 						<div class="color-picker" ng-show="showColorPicker">
-							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="probvai()">
+							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="changeColor()">
 						</div>
 						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
 						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="Name">
@@ -129,14 +129,14 @@
 			<section class="this-month-block">
 				<span class="total-expenses">{{thisMonthTotal}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{dsa()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
 			<section class="planned-block">
 				<span class="total-planned">{{nextMonthTotal}}{{currency}}</span>
 				<div class="graph">
-					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
@@ -145,8 +145,8 @@
 			<ul class="expenses-list">
 				<li class="expense" ng-repeat="expense in expenses">
 					<div class="expense-category-sum">
-						<div class="category-circle" style="background: {{setCategoryColor()}}">
-							<span class="expense-show-category-name">{{setCategoryName()}}</span>						
+						<div class="category-circle" style="background: {{getCategoryColor()}}">
+							<span class="expense-show-category-name">{{getCategoryName()}}</span>						
 						</div>
 						<span class="expense-sum">{{expense.amount}}{{currency}}</span>
 					</div>
