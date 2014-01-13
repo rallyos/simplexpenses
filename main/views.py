@@ -112,6 +112,10 @@ def password_change(request):
         user.save()
         return HttpResponse(status=200)
 
+def forgotten_password(request):
+    
+
+
 class ExpenseViewSet(viewsets.ModelViewSet):
 
     queryset = Expense.objects.all()

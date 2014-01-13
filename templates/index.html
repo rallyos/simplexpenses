@@ -25,8 +25,17 @@
 			<form class="signin-form">{% csrf_token %} 
 				<input class="form-input signin-input" type="email" placeholder="email" required>
 				<input class="form-input signin-input" type="password" placeholder="password" required>
+				<span class="forgotten-password">I forgot my password.</span>
 				<input class="form-submit signin-submit" type="submit" value="Sign in">
 			</form>
+			<div class="recover-pass-block">
+				<span id="recover-pass-close">X</span>
+				<h4 class="recover-pass-heading">Fill your email address so you can recover your account.</h4>
+				<form class="recover-pass-form">{% csrf_token %} 
+					<input class="form-input signin-input" id="recover-pass" type="email" placeholder="email">
+					<input type="submit" class="form-submit">
+				</form>
+			</div>
 		</section>
 		<section class="features-block">
 			<div class="feature">

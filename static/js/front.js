@@ -20,7 +20,7 @@ signUpForm.onsubmit = function() {
 	if ( xhr.status == 200) {
 		location.reload()
 	} else if ( xhr.status ==  403) {
-
+		console.log('invalid')
 	}
 
 	return false;
@@ -43,8 +43,32 @@ signInForm.onsubmit = function() {
 		signInForm.children[3].style.background = '#90E06F'
 		location.reload()
 	} else if ( xhr.status == 404) {
-
+		signInForm.children[2].style.borderColor = '#E4794C'
+		signInForm.children[1].style.borderColor = '#E4794C'
+		var fl = document.getElementsByClassName('forgotten-password')[0]
+		fl.style.display = 'block'
+		fl.addEventListener('click', showPassRecoverBox)
 	};
 
 	return false;
+}
+
+function showPassRecoverBox() {
+	var rpb = document.getElementsByClassName('recover-pass-block')[0]
+	rpb.style.display = 'block'
+	var rpi = document.getElementById('recover-pass')
+	rpi.value = signInForm.children[1].value;
+
+	setTimeout(function() {
+		rpb.style.opacity = 1
+		rpb.style.webkitTransform = 'translateY(50px)'
+	}, 100)
+
+	document.getElementById('recover-pass-close').addEventListener('click',function() {
+		rpb.style.opacity = 0
+		rpb.style.webkitTransform = 'translateY(0)'
+		setTimeout(function() {
+			rpb.style.display = 'none'
+		}, 300)
+	});
 }
