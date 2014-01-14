@@ -1,5 +1,6 @@
 var signUpForm = document.getElementsByClassName('signup-form')[0]
 var signInForm = document.getElementsByClassName('signin-form')[0]
+var FPForm = document.getElementsByClassName('recover-pass-form')[0]
 
 signUpForm.onsubmit = function() {
 
@@ -71,4 +72,22 @@ function showPassRecoverBox() {
 			rpb.style.display = 'none'
 		}, 300)
 	});
+}
+
+FPForm.onsubmit = function() {
+	csrfmiddlewaretoken = FPForm.children[0].value;
+	user = document.getElementById('recover-pass').value;
+
+	var xhr = new XMLHttpRequest()
+	xhr.open('POST', 'forgotten_password?', false);
+	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
+	xhr.send('csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) + '&username=' + encodeURIComponent(user))
+
+	if ( xhr.status == 200) {
+		console.log('ok')
+	} else if ( xhr.status == 404) {
+		console.log('not ok')
+	};
+
+	return false;
 }

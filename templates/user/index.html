@@ -114,7 +114,7 @@
 						<div class="color-picker" ng-show="showColorPicker">
 							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="changeColor()">
 						</div>
-						<span class="category-color-input" style="background: {{thecolor}}" ng-click="showColorPicker=!showColorPicker"></span>
+						<span class="category-color-input" style="background: {{categoryColor}}" ng-click="showColorPicker=!showColorPicker"></span>
 						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="Name">
 					</li>
 				</ul>
@@ -129,6 +129,14 @@
 			<section class="this-month-block">
 				<span class="total-expenses">{{thisMonthTotal}}{{currency}}</span>
 				<div class="graph">
+					<div class="no-categories-wrap" ng-if="no_categories">
+						<div class="canvas-holder">
+							<canvas class="chart-animation"></canvas>
+							<canvas class="chart-animation"></canvas>
+							<canvas class="chart-animation"></canvas>
+						</div>
+						<h4 class="no-categories-heading">You don't have any categories yet</h4>
+					</div>
 					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
@@ -136,12 +144,23 @@
 			<section class="planned-block">
 				<span class="total-planned">{{nextMonthTotal}}{{currency}}</span>
 				<div class="graph">
+					<div class="no-categories-wrap" ng-if="no_categories">
+						<div class="canvas-holder">
+							<canvas class="chart-animation"></canvas>
+							<canvas class="chart-animation"></canvas>
+							<canvas class="chart-animation"></canvas>
+						</div>
+						<h4 class="no-categories-heading">You don't have any categories yet</h4>
+					</div>
 					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
 		</div>
 		<section class="expenses-block">
+			<div class="no-expenses-wrap" ng-if="no_expenses">
+				<h3 class="no-expenses-heading">You have not added any expenses this month. Start with the + button</h3>
+			</div>
 			<ul class="expenses-list">
 				<li class="expense" ng-repeat="expense in expenses">
 					<div class="expense-category-sum">

@@ -1,8 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
-from main.models import Expense, Category, Planned, AppSettings
+from main.models import Expense, Category, Planned, AppSettings, AccountRecover
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import User
+from django.core.exceptions import ObjectDoesNotExist
+from django.core.signing import Signer
 
 from rest_framework import viewsets
 from main.serializers import ExpenseSerializer, CategorySerializer, PlannedSerializer
@@ -111,6 +114,53 @@ def password_change(request):
         user.set_password(password)
         user.save()
         return HttpResponse(status=200)
+
+def forgotten_password(request):
+    if request.method == 'POST':
+        email = request.POST['username']
+        try:
+            user = User.objects.get(username=email)
+        except ObjectDoesNotExist:
+            return HttpResponse(status=404)
+
+        # send mail
+
+        key = User.objects.make_random_password(length=32)
+        signer = Signer()
+        signed_key = signer.sign(key)        
+
+        token_key = AccountRecover.objects.create(user_id=user.id, key=signed_key)
+        token_key.save()
+
+        return HttpResponse(status=200)
+
+def recover_account(request):
+
+    key = request.GET['key']
+    
+    signer = Signer()
+    signed_key = signer.sign(key)
+    
+    try:
+        recover = AccountRecover.objects.get(key=signed_key)
+        user = User.objects.get(id=recover.user_id)
+
+        user.backend = 'django.contrib.auth.backends.ModelBackend'
+        login(request, user)
+        
+        recover.delete()
+
+        success = redirect('/')
+        
+        #new_user_time = datetime.datetime.utcnow().replace(tzinfo=utc) + timedelta(seconds=48)
+        #success.set_cookie('recover', 'true', expires=new_user_time)
+
+        return success
+
+    except ObjectDoesNotExist:
+        return HttpResponse('Key already used, or does not exists.', status=404)
+
+
 
 class ExpenseViewSet(viewsets.ModelViewSet):
 

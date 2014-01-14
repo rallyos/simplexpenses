@@ -78,13 +78,24 @@ expensesApp.factory('Plan', ['$resource', function($resource) {
 }]);
 
 expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category, Plan) {
-
 // Set globals
 	// Data collections
 	$scope.categories = JSON.parse(c)
 	$scope.expenses = JSON.parse(e);
 	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
+
+	if ($scope.categories.length > 0) {
+		$scope.no_categories = false;
+	} else {
+		$scope.no_categories = true;
+	}
+
+	if ($scope.expenses.length > 0) {
+		$scope.no_expenses = false;
+	} else {
+		$scope.no_expenses = true;
+	}
 
 	// Show new category box setting
 	$scope.show_CategoryCreationForm = show_CategoryCreationForm
