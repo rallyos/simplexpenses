@@ -38,6 +38,16 @@ input {
 	color: #90E06F;
 	text-decoration: underline;
 }
+.nav-item:nth-child(3):after {
+	content: 'Nothing to report there yet';
+	position: absolute;
+	font-size: 0.9rem;
+	color: #E4794C;
+	display: none;
+}
+.nav-item:nth-child(3):hover:after {
+	display: block;
+}
 .main-heading {
 	margin: 25px 0 20px;
 	font-weight: 300;
