@@ -85,18 +85,6 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	$scope.planned = JSON.parse(p);
 	$scope.currency = currency
 
-	if ($scope.categories.length > 0) {
-		$scope.no_categories = false;
-	} else {
-		$scope.no_categories = true;
-	}
-
-	if ($scope.expenses.length > 0) {
-		$scope.no_expenses = false;
-	} else {
-		$scope.no_expenses = true;
-	}
-
 	// Show new category box setting
 	$scope.show_CategoryCreationForm = show_CategoryCreationForm
 
@@ -123,6 +111,20 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	var plannedBlock = document.getElementsByClassName('plan-expenses-block')[0]
 
 // Doing things on start
+
+	$scope.checkArrays = function() {
+		if ($scope.categories.length > 0) {
+			$scope.no_categories = false;
+		} else {
+			$scope.no_categories = true;
+		}
+
+		if ($scope.expenses.length > 0) {
+			$scope.no_expenses = false;
+		} else {
+			$scope.no_expenses = true;
+		}		
+	}
 
 	// Set the chart height based on the % of 100
 	$scope.chartHeight = function() {
@@ -152,6 +154,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	$scope.deleteExpense = function(idx) {
 		Expense.delete({id: this.expense.id},function() {
 			$scope.expenses.splice(idx, 1)
+			$scope.checkArrays();
 		})
 	}
 
@@ -245,7 +248,9 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 				$scope.sumExpenses()
 				$scope.exp_description = ''
 				$scope.exp_amount = '0.00'
-			});	
+				// not sure about this
+				$scope.checkArrays();
+			});
 		}
 	}
 
@@ -259,8 +264,9 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		if (key.which == ENTER_KEY) {
 			Categories.save({'name': $scope.newCategoryName, 'color': $scope.categoryColor}, function(response) {
 				$scope.categories.push(response);
+				// not sure about this either
+				$scope.checkArrays();
 			})
-
 			return false
 		}
 	}
@@ -479,7 +485,8 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 		if (window.confirm("Delete category " + this.category.name + '?')) {
 			Category.delete({id: this.category.id},function() {
 				$scope.categories.splice(idx, 1)
-			})				
+				$scope.checkArrays();
+			})
 		}
 	}
 
@@ -572,4 +579,5 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 	// Sum on load
 	$scope.sumExpenses();
 	$scope.sumPlanned();
+	$scope.checkArrays();
 });
