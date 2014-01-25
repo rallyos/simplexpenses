@@ -85,6 +85,7 @@ FPForm.onsubmit = function() {
 
 	if ( xhr.status == 200) {
 		rpb.style.opacity = 0
+		FPForm.children[0].backgroundColor = '#90E06F'
 		rpb.style.webkitTransform = 'translateY(0)'
 		setTimeout(function() {
 			rpb.style.display = 'none'
