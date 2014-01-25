@@ -129,9 +129,9 @@ def forgotten_password(request):
         from django.core.mail import send_mail
 
         message = """
-                    Use the link below to recover your account. Please change your password.
-                    <a href="http://simplexpenses.heroku.com/recover?key=%s">Change password</a>
-                """ % (key)
+Use the link below to login to your account and then please change your password.
+http://simplexpenses.heroku.com/recover?key=%s
+""" % (key)
 
         send_mail('Simplexpenses account recovery', message, 'app20032559@heroku.com', [email])
         # send mail
