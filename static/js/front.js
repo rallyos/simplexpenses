@@ -85,13 +85,13 @@ FPForm.onsubmit = function() {
 
 	if ( xhr.status == 200) {
 		rpb.style.opacity = 0
-		FPForm.children[0].backgroundColor = '#90E06F'
+		FPForm.children[1].backgroundColor = '#90E06F'
 		rpb.style.webkitTransform = 'translateY(0)'
 		setTimeout(function() {
 			rpb.style.display = 'none'
 		}, 300)
 	} else if ( xhr.status == 404) {
-		FPForm.children[0].value = 'User not found'
+		FPForm.children[1].value = 'User not found'
 	};
 
 	return false;
