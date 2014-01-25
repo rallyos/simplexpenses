@@ -102,6 +102,12 @@ SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 # Allow all host headers
 ALLOWED_HOSTS = ['*']
 
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = 'app20032559@heroku.com'
+EMAIL_HOST_PASSWORD = 'fqpzrfn5'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+
 PROJECT_PATH = os.path.dirname(os.path.abspath(__file__))
 STATIC_ROOT = 'staticfiles'
 STATIC_URL = '/static/'
