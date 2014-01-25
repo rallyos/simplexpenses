@@ -90,7 +90,7 @@ FPForm.onsubmit = function() {
 			rpb.style.display = 'none'
 		}, 300)
 	} else if ( xhr.status == 404) {
-
+		rpb.children[0].value = 'User not found'
 	};
 
 	return false;
