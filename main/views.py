@@ -123,22 +123,23 @@ def forgotten_password(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=404)
 
-        key = User.objects.make_random_password(length=32)
-        signer = Signer()
-        signed_key = signer.sign(key)        
 
-        token_key = AccountRecover.objects.create(user_id=user.id, key=signed_key)
-        token_key.save()
+        key = User.objects.make_random_password(length=32)
 
         from django.core.mail import send_mail
 
         message = """
                     Use the link below to recover your account. Please change your password.
                     <a href="http://simplexpenses.heroku.com/recover?key=%s">Change password</a>
-                """ % (key), 
+                """ % (key)
 
         send_mail('Simplexpenses account recovery', message, 'app20032559@heroku.com', [email])
         # send mail
+        signer = Signer()
+        signed_key = signer.sign(key)        
+
+        token_key = AccountRecover.objects.create(user_id=user.id, key=signed_key)
+        token_key.save()
 
         return HttpResponse(status=200)
 
