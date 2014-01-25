@@ -123,6 +123,9 @@ def forgotten_password(request):
         except ObjectDoesNotExist:
             return HttpResponse(status=404)
 
+        from django.core.mail import send_mail
+
+        send_mail('Simplexpenses account recovery', 'Simplexpenses account recovery', 'app20032559@heroku.com', email)
         # send mail
 
         key = User.objects.make_random_password(length=32)
