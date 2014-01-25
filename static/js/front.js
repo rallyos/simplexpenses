@@ -84,9 +84,13 @@ FPForm.onsubmit = function() {
 	xhr.send('csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) + '&username=' + encodeURIComponent(user))
 
 	if ( xhr.status == 200) {
-		console.log('ok')
+		rpb.style.opacity = 0
+		rpb.style.webkitTransform = 'translateY(0)'
+		setTimeout(function() {
+			rpb.style.display = 'none'
+		}, 300)
 	} else if ( xhr.status == 404) {
-		console.log('not ok')
+
 	};
 
 	return false;
