@@ -1,6 +1,7 @@
 var signUpForm = document.getElementsByClassName('signup-form')[0]
 var signInForm = document.getElementsByClassName('signin-form')[0]
 var FPForm = document.getElementsByClassName('recover-pass-form')[0]
+var rpb = document.getElementsByClassName('recover-pass-block')[0]
 
 signUpForm.onsubmit = function() {
 
@@ -55,7 +56,6 @@ signInForm.onsubmit = function() {
 }
 
 function showPassRecoverBox() {
-	var rpb = document.getElementsByClassName('recover-pass-block')[0]
 	rpb.style.display = 'block'
 	var rpi = document.getElementById('recover-pass')
 	rpi.value = signInForm.children[1].value;
