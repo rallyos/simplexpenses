@@ -406,15 +406,15 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	// Update planend amount
 	$scope.updatePlanned = function(event) {
-
-		cgid = this.category.id
+		//delete
+		//cgid = this.category.id
 
 		// On enter
 		if (event.which == ENTER_KEY) {
 
 			// Loop over planned to find related category
 			for (var i=0; $scope.planned.length > i;i++) {
-				if ($scope.planned[i].category_id == cgid) {
+				if ($scope.planned[i].category_id == this.category.id) {
 
 					// Update the planned amount
 					$scope.planned[i].planned_amount = Number(event.target.value)
