@@ -616,6 +616,7 @@ a {
 }
 .expenses-block {
 	width: 100%;
+	float: left;
 	margin: 0 auto 50px;
 	clear: both;
 	background: #fff;
