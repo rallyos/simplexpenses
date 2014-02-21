@@ -92,12 +92,12 @@ FPForm.onsubmit = function() {
 
 			document.getElementsByClassName('recover-pass-heading')[0].textContent = 'Thank you! Check your email for a message.'
 			document.getElementsByClassName('recover-pass-heading')[0].style.color = '#90E06F'
-			
+
 			setTimeout(function() {
 				rpb.style.opacity = 0
 				FPForm.children[1].backgroundColor = '#90E06F'
 				rpb.style.webkitTransform = 'translateY(0)'
-			}, 1000)
+			}, 5000)
 
 			setTimeout(function() {
 				rpb.style.display = 'none'
