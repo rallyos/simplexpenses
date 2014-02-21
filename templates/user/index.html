@@ -10,13 +10,16 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
+	<script src="{% static "js/libs/fastclick.js" %}"></script>
 	<script src="{% static "js/main.js" %}"></script>
+	<script src="{% static "js/services/expensesAppServices.js" %}"></script>
+	<script src="{% static "js/controllers/expensesAppController.js" %}"></script>
 	<script>
 		var c = '{{categories|escapejs}}'
 		var e = '{{expenses|escapejs}}'
 		var p = '{{planned|escapejs}}'
 		var currency = '{{currency|escapejs}}'
-		var show_CategoryCreationForm = Boolean('{{show_CategoryCreationForm|escapejs}}')
+		var show_CategoryCreationForm = Boolean('{{show_category_creation_form|escapejs}}')
 	</script>
 </head>
 <body>
@@ -107,6 +110,7 @@
 		</div>
 		<div class="expense-form-wrapper" ng-class="">
 			<div class="expense-form" ng-class="[headerClass ? 'expense-form-translate' : '', hideExpenseForm ? 'hide-expense-form' : '']">
+				<ul class="add-expense-error"></ul>
 				<input class="add-expense-sum" type="text" ng-model="exp_amount">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.name}}</li>
@@ -120,6 +124,13 @@
 				</ul>
 				<input class="add-expense-description" id="description" ng-model="exp_description" type="text">
 				<label class="add-expense-description-label" for="description"><i>(Description)</i></label>
+				<div class="add-expense-use-today">
+					<input class="add-expense-checkbox settings-checkbox" id="date-today" type="checkbox" ng-model="date_today" ng-init="date_today=true">
+					<label class="add-expense-checkbox-label settings-label" for="date-today">Today</label>					
+				</div>
+				<div class="add-expense-date" ng-if="!date_today">
+					<input type="text" class="add-expense-set-date category-creation-input" placeholder="year-month-day" maxlength="10" ng-model="$parent.expense_date" ng-keydown="addDashes($event)">
+				</div>
 				<input class="add-expense-submit" ng-click="addExpense()" type="submit">
 				<span class="add-expense" ng-click="headerClass=!headerClass">+</span>
 			</div>
@@ -163,16 +174,29 @@
 			</div>
 			<ul class="expenses-list">
 				<li class="expense" ng-repeat="expense in expenses">
+					<ul class="expense-edit-categories" ng-show="editMode" ng-class="animateWindow ? 'expense-edit-categories-show': ''">
+						<li class="expense-edit-category" ng-repeat="category in categories" ng-click="expenseEditCategory($parent.expense);$parent.animateWindow=false">
+							<span class="expense-edit-category-color" style="background: {{category.color}}"></span>
+							<span class="expense-edit-category-name">{{category.name}}</span>
+						</li>
+					</ul>
 					<div class="expense-category-sum">
-						<div class="category-circle" style="background: {{getCategoryColor()}}">
-							<span class="expense-show-category-name">{{getCategoryName()}}</span>						
+						<div class="category-circle" ng-class="editMode ? 'expense-edit-category-color-animate' : ''" style="background: {{getCategoryColor()}}" ng-click="animateWindow=!animateWindow">
+							<span class="expense-category-edit-mode" ng-show="editMode">+</span>
+							<span class="expense-show-category-name">{{getCategoryName()}}</span>
 						</div>
-						<span class="expense-sum">{{expense.amount}}{{currency}}</span>
+						<span class="expense-sum" ng-show="!editMode">{{expense.amount}}{{currency}}</span>
+						<input class="expense-edit-sum" type="text" ng-show="editMode" placeholder="{{expense.amount}}{{currency}}" ng-change="expense.amount=newExpenseAmount" ng-model="newExpenseAmount">
 					</div>
-					<h3 class="expense-description">{{expense.description}}</h3>
+					<div class="expense-description-wrap">
+						<h3 class="expense-description" ng-show="!editMode">{{expense.description}}</h3>
+						<input class="expense-edit-description" type="text" ng-show="editMode" placeholder="{{expense.description}}" ng-change="expense.description=newExpenseDescription" ng-model="newExpenseDescription">
+					</div>
 					<div class="expense-date-and-delete">
-						<h3 class="expense-date">{{expense.date}}</h3>
-						<span class="expense-delete" ng-click="deleteExpense($index)">x</span>						
+						<h3 class="expense-date" ng-show="!editMode" ng-keydown="editExpenseDate($event)">{{expense.date}}</h3>
+						<input class="expense-edit-date" type="text" ng-show="editMode" ng-keyup="expenseEditDate($event)" maxlength="10" ng-change="expense.date=newExpenseDate" ng-model="$parent.newExpenseDate">
+						<span class="expense-delete" ng-click="deleteExpense($index)">x</span>
+						<span class="expense-edit" ng-class="editMode ? 'expense-edit-on' : ''" ng-click="editMode=!editMode;editExpense($event, editMode)" ng-model="editMode">Edit</span>
 					</div>
 				</li>
 			</ul>

@@ -193,10 +193,12 @@ a {
 	width: 25px;
 	height: 25px;
 	float: right;
-	margin: 0 12px 0 0;
+	margin: 0 12px;
 	background-size: 25px;
 	background-repeat: no-repeat;
 	background-image: url(http://simplexpenses.herokuapp.com/static/img/1.png);
+	background-color: transparent;
+	border-color: transparent;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 }
@@ -304,7 +306,6 @@ a {
 }
 .expense-form {
 	position: absolute;
-	min-width: 432px;
 	/* This is hackish - always seek more methods, calc() don't have the needed support yet */
 	margin-left: auto;
 	margin-right: auto;
@@ -313,6 +314,7 @@ a {
 	width: 30%;
 	min-width: 320px;
 	border-radius: 3px;
+	z-index: 1;
 	-webkit-transform: translateY(-85%);
 	-ms-transform: translateY(-85%);
 	transform: translateY(-85%);
@@ -330,6 +332,27 @@ a {
 	transform: translateY(0);
 	background: #fff;
 	box-shadow: 0 2px 3px #BABABA;
+}
+.add-expense-error {
+	position: absolute;
+	width: 96%;
+	display: block;
+	padding: 2%;
+	font-weight: 300;
+	text-align: left;
+	color: #fff;
+	background: #E74B4B;
+	z-index: 1;
+	-webkit-transform: translateY(-100%);
+	-ms-transform: translateY(-100%);
+	transform: translateY(-100%);
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.add-expense-error-show {
+	-webkit-transform: translateY(0);
+	-ms-transform: translateY(0);
+	transform: translateY(0);
 }
 .add-expense-sum {
 	display: block;
@@ -429,6 +452,26 @@ a {
 	font-size: 1.2rem;
 	color: #B9B9B9;
 }
+.add-expense-use-today {
+	width: 100%;
+	float: left;
+}
+.add-expense-checkbox {
+	float: left;
+}
+.add-expense-checkbox-label {
+	margin-left: 0;
+}
+.add-expense-date {
+	width: 100%;
+	margin: 4px 0;
+	float: left;
+}
+.add-expense-set-date {
+	width: 150px;
+	margin: 10px 12px;
+	text-indent: 4px;
+}
 .add-expense-submit {
 	padding: 8px 30px;
 	font-family: inherit;
@@ -475,8 +518,18 @@ a {
 	padding: 8px 15px;
 	font-weight: 300;
 	color: #fff;
+	opacity: 0;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
+	-webkit-transform: scale(1.1);
+	-ms-transform: scale(1.1);
+	transform: scale(1.1);
+}
+.graph-information-show {
+	opacity: 1;
+	-webkit-transform: scale(1);
+	-ms-transform: scale(1);
+	transform: scale(1);
 }
 .this-month-block {
 	width: 40%;
@@ -575,6 +628,7 @@ a {
 .expense {
 	width: 100%;
 	height: 50px;
+	position: relative;
 	float: left;
 	margin: 0 0 10px 0;
 	font-size: 1rem;
@@ -584,7 +638,7 @@ a {
 	transition: 0.3s;
 }
 .expense-category-sum {
-	width: 26%;
+	width: 24%;
 	float: left;
 }
 .category-circle {
@@ -594,6 +648,25 @@ a {
 	float: left;
 	border-radius: 30px;
 	position: relative;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.expense-category-edit-mode {
+	position: absolute;
+	width: 100%;
+	display: block;
+	font-family: 'Roboto', sans-serif;
+	font-weight: 100;
+	font-size: 1.2rem;
+	color: rgba(255, 255, 255, 0.8);
+	line-height: 30px;
+	text-align: center;
+	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.expense-category-edit-mode:hover {
+	color: #fff;
 }
 .expense-show-category-name {
 	display: block;
@@ -612,19 +685,104 @@ a {
 	-ms-transform: translateX(-100%);
 	transform: translateX(-100%);
 }
+.expense-edit-categories {
+	position: absolute;
+	top: 10px;
+	left: 40px;
+	font-size: 0.8rem;
+	border: solid 2px #F0F0F0;
+	background: #fff;
+	border-radius: 8px;
+	z-index: 1;
+	opacity: 0;
+	list-style: none;
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
+	-webkit-transform: translateX(-100%) translateY(-40%) scale(0);
+	-ms-transform: translateX(-100%) translateY(-40%) scale(0);
+	transform: translateX(-100%) translateY(-40%) scale(0);
+}
+.expense-edit-categories-show {
+	opacity: 1;
+	-webkit-transform: translateX(0) translateY(-40%) scale(1);
+	-ms-transform: translateX(0) translateY(-40%) scale(1);
+	transform: translateX(0) translateY(-40%) scale(1);
+}
+.expense-edit-category {
+	padding: 4px 6px;
+	overflow: hidden;
+	cursor: pointer;
+}
+.expense-edit-category-color {
+	display: block;
+	float: left;
+	margin: 5px 2px;
+	width: 20px;
+	height: 20px;
+	border-radius: 20px;
+	clear: both;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.expense-edit-category-color-animate {
+	-webkit-transform: rotateY(360deg);
+	-ms-transform: rotateY(360deg);
+	transform: rotateY(360deg);
+}
+.expense-edit-category:hover .expense-edit-category-color {
+	-webkit-transform: scale(1.3);
+	-ms-transform: scale(1.3);
+	transform: scale(1.3);
+}
+.expense-edit-category-name {
+	margin: 0 2px;
+	float: left;
+	line-height: 30px;
+}
 .expense-sum {
-	margin: 0 0 0 10%;
+	margin: 0 0 0 8%;
 	float: left;
 }
-.expense-description {
+.expense-edit-sum {
 	width: 50%;
+	margin-left: 10%;
+	font-size: 0.9rem;
+	border: 0;
+	border-bottom: solid 1px #ccc;
+	outline: 0;
+}
+.expense-description-wrap {
+	width: 50%;
+	float: left;
+	overflow: hidden;
+}
+.expense-description {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	width: 100%;
+}
+.expense-edit-description {
+	width: 96%;
+	margin-right: 4%;
+	font-size: 0.9rem;
+	border: 0;
+	text-align: center;
+	border-bottom: solid 1px #ccc;
+	outline: 0;
 }
 .expense-date-and-delete {
-	width: 24%;
+	width: 26%;
 	float: left;
 }
 .expense-date {
 
+}
+.expense-edit-date {
+	width: 40%;
+	font-size: 0.9rem;
+	border: 0;
+	border-bottom: solid 1px #ccc;
+	outline: 0;
 }
 .expense-description,
 .expense-date {
@@ -632,6 +790,30 @@ a {
 	font-size: inherit;
 	font-weight: inherit;
 	text-align: center;
+}
+.expense-edit {
+	display: block;
+	height: 19px;
+	padding: 0 10px;
+	margin: 14.5px 6px;
+	float: right;
+	font-size: 0.8rem;
+	color: #bababa;
+	text-align: center;
+	line-height: 19px;
+	border: solid 1px #bababa;
+	border-radius: 6px;
+	cursor: pointer;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
+.expense-edit-on {
+	background: #5EC035;
+	border-color: #5EC035;
+	color: #fff;
+}
+.expense-edit:hover {
+	border-color: #5EC035;
 }
 .expense-delete {
 	display: block;
@@ -743,6 +925,18 @@ a {
 }
 
 @media screen and (max-width: 768px) {
+	.expense-description-wrap {
+		width: 40%;
+	}
+	.expense-date-and-delete {
+		width: 34%;
+	}
+	.expense-edit-date {
+		width: 45%;
+	}
+	.expense-form {
+		min-width: 380px;
+	}
 	.planned-block,
 	.this-month-block {
 		width: 45%;
@@ -756,6 +950,18 @@ a {
 	}
 }
 @media screen and (max-width: 568px) {
+	.expense {
+		font-size: 0.9rem;
+	}
+	.expense-category-sum {
+		width: 20%;
+	}
+	.expense-sum {
+		margin: 0 0 0 4%;
+	}
+	.expense-description {
+		text-align: left;
+	}
 	.monthly-graphs {
 		margin-top: 100px;
 	}
@@ -782,8 +988,11 @@ a {
 		margin: 14px 4px;
 		border-radius: 22px;
 	}
-	.expense-description, .expense-date {
-		font-size: 0.9rem;
+	.expense-category-edit-mode {
+		line-height: 22px;
+	}
+	.expense-description {
+		font-size: 0.8rem;
 	}
 	.monthly-graphs {
 		margin-top: 68px;
@@ -806,16 +1015,17 @@ a {
 	.category {
 		width: 22px;
 	}
-	.expense-date {
+	.expense-date,
+	.expense-edit-date {
 		display: none;
 	}
 	.expense-category-sum {
-		width: 35%;
+		width: 30%;
 		float: left;
 	}
-	.expense-description {
-		width: 60%;
+	.expense-description-wrap {
+		width: 44%;
 	}
 	.expense-date-and-delete {
-		width: 5%;
+		width: 26%;
 }

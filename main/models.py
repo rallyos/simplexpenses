@@ -13,7 +13,7 @@ class Expense(models.Model):
 	amount = models.DecimalField(max_digits=24, decimal_places=2)
 	description = models.CharField(max_length=80)
 	category = models.ForeignKey(Category)
-	date = models.DateField(auto_now_add=True)
+	date = models.DateField()
 
 class Planned(models.Model):
 	user = models.ForeignKey(User)
@@ -24,6 +24,7 @@ class Planned(models.Model):
 class AppSettings(models.Model):
 	user = models.ForeignKey(User)
 	currency = models.CharField(max_length=5, blank=True)
+	# not cool name...change it in the future
 	show_CategoryCreationForm = models.BooleanField(default=True)
 
 class AccountRecover(models.Model):

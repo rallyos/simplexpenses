@@ -12,17 +12,19 @@ signUpForm.onsubmit = function() {
 	confirmPass = signUpForm.children[3].value;
 
 	var xhr = new XMLHttpRequest()
-	xhr.open('POST', 'register_user', false);
+	xhr.open('POST', 'register_user');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send('csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) +
 	'&username=' + encodeURIComponent(user) +
 	'&password1=' + encodeURIComponent(pass) +
 	'&password2=' + encodeURIComponent(confirmPass))
 
-	if ( xhr.status == 200) {
-		location.reload()
-	} else if ( xhr.status ==  403) {
-		console.log('invalid')
+	xhr.onreadystatechange = function() {
+		if ( xhr.status == 200) {
+			location.reload()
+		} else if ( xhr.status ==  403) {
+			console.log('invalid')
+		}
 	}
 
 	return false;
@@ -37,20 +39,22 @@ signInForm.onsubmit = function() {
 	var xhr = new XMLHttpRequest()
 	xhr.open('GET', 'login_user?' + 'csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) +
 	'&username=' + encodeURIComponent(user) +
-	'&password=' + encodeURIComponent(pass), false);
+	'&password=' + encodeURIComponent(pass));
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send()
 
-	if ( xhr.status == 200) {
-		signInForm.children[3].style.background = '#90E06F'
-		location.reload()
-	} else if ( xhr.status == 404) {
-		signInForm.children[2].style.borderColor = '#E4794C'
-		signInForm.children[1].style.borderColor = '#E4794C'
-		var fl = document.getElementsByClassName('forgotten-password')[0]
-		fl.style.display = 'block'
-		fl.addEventListener('click', showPassRecoverBox)
-	};
+	xhr.onreadystatechange = function() {
+		if ( xhr.status == 200) {
+			signInForm.children[3].style.background = '#90E06F'
+			location.reload()
+		} else if ( xhr.status == 404) {
+			signInForm.children[2].style.borderColor = '#E4794C'
+			signInForm.children[1].style.borderColor = '#E4794C'
+			var fl = document.getElementsByClassName('forgotten-password')[0]
+			fl.style.display = 'block'
+			fl.addEventListener('click', showPassRecoverBox)
+		};
+	}
 
 	return false;
 }
