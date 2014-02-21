@@ -83,20 +83,29 @@ FPForm.onsubmit = function() {
 	user = document.getElementById('recover-pass').value;
 
 	var xhr = new XMLHttpRequest()
-	xhr.open('POST', 'forgotten_password?', false);
+	xhr.open('POST', 'forgotten_password?');
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send('csrfmiddlewaretoken=' + encodeURIComponent(csrfmiddlewaretoken) + '&username=' + encodeURIComponent(user))
 
-	if ( xhr.status == 200) {
-		rpb.style.opacity = 0
-		FPForm.children[1].backgroundColor = '#90E06F'
-		rpb.style.webkitTransform = 'translateY(0)'
-		setTimeout(function() {
-			rpb.style.display = 'none'
-		}, 300)
-	} else if ( xhr.status == 404) {
-		FPForm.children[1].value = 'User not found'
-	};
+	xhr.onreadystatechange = function() {
+		if ( xhr.status == 200) {
+
+			document.getElementsByClassName('recover-pass-heading')[0].textContent = 'Thank you! Check your email for a message.'
+			document.getElementsByClassName('recover-pass-heading')[0].style.color = '#90E06F'
+			
+			setTimeout(function() {
+				rpb.style.opacity = 0
+				FPForm.children[1].backgroundColor = '#90E06F'
+				rpb.style.webkitTransform = 'translateY(0)'
+			}, 1000)
+
+			setTimeout(function() {
+				rpb.style.display = 'none'
+			}, 400)
+		} else if ( xhr.status == 404) {
+			FPForm.children[1].value = 'User not found'
+		}
+	}
 
 	return false;
 }
