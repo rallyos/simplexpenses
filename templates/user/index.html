@@ -48,7 +48,7 @@
 				<span class="hide-plan-expenses-block" ng-click="showPlanned()">></span>
 				<h1 class="plan-expenses-total">{{nextMonthTotal}}{{currency}}</h1>
 				<div class="plan-expenses-small-graph">
-					<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="plan-small-category" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">

@@ -21,7 +21,6 @@ def index(request):
 
     if request.user.is_authenticated():
         # Get the expenses but filter them and show only these that are added this month
-        #! There is too much mess here. Think about extending API methods to do this.
         queryset = ExpenseViewSet().get_queryset_this_month(request)
         serializedExpenses = ExpenseSerializer(queryset, many=True)
 
@@ -29,7 +28,7 @@ def index(request):
         serializedCategories = CategorySerializer(categories, many=True)
 
         # Get planned amounts for this month
-        planned = PlannedViewSet.get_queryset_this_month(request)
+        planned = PlannedViewSet().get_queryset_this_month(request)
         serializedPlanned = PlannedSerializer(planned, many=True)
 
         # Get the settings object. Containing: Currency AND show_category_creation_form
