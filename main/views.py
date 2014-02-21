@@ -22,14 +22,14 @@ def index(request):
     if request.user.is_authenticated():
         # Get the expenses but filter them and show only these that are added this month
         #! There is too much mess here. Think about extending API methods to do this.
-        queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=TODAY.year, date__month=TODAY.month).order_by('-date')
+        queryset = ExpenseViewSet().get_queryset_this_month(request)
         serializedExpenses = ExpenseSerializer(queryset, many=True)
 
-        categories = Category.objects.filter(user_id__exact=request.user.id)
+        categories = CategoryViewSet().get_queryset(request)
         serializedCategories = CategorySerializer(categories, many=True)
 
         # Get planned amounts for this month
-        planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
+        planned = PlannedViewSet.get_queryset_this_month(request)
         serializedPlanned = PlannedSerializer(planned, many=True)
 
         # Get the settings object. Containing: Currency AND show_category_creation_form
@@ -199,6 +199,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
+        
         year = self.request.QUERY_PARAMS.get('year', None)
         month = self.request.QUERY_PARAMS.get('month', None)
 
@@ -209,6 +210,11 @@ class ExpenseViewSet(viewsets.ModelViewSet):
 
         return queryset.order_by('-date')
 
+    def get_queryset_this_month(self, request):
+
+        queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=TODAY.year, date__month=TODAY.month)    
+        return queryset.order_by('-date')
+
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
@@ -217,8 +223,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-    def get_queryset(self):
-        return Category.objects.filter(user_id__exact=self.request.user.id)
+    def get_queryset(self, request):
+        return Category.objects.filter(user_id__exact=request.user.id)
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
@@ -231,28 +237,10 @@ class PlannedViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
 
+    def get_queryset_this_month(self, request):
+        return Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
+
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
-
-
-def freeworld(request, year, month):
-
-    if request.user.is_authenticated():
-        if year is not None:
-            # Expiremental
-            queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=year, date__month=month)
-            expenses = queryset.order_by('-date')
-            serializedExpenses = ExpenseSerializer(expenses, many=True)
-
-            categories = Category.objects.filter(user_id__exact=request.user.id)
-            serializedCategories = CategorySerializer(categories, many=True)
-
-            planned = Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=year, planned_month__month=month)
-            serializedPlanned = PlannedSerializer(planned, many=True)
-
-            bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder), 'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder), 'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder)}
-            return render(request, 'user/index.html', bootstrapped_data)
-        else:
-            return redirect('/')
 
 

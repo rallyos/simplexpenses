@@ -97,11 +97,11 @@ FPForm.onsubmit = function() {
 				rpb.style.opacity = 0
 				FPForm.children[1].backgroundColor = '#90E06F'
 				rpb.style.webkitTransform = 'translateY(0)'
-			}, 5000)
+			}, 3000)
 
 			setTimeout(function() {
 				rpb.style.display = 'none'
-			}, 5400)
+			}, 3400)
 		} else if ( xhr.status == 404) {
 			FPForm.children[1].value = 'User not found'
 		}
