@@ -101,7 +101,7 @@ FPForm.onsubmit = function() {
 
 			setTimeout(function() {
 				rpb.style.display = 'none'
-			}, 400)
+			}, 5400)
 		} else if ( xhr.status == 404) {
 			FPForm.children[1].value = 'User not found'
 		}
