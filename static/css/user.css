@@ -557,9 +557,6 @@ a {
 	-webkit-transition: 0.4s;
 	transition: 0.4s;
 }
-.animate-enter { -webkit-transition: 1s linear all; /* Chrome */ transition: 1s linear all; height: 30px; }
-
-.animate-enter.animate-enter-active { height: 341px; }
 .category:hover {
 	-webkit-transform: scale(1.05);
 	-ms-transform: scale(1.05);

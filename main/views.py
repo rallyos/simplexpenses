@@ -24,7 +24,7 @@ def index(request):
         queryset = ExpenseViewSet().get_queryset_this_month(request)
         serializedExpenses = ExpenseSerializer(queryset, many=True)
 
-        categories = CategoryViewSet().get_queryset(request)
+        categories = Category.objects.filter(user_id__exact=request.user.id)
         serializedCategories = CategorySerializer(categories, many=True)
 
         # Get planned amounts for this month
@@ -222,8 +222,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
-    def get_queryset(self, request):
-        return Category.objects.filter(user_id__exact=request.user.id)
+    def get_queryset(self):
+        return Category.objects.filter(user_id__exact=self.request.user.id)
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id

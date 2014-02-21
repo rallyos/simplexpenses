@@ -288,7 +288,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	// Show the window and calculate
 	// Simplify the calculations in the future
-	$scope.showDetailsWindow = function(is_expenses) {
+	$scope.showDetailsWindow = function(event, is_expenses) {
 
 		// Show 
 
@@ -326,7 +326,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(event, color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
 		} else {
 
 			// Store related category id and planned amount
@@ -350,13 +350,13 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(event, color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
 		}
 
 	}
 
 	// Set window color like the category color and show the information
-	$scope.updateDetailsWindow = function(color, info) {
+	$scope.updateDetailsWindow = function(event, color, info) {
 		detailsDesplay.style.background = color
 		detailsDesplay.style.left = event.target.offsetLeft + 'px'
 		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'
