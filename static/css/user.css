@@ -676,9 +676,11 @@ a {
 	font-size: 0.9rem;
 	line-height: 30px;
 	opacity: 0;
-	z-index: -1;
-	-webkit-transition: 0.3s;
-	transition: 0.3;s
+	-webkit-transform: translateX(-200%);
+	-ms-transform: translateX(-200%);
+	transform: translateX(-200%);
+	-webkit-transition: 0.2s;
+	transition: 0.2s;
 }
 .category-circle:hover .expense-show-category-name {
 	opacity: 1;

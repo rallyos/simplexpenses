@@ -1,3 +1,16 @@
+//-----------WARNING
+// WARNING----------
+//-----------WARNING
+// WARNING----------
+// 
+//  THIS IS MESS
+//  DO A HUGE REFACTOR
+//  CREATE DIRECTIVES
+// 
+// WARNING------------
+//-------------WARNING
+// WARNING------------
+
 expensesApp.controller('mainController', function($scope, $http, Expenses, Categories, Planned, Expense, Category, Plan) {
 // Set globals
 	// Data collections
@@ -288,7 +301,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 
 	// Show the window and calculate
 	// Simplify the calculations in the future
-	$scope.showDetailsWindow = function(event, is_expenses) {
+	$scope.showDetailsWindow = function(is_expenses) {
 
 		// Show 
 
@@ -326,7 +339,7 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(event, color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
 		} else {
 
 			// Store related category id and planned amount
@@ -350,13 +363,13 @@ expensesApp.controller('mainController', function($scope, $http, Expenses, Categ
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(event, color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
 		}
 
 	}
 
 	// Set window color like the category color and show the information
-	$scope.updateDetailsWindow = function(event, color, info) {
+	$scope.updateDetailsWindow = function(color, info) {
 		detailsDesplay.style.background = color
 		detailsDesplay.style.left = event.target.offsetLeft + 'px'
 		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'

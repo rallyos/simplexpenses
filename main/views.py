@@ -198,7 +198,8 @@ class ExpenseViewSet(viewsets.ModelViewSet):
     serializer_class = ExpenseSerializer
 
     def get_queryset(self):
-        
+        '''Preparing to add changes so I can implement endpoint for history/year/month'''
+
         year = self.request.QUERY_PARAMS.get('year', None)
         month = self.request.QUERY_PARAMS.get('month', None)
 
@@ -210,6 +211,7 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         return queryset.order_by('-date')
 
     def get_queryset_this_month(self, request):
+        '''Preparing to add changes so I can implement endpoint for history/year/month'''
 
         queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=TODAY.year, date__month=TODAY.month)    
         return queryset.order_by('-date')
@@ -223,6 +225,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
     def get_queryset(self):
+        '''Preparing to add changes so I can implement endpoint for history/year/month'''
+
         return Category.objects.filter(user_id__exact=self.request.user.id)
 
     def pre_save(self, obj):
@@ -234,9 +238,13 @@ class PlannedViewSet(viewsets.ModelViewSet):
     serializer_class = PlannedSerializer
 
     def get_queryset(self):
+        '''Preparing to add changes so I can implement endpoint for history/year/month'''
+
         return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
 
     def get_queryset_this_month(self, request):
+        '''Preparing to add changes so I can implement endpoint for history/year/month'''
+
         return Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
 
     def pre_save(self, obj):

@@ -48,7 +48,7 @@
 				<span class="hide-plan-expenses-block" ng-click="showPlanned()">></span>
 				<h1 class="plan-expenses-total">{{nextMonthTotal}}{{currency}}</h1>
 				<div class="plan-expenses-small-graph">
-					<canvas class="plan-small-category" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
@@ -148,7 +148,7 @@
 						</div>
 						<h4 class="no-categories-heading">You don't have any categories yet</h4>
 					</div>
-					<canvas class="category" ng-click="showDetailsWindow($event, is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
@@ -163,7 +163,7 @@
 						</div>
 						<h4 class="no-categories-heading">You don't have any categories yet</h4>
 					</div>
-					<canvas class="category" ng-click="showDetailsWindow($event, is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
