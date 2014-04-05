@@ -586,14 +586,31 @@ expensesApp.directive('thisweekchart', function(){
 				// Get canvas and add width(based on parent - which width is based on % of wrapper) and height
 				var canvasa = document.getElementById('the-graph')
 				canvasa.width = chart_wrap.clientWidth
-				canvasa.height = 315
+				canvasa.height = chart_wrap.clientHeight
 
 				// Line length width based on the canvas width divided by 7 (days of week)
 				var canvas_line_length = (chart_wrap.clientWidth / 7)
 
+				var context = canvasa.getContext('2d');
+				context.beginPath();
+
+				for(var i = 1; i != 7; i++) {
+					context.moveTo(0, (canvasa.clientHeight / 7)*i);
+					context.lineTo(687, (canvasa.clientHeight / 7)*i);
+
+					context.moveTo(canvas_line_length*i, 0);
+					context.lineTo(canvas_line_length*i, canvasa.clientWidth);
+
+					context.strokeStyle = '#E2E2E2'
+					context.lineWidth = 0;
+				}			
+				context.stroke();
+
 				// Init canvas and start drawing
 				var context = canvasa.getContext('2d');
 				context.beginPath();
+
+				$scope.coords = []
 
 				for (var i = 0; $scope.chart_data.length > i; i++) {
 
@@ -621,16 +638,19 @@ expensesApp.directive('thisweekchart', function(){
 					// second: 86*i(1) = 86, third: 86*i(2) = 172 and so on )
 					var startx = canvas_line_length * i
 
+
 					// Create line
-					context.moveTo(startx, starty);
-					context.lineTo(canvas_line_length + startx, endy);
+					context.moveTo(startx, starty - 6);
+					context.lineTo(canvas_line_length + startx, endy - 6);
 					context.strokeStyle = '#81B71A'
 					context.lineWidth = 2;
 					context.stroke();
 
+					console.log(centerX, centerY)
+
 					// Create circle
 					var centerX = canvas_line_length + startx
-					var centerY = endy
+					var centerY = endy - 6
 					var radius = 4;
 					context.beginPath();
 					context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
@@ -638,12 +658,40 @@ expensesApp.directive('thisweekchart', function(){
 					context.fill();
 					context.lineWidth = 2;
 					context.strokeStyle = '#81B71A';
-					context.stroke();
+
+					$scope.coords.push({'x': centerX, 'y': centerY, 'amount': $scope.chart_data[i].spent})
 				}
+				console.log($scope.coords)
+				context.stroke();
+
+			};
+			
+			var graph = document.getElementById('the-graph')
+			var show_am = document.getElementById('showAm')
+
+			graph.addEventListener('mousemove', showAmount)
+			graph.addEventListener('click', showAmount)
+
+			function showAmount(mouse) {
+
+				for (var i = 0; $scope.coords.length > i; i++) {
+					var mouseX = mouse.offsetX,
+						mouseY = mouse.offsetY;
+
+					if ( (mouseX < $scope.coords[i].x + 5 && mouseX > $scope.coords[i].x - 5) && (mouseY < $scope.coords[i].y + 5 && mouseY > $scope.coords[i].y - 5) ) {
+						show_am.style.left = (mouseX - 20) + 'px'
+						show_am.style.top = (mouseY - 50) + 'px'
+						show_am.textContent = $scope.coords[i].amount.toFixed(2)
+						show_am.style.opacity = 1
+						break				
+					}
+
+					show_am.style.opacity = 0
+				};
 			};
 
+
 			$scope.$on('draw', function() {
-				var graph = document.getElementById('the-graph')
 				graph.width = graph.width
 
 				if ($scope.expenses.length > 0) {

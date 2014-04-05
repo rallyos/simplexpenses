@@ -1199,10 +1199,10 @@ a {
 }
 .this-week-graph {
 	position: relative;
-	width: 100%;
-	height: 320px;
+	width: 80%;
+	height: 256px;
 	float: left;
-	border: solid 3px #A2A2A2;
+	border: solid 2px #BDBDBD;
 	-moz-box-sizing: border-box;
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
@@ -1274,6 +1274,22 @@ a {
 	-ms-transform: translateY(-100%);
 	transform: translateY(-100%);
 }
+#showAm {
+	position: absolute;
+	width: 40px;
+	height: 40px;
+	top: 0;
+	left: 0;
+	font-size: 0.7rem;
+	color: #fff;
+	line-height: 40px;
+	text-align: center;
+	background: #81B71A;
+	border-radius: 20px;
+	opacity: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
+}
 @keyframes charts
 {
 0% {height: 30px;}
@@ -1328,6 +1344,9 @@ a {
 		width: 98%;
 		margin: 12px 1%;
 		float: none;
+	}
+	.this-week-graph {
+		width: 100%;
 	}
 	.this-week-graph {
 		height: 260px;
