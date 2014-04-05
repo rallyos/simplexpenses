@@ -93,8 +93,10 @@ def register_user(request):
             # Login the user
             if user is not None:
                 if user.is_active:
+                    success = HttpResponse(status=200)
+                    success.set_cookie('show_tooltips', 'true', expires=365 * 24 * 60 * 60)
                     login(request, user)
-                    return HttpResponse(status=200)
+                    return success
                      
 
         return HttpResponse(status=403) 

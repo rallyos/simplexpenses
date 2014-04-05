@@ -19,11 +19,16 @@ signUpForm.onsubmit = function() {
 	'&password1=' + encodeURIComponent(pass) +
 	'&password2=' + encodeURIComponent(confirmPass))
 
+	signUpForm.children[4].style.background = '#90E06F'
+	document.getElementsByClassName('signup-animation')[0].className = 'signup-animation signup-animation-show'
+	signUpForm.children[4].value = ''
+
 	xhr.onreadystatechange = function() {
 		if ( xhr.status == 200) {
 			location.reload()
 		} else if ( xhr.status ==  403) {
-			console.log('invalid')
+			document.getElementsByClassName('signup-animation')[0].className = 'signup-animation'
+			signUpForm.children[4].value = 'Sign me up'
 		}
 	}
 
@@ -42,14 +47,20 @@ signInForm.onsubmit = function() {
 	'&password=' + encodeURIComponent(pass));
 	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
 	xhr.send()
+	signInForm.children[4].style.background = '#3E96FF'
+	document.getElementsByClassName('signin-animation')[0].className = 'signin-animation signin-animation-show'
+	signInForm.children[4].value = ''
 
 	xhr.onreadystatechange = function() {
 		if ( xhr.status == 200) {
-			signInForm.children[3].style.background = '#90E06F'
+			signInForm.children[4].style.background = '#90E06F'
 			location.reload()
 		} else if ( xhr.status == 404) {
 			signInForm.children[2].style.borderColor = '#E4794C'
 			signInForm.children[1].style.borderColor = '#E4794C'
+			signInForm.children[4].style.background = '#92C6FF'
+			signInForm.children[4].value = 'Sign in'
+			document.getElementsByClassName('signin-animation')[0].className = 'signin-animation'
 			var fl = document.getElementsByClassName('forgotten-password')[0]
 			fl.style.display = 'block'
 			fl.addEventListener('click', showPassRecoverBox)

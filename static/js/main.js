@@ -39,3 +39,7 @@ expensesApp.config(function($httpProvider) {
 	$httpProvider.defaults.headers.delete = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 	$httpProvider.defaults.headers.put = {'X-CSRFToken': csrftoken, 'Content-Type': 'application/json'}
 })
+
+if (getCookie('show_tooltips') == 'true') {
+	var tooltip_cookie = true
+}

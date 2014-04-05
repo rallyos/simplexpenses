@@ -6,7 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
 	<title>Simplexpense</title>
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
-	<link href='http://fonts.googleapis.com/css?family=Roboto:400,100,300,300italic|Open+Sans:400,300' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Roboto:500, 400,100,300,300italic|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-resource.min.js"></script>
 	<script src="http://code.angularjs.org/1.2.7/angular-animate.min.js"></script>
@@ -14,6 +14,7 @@
 	<script src="{% static "js/main.js" %}"></script>
 	<script src="{% static "js/services/expensesAppServices.js" %}"></script>
 	<script src="{% static "js/controllers/expensesAppController.js" %}"></script>
+	<script src="{% static "js/directives/expensesAppDirectives.js" %}"></script>
 	<script>
 		var c = '{{categories|escapejs}}'
 		var e = '{{expenses|escapejs}}'
@@ -48,13 +49,13 @@
 				<span class="hide-plan-expenses-block" ng-click="showPlanned()">></span>
 				<h1 class="plan-expenses-total">{{nextMonthTotal}}{{currency}}</h1>
 				<div class="plan-expenses-small-graph">
-					<canvas class="plan-small-category" style="background: {{setChartColor()}}; height: {{setChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="plan-small-category" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<div class="plan-categories-wrap">
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" style="border-bottom: solid 2px {{category.color}}" ng-repeat="category in categories">
 							<span class="plan-category-title">{{category.name}}</span>
-							<input class="plan-category-amount" ng-init="planned_am=getPlannedAmount()" ng-keydown="updatePlanned($event)" type="number" min="0" ng-model="planned_am">
+							<input class="plan-category-amount" ng-keydown="updatePlanned($event)" type="number" min="0" ng-model="planned_amount" planned>
 						</li>
 					</ul>
 				</div>
@@ -62,22 +63,26 @@
 			{% endverbatim %}			
 			<ul class="menu-links">
 				<li class="menu-link-item">
-						<img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()">
-						<span class="menu-link-name">Plan</span>
+					<img src="{% static "img/user_plan.png" %}" class="menu-icon" height="30" width="30" ng-click="showPlanned()">
+					<span class="menu-link-name">Plan</span>
 				</li>
 				<li class="menu-link-item">
-						<img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30">
-						<span class="menu-link-name">Not Available Yet</span>
-					</li>
+					<img src="{% static "img/user_history.png" %}" class="menu-icon" height="30" width="30">
+					<span class="menu-link-name">Not Available Yet</span>
+				</li>
 				<li class="menu-link-item">
-						<img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()">
-						<span class="menu-link-name">Settings</span>
-					</li>
+					<img src="{% static "img/user_settings.png" %}" class="menu-icon" height="30" width="30" ng-click="showSettings()">
+					<span class="menu-link-name">Settings</span>
+				</li>
 			</ul>
 			{% verbatim %}
-			<div class="settings-block">
+			<div class="settings-block" settings>
 				<div class="app-preferences">
-					<h4 class="settings-heading">App Preferences</h4>
+					<div class="beta-v-wrap" ng-class="showBetaBubble ? 'beta-v-wrap-show' : ''">
+						<h5 class="beta-v-text">Beta 0.1.2</h5>
+						<span class="arrow-right"></span>
+					</div>
+					<h4 class="settings-heading">App Preferences<span class="beta-sym" ng-click="showBetaBubble=!showBetaBubble">β</span></h4>
 					<div class="settings-group">
 						<label class="settings-label" for="showNewButton">Show new category button</label>
 						<input class="settings-checkbox" id="showNewButton" type="checkbox" ng-model="show_CategoryCreationForm" ng-change="toggleNcButton()">
@@ -91,7 +96,7 @@
 				<div class="edit-categories">
 					<h4 class="settings-heading">Categories</h4>
 					<ul class="plan-categories-list">
-						<li class="plan-categories-item" ng-repeat="category in categories">
+						<li class="plan-categories-item" ng-repeat="category in categories" categorysettings>
 							<div class="edit-category-color-picker" ng-show="showColorPicker">
 								<input type="range" value="1" min="0" max="35" step="1" ng-model="newCategoryColor" ng-change="editCategoryColor(newCategoryColor)">
 							</div>
@@ -108,10 +113,10 @@
 				</div>
 			</div>
 		</div>
-		<div class="expense-form-wrapper" ng-class="">
+		<div class="expense-form-wrapper" expenseform>
 			<div class="expense-form" ng-class="[headerClass ? 'expense-form-translate' : '', hideExpenseForm ? 'hide-expense-form' : '']">
 				<ul class="add-expense-error"></ul>
-				<input class="add-expense-sum" type="text" ng-model="exp_amount">
+				<input class="add-expense-sum" type="text" ng-model="exp_amount" ng-blur="showTooltip()">
 				<ul class="add-expense-categories-list">
 					<li class="add-expense-category" style="background-color: {{category.color}}" ng-class="categoryClass ? 'add-expense-category-selected' : ''" ng-repeat="category in categories" ng-click="selectCategory()">{{category.name}}</li>
 					<li class="category-creation-box" ng-if="show_CategoryCreationForm">
@@ -119,23 +124,29 @@
 							<input type="range" value="0" min="0" max="35" step="1" ng-model="$parent.selectedColor" ng-change="changeColor()">
 						</div>
 						<span class="category-color-input" style="background: {{categoryColor}}" ng-click="showColorPicker=!showColorPicker"></span>
-						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="Name">
+						<input class="category-creation-input" type="text" ng-keydown="createOnEnter($event)" ng-model="$parent.newCategoryName" placeholder="New Category">
+						<div class="creation-tip-wrap animate-show" ng-show="showTip">
+							<p class="creation-tip-text">You can create new category using this field and pressing enter.</p>
+							<span class="creation-tip-button" ng-click="showTip=false;removeCookie()">Yeah I know</span>
+						</div>
 					</li>
 				</ul>
-				<input class="add-expense-description" id="description" ng-model="exp_description" type="text">
+				<input class="add-expense-description" id="description" ng-model="exp_description" type="text" ng-keydown="submitOnEnter($event)">
 				<label class="add-expense-description-label" for="description"><i>(Description)</i></label>
 				<div class="add-expense-use-today">
 					<input class="add-expense-checkbox settings-checkbox" id="date-today" type="checkbox" ng-model="date_today" ng-init="date_today=true">
 					<label class="add-expense-checkbox-label settings-label" for="date-today">Today</label>					
 				</div>
-				<div class="add-expense-date" ng-if="!date_today">
-					<input type="text" class="add-expense-set-date category-creation-input" placeholder="year-month-day" maxlength="10" ng-model="$parent.expense_date" ng-keydown="addDashes($event)">
+				<div class="add-expense-date">
+					<input type="text" class="add-expense-set-date category-creation-input" placeholder="year-month-day" maxlength="10" ng-model="expense_date" ng-hide="date_today">
 				</div>
 				<input class="add-expense-submit" ng-click="addExpense()" type="submit">
 				<span class="add-expense" ng-click="headerClass=!headerClass">+</span>
 			</div>
 		</div>
 		<div class="monthly-graphs">
+			<span class="equal-button" ng-click="showDiff=!showDiff">=</span>
+			<h3 class="spent-diff" ng-class="showDiff ? 'show-diff': ''">{{(thisMonthTotal - nextMonthTotal).toFixed(2)}}</h3>
 			<div class="graph-information" ng-show="showGraphInfo"><span class="graph-information-text"></span></div>
 			<section class="this-month-block">
 				<span class="total-expenses">{{thisMonthTotal}}{{currency}}</span>
@@ -170,20 +181,20 @@
 		</div>
 		<section class="expenses-block">
 			<div class="no-expenses-wrap" ng-if="no_expenses">
-				<h3 class="no-expenses-heading">You have not added any expenses this month. Start with the + button</h3>
+				<h4 class="no-expenses-heading">You have not added any expenses this month. Start with the + button</h4>
 			</div>
 			<ul class="expenses-list">
-				<li class="expense" ng-repeat="expense in expenses">
+				<li class="expense" ng-repeat="expense in expenses | limitTo: show_all_expenses ? expenses.length:10" expense>
 					<ul class="expense-edit-categories" ng-show="editMode" ng-class="animateWindow ? 'expense-edit-categories-show': ''">
-						<li class="expense-edit-category" ng-repeat="category in categories" ng-click="expenseEditCategory($parent.expense);$parent.animateWindow=false">
+						<li class="expense-edit-category" ng-repeat="category in categories" ng-click="expenseEditCategory(expense);$parent.animateWindow=false">
 							<span class="expense-edit-category-color" style="background: {{category.color}}"></span>
 							<span class="expense-edit-category-name">{{category.name}}</span>
 						</li>
 					</ul>
 					<div class="expense-category-sum">
-						<div class="category-circle" ng-class="editMode ? 'expense-edit-category-color-animate' : ''" style="background: {{getCategoryColor()}}" ng-click="animateWindow=!animateWindow">
+						<div class="category-circle" ng-class="editMode ? 'expense-edit-category-color-animate' : ''" ng-style="{'background': categoryColor}" ng-click="animateWindow=!animateWindow">
 							<span class="expense-category-edit-mode" ng-show="editMode">+</span>
-							<span class="expense-show-category-name">{{getCategoryName()}}</span>
+							<span class="expense-show-category-name">{{categoryName}}</span>
 						</div>
 						<span class="expense-sum" ng-show="!editMode">{{expense.amount}}{{currency}}</span>
 						<input class="expense-edit-sum" type="text" ng-show="editMode" placeholder="{{expense.amount}}{{currency}}" ng-change="expense.amount=newExpenseAmount" ng-model="newExpenseAmount">
@@ -193,13 +204,51 @@
 						<input class="expense-edit-description" type="text" ng-show="editMode" placeholder="{{expense.description}}" ng-change="expense.description=newExpenseDescription" ng-model="newExpenseDescription">
 					</div>
 					<div class="expense-date-and-delete">
-						<h3 class="expense-date" ng-show="!editMode" ng-keydown="editExpenseDate($event)">{{expense.date}}</h3>
-						<input class="expense-edit-date" type="text" ng-show="editMode" ng-keyup="expenseEditDate($event)" maxlength="10" ng-change="expense.date=newExpenseDate" ng-model="$parent.newExpenseDate">
-						<span class="expense-delete" ng-click="deleteExpense($index)">x</span>
-						<span class="expense-edit" ng-class="editMode ? 'expense-edit-on' : ''" ng-click="editMode=!editMode;editExpense($event, editMode)" ng-model="editMode">Edit</span>
+						<input class="expense-edit-date" type="text" ng-show="editMode" maxlength="10" ng-change="expense.date=newExpenseDate" ng-model="newExpenseDate">
+						<ul class="expense-menu" ng-show="expense_menu_show">
+							<li class="expense-menu-item" ng-class="editMode ? 'edit-active':'' " ng-click="editMode=!editMode;editExpense(editMode)" ng-model="editMode">
+							<span class="edit-active-circle" ng-show="editMode"></span>
+							Edit
+							</li>
+							<li class="expense-menu-item" ng-click="deleteExpense($index)">Delete</li>
+						</ul>
+						<div class="expense-menu-button-holder" ng-click="expense_menu_show=!expense_menu_show">
+							<span class="expense-menu-button-rect" ng-class="expense_menu_show ? 'expense-menu-active': '' "></span>
+							<span class="expense-menu-button-rect" ng-class="expense_menu_show ? 'expense-menu-active': '' "></span>
+							<span class="expense-menu-button-rect" ng-class="expense_menu_show ? 'expense-menu-active': '' "></span>
+						</div>
+						<div class="date-box" ng-hide="editMode">
+							<h3 class="expense-date" ng-keydown="editExpenseDate($event)" title="{{expense.date}}">{{ expense.date | date : 'dd' }}</h3>
+							<span class="calendar-thing" id="left-thing"></span>
+							<span class="calendar-thing" id="right-thing"></span>
+						</div>
 					</div>
 				</li>
+				<span class="show-all-expenses" ng-click="show_all_expenses=true" ng-hide="show_all_expenses||no_expenses||expenses.length<11">Show All</span>
 			</ul>
+			<div class="expenses-stats-wrap">
+				<div class="avg-spent-daily-wrap" ng-hide="expenses.length<2">
+					<h3 class="avg-spent-daily-heading">Daily average</h3>
+					<span class="avg-spent-daily-circle">{{avgDaily}}</span>
+				</div>
+				<div class="avg-spent-daily-wrap" ng-hide="expenses.length==0">
+					<h3 class="avg-spent-daily-heading">Highest expense</h3>
+					<span class="avg-spent-daily-circle" id="highest" highestexpense>{{highest_expense}}</span>
+				</div>
+				<div class="avg-spent-daily-wrap" ng-hide="expenses.length<5">
+					<h3 class="avg-spent-daily-heading">Highest savings on</h3>
+					<span class="avg-spent-daily-circle" id="savings" ng-style="{'background': highest_savings.color, 'border-color': highest_savings.color}" highestsavings>{{highest_savings.name}}</span>
+				</div>
+				<div class="spent-mostly-box">
+					<h1 class="spent-mostly-heading" ng-hide="expenses.length==0" spendingsonday>You like to spend money mostly on <span class="spent-day">{{the_day+'s'}}</span></h1>
+				</div>
+				<div class="this-week-graph-wrap" ng-hide="expenses.length==0">
+					<h3 class="this-week-graph-heading">This Week</h3>
+					<div class="this-week-graph" thisweekchart>
+						<canvas id="the-graph"></canvas>
+					</div>
+				</div>
+			</div>
 		</section>
 		{% endverbatim %}
 	</div>
