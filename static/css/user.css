@@ -1208,10 +1208,9 @@ a {
 	box-sizing: border-box;
 }
 .no-expenses-wrap {
-	width: 40%;
-	height: 110px;
-	float: left;
-	margin: 80px 2% 0;
+	width: 76%;
+	padding: 40px 0;
+	margin: 80px auto 0;
 	color: #A1A1A1;
 	background: #EFEFEF;
 	text-align: center;
@@ -1220,7 +1219,6 @@ a {
 .no-expenses-heading {
 	margin: 0;
 	font-weight: 300;
-	line-height: 110px;
 }
 /* double check this code */
 .menu-block-mobile {
@@ -1379,6 +1377,9 @@ a {
 	}
 	.equal-button {
 		top: 100px;
+	}
+	.no-expenses-heading {
+		font-size: 0.9rem;
 	}
 }
 @media screen and (max-width: 460px) {

@@ -157,8 +157,8 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 	// Show the window and calculate
 	// Simplify the calculations in the future
 	// !!Refactor this mess!!
-	$scope.showDetailsWindow = function(is_expenses) {
-
+	$scope.showDetailsWindow = function(event, is_expenses) {
+		console.log(event)
 		// Show 
 
 		$scope.showGraphInfo = true;
@@ -195,7 +195,7 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(event, color, 'You spent ' + amount + ' ' + $scope.currency +' for ' + name + ' this month.')
 		} else {
 
 			// Store related category id and planned amount
@@ -219,14 +219,15 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 			}
 
 			// Show the information
-			$scope.updateDetailsWindow(color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
+			$scope.updateDetailsWindow(event, color, 'You plan to spend ' + amount + ' '+ $scope.currency +' for ' + name + ' this month.')
 		}
 
 	}
 
 	// Set window color like the category color and show the information
-	$scope.updateDetailsWindow = function(color, info) {
+	$scope.updateDetailsWindow = function(event, color, info) {
 		detailsDesplay.style.background = color
+		console.log(event)
 		detailsDesplay.style.left = event.target.offsetLeft + 'px'
 		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'
 		detailsText.textContent = info
@@ -330,7 +331,7 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 	$scope.$watch('planned', function() {
 		$scope.sumPlanned();
 		$scope.checkArrays();
-	});
+	}, true);
 
 	$scope.$watchCollection('categories', function() {
 		$scope.checkArrays();
@@ -341,5 +342,6 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 		$scope.avgDaily = $scope.calcAverages().toFixed(2)
 		$scope.highest_expense = $scope.calcHighest()
 		$scope.calcSavings
+		$scope.$emit('draw')
 	});
 });

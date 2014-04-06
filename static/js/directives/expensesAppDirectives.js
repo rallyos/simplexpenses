@@ -240,20 +240,13 @@ expensesApp.directive('categorysettings', ['Category', function(Category) {
 
 			// Called when slider position is changed
 			// On change a 3s timeout is called before sync with the server
-			$scope.editCategoryColor = function(newCategoryColor) {
 
-				// Set color
+			$scope.displayColor = function(newCategoryColor) {
 				$scope.category.color = COLORS[newCategoryColor]
+			}
 
-				// If timeout t is running - stop it
-				if(typeof t !== "undefined"){
-				  clearTimeout(t);
-				}
-
-				// Sync with the server
-				var t = setTimeout(function() {
-					Category.updateColor({id: $scope.category.id, color: $scope.category.color})
-				}, 3000)
+			$scope.editCategoryColor = function(newCategoryColor) {
+				Category.updateColor({id: $scope.category.id, color: $scope.category.color})
 			}
 
 			// On click change element to contenteditable
@@ -353,26 +346,30 @@ expensesApp.directive('highestexpense', function() {
 
 		link: function($scope, elem, attrs) {
 			$scope.calcHighest = function() {
-				var expenses_copy = $scope.expenses.slice()
+				if ($scope.expenses.length > 0) {
+					var expenses_copy = $scope.expenses.slice()
 
-				expenses_copy.sort(function (a, b) {
-				    if (Number(a.amount) > Number(b.amount))
-				      return 1;
-				    if (Number(a.amount) < Number(b.amount))
-				      return -1;
-				    // a must be equal to b
-				    return 0;
-				});
+					expenses_copy.sort(function (a, b) {
+					    if (Number(a.amount) > Number(b.amount))
+					      return 1;
+					    if (Number(a.amount) < Number(b.amount))
+					      return -1;
+					    // a must be equal to b
+					    return 0;
+					});
 
-				return expenses_copy.reverse()[0].amount
+					return expenses_copy.reverse()[0].amount
+				}
 			}
 
-			$scope.highest_expense = $scope.calcHighest()
+			if ($scope.expenses.length > 0) {
+				$scope.highest_expense = $scope.calcHighest()
+			}
 
 		}
 	}
 });
-
+ 
 // 
 expensesApp.directive('highestsavings', function() {
 	return {
@@ -473,17 +470,14 @@ expensesApp.directive('settings', ['$http', function($http) {
 		restrict: 'A',
 		link: function($scope, elem, attrs) {
 
-			
 			// Set used currency
-			$scope.setOnEnter = function(key) {
-				if (key.which == ENTER_KEY) {
-					$http({
-					    method: 'PUT',
-					    url: 'set_currency',
-					    data: {'currency': $scope.currency},
-					})
-					return false
-				}
+			// Add check - if changed
+			$scope.changeCurrency = function() {
+				$http({
+				    method: 'PUT',
+				    url: 'set_currency',
+				    data: {'currency': $scope.currency},
+				})
 			}
 
 			// Show or hide New category creation block
@@ -646,8 +640,6 @@ expensesApp.directive('thisweekchart', function(){
 					context.lineWidth = 2;
 					context.stroke();
 
-					console.log(centerX, centerY)
-
 					// Create circle
 					var centerX = canvas_line_length + startx
 					var centerY = endy - 6
@@ -661,7 +653,7 @@ expensesApp.directive('thisweekchart', function(){
 
 					$scope.coords.push({'x': centerX, 'y': centerY, 'amount': $scope.chart_data[i].spent})
 				}
-				console.log($scope.coords)
+
 				context.stroke();
 
 			};
@@ -675,13 +667,17 @@ expensesApp.directive('thisweekchart', function(){
 			function showAmount(mouse) {
 
 				for (var i = 0; $scope.coords.length > i; i++) {
-					var mouseX = mouse.offsetX,
-						mouseY = mouse.offsetY;
-
+					if (mouse.offsetX) {
+						var mouseX = mouse.offsetX,
+							mouseY = mouse.offsetY;
+					} else if (mouse.layerX) {
+						var mouseX = mouse.layerX,
+							mouseY = mouse.layerY;
+					}
 					if ( (mouseX < $scope.coords[i].x + 5 && mouseX > $scope.coords[i].x - 5) && (mouseY < $scope.coords[i].y + 5 && mouseY > $scope.coords[i].y - 5) ) {
 						show_am.style.left = (mouseX - 20) + 'px'
 						show_am.style.top = (mouseY - 50) + 'px'
-						show_am.textContent = $scope.coords[i].amount.toFixed(2)
+						show_am.textContent = $scope.coords[i].amount.toFixed(0)
 						show_am.style.opacity = 1
 						break				
 					}

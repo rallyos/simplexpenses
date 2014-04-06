@@ -20,7 +20,13 @@
 		var e = '{{expenses|escapejs}}'
 		var p = '{{planned|escapejs}}'
 		var currency = '{{currency|escapejs}}'
-		var show_CategoryCreationForm = Boolean('{{show_category_creation_form|escapejs}}')
+		var show_CategoryCreationForm = '{{show_category_creation_form|escapejs}}'
+		// (To check) Why boolean conversion is not working properly?
+		if (show_CategoryCreationForm == 'False') {
+			show_CategoryCreationForm = false
+		} else {
+			show_CategoryCreationForm = true
+		}
 	</script>
 </head>
 <body>
@@ -89,7 +95,7 @@
 					</div>
 					<div class="settings-group">
 						<label class="settings-label" for="currency">Currency</label>
-						<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency" ng-keydown="setOnEnter($event)">
+						<input class="settings-input" id="currency" type="text" placeholder="Symbol" ng-model="currency" ng-blur="changeCurrency()">
 					</div>
 					<a href="logout" class="log-out">Sign Out</a>
 				</div>
@@ -98,7 +104,7 @@
 					<ul class="plan-categories-list">
 						<li class="plan-categories-item" ng-repeat="category in categories" categorysettings>
 							<div class="edit-category-color-picker" ng-show="showColorPicker">
-								<input type="range" value="1" min="0" max="35" step="1" ng-model="newCategoryColor" ng-change="editCategoryColor(newCategoryColor)">
+								<input type="range" value="1" min="0" max="35" step="1" ng-model="newCategoryColor" ng-change="displayColor(newCategoryColor)" ng-blur="editCategoryColor(newCategoryColor)">
 							</div>
 							<span class="edit-category-color" style="background: {{category.color}}" ng-click="showColorPicker=!showColorPicker"></span>
 							<span class="edit-category-title" ng-click="editCategoryName($event)" ng-keydown="setNameOnEnter($event)" contenteditable="{{contentedit}}">{{category.name}}</span>
@@ -140,7 +146,7 @@
 				<div class="add-expense-date">
 					<input type="text" class="add-expense-set-date category-creation-input" placeholder="year-month-day" maxlength="10" ng-model="expense_date" ng-hide="date_today">
 				</div>
-				<input class="add-expense-submit" ng-click="addExpense()" type="submit">
+				<input class="add-expense-submit" ng-click="addExpense()" type="submit" value="Submit">
 				<span class="add-expense" ng-click="headerClass=!headerClass">+</span>
 			</div>
 		</div>
@@ -159,7 +165,7 @@
 						</div>
 						<h4 class="no-categories-heading">You don't have any categories yet</h4>
 					</div>
-					<canvas class="category" ng-click="showDetailsWindow(is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow($event, is_expenses=true)" style="background: {{category.color}};height: {{chartHeight()}}" ng-repeat="category in categories"></canvas>
 				</div>
 				<h3 class="graph-expl">This month</h3>
 			</section>
@@ -174,14 +180,14 @@
 						</div>
 						<h4 class="no-categories-heading">You don't have any categories yet</h4>
 					</div>
-					<canvas class="category" ng-click="showDetailsWindow(is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
+					<canvas class="category" ng-click="showDetailsWindow($event, is_expenses=false)" style="background: {{setPlanChartColor()}}; height: {{setPlanChartHeight()}}" ng-repeat="plan in planned"></canvas>
 				</div>
 				<h3 class="graph-expl">Planned</h3>
 			</section>
 		</div>
 		<section class="expenses-block">
 			<div class="no-expenses-wrap" ng-if="no_expenses">
-				<h4 class="no-expenses-heading">You have not added any expenses this month. Start with the + button</h4>
+				<h4 class="no-expenses-heading">You have not added any expenses this month. <br> Start with the + button</h4>
 			</div>
 			<ul class="expenses-list">
 				<li class="expense" ng-repeat="expense in expenses | limitTo: show_all_expenses ? expenses.length:10" expense>
@@ -240,7 +246,7 @@
 					<span class="avg-spent-daily-circle" id="savings" ng-style="{'background': highest_savings.color, 'border-color': highest_savings.color}" highestsavings>{{highest_savings.name}}</span>
 				</div>
 				<div class="spent-mostly-box">
-					<h1 class="spent-mostly-heading" ng-hide="expenses.length==0" spendingsonday>You like to spend money mostly on <span class="spent-day">{{the_day+'s'}}</span></h1>
+					<h1 class="spent-mostly-heading" ng-hide="expenses.length==0" spendingsonday>You spend money mostly on <span class="spent-day">{{the_day+'s'}}</span></h1>
 				</div>
 				<div class="this-week-graph-wrap" ng-hide="expenses.length==0">
 					<h3 class="this-week-graph-heading">This Week</h3>
