@@ -158,7 +158,6 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 	// Simplify the calculations in the future
 	// !!Refactor this mess!!
 	$scope.showDetailsWindow = function(event, is_expenses) {
-		console.log(event)
 		// Show 
 
 		$scope.showGraphInfo = true;
@@ -227,8 +226,7 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 	// Set window color like the category color and show the information
 	$scope.updateDetailsWindow = function(event, color, info) {
 		detailsDesplay.style.background = color
-		console.log(event)
-		detailsDesplay.style.left = event.target.offsetLeft + 'px'
+		detailsDesplay.style.left = event.target.offsetLeft - (detailsDesplay.clientWidth / 2) + 'px'
 		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'
 		detailsText.textContent = info
 	}
