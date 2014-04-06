@@ -193,7 +193,8 @@ input {
 .feature {
 	display: inline-block;
 	width: 22%;
-	margin: 0 3%;
+	max-width: 317px;
+	margin: 20px 3%;
 }
 .feature-text {
 	font-size: 1.2rem;
@@ -202,9 +203,15 @@ input {
 	text-align: left;
 }
 #mock {
-	width: 60%;
+	width: 50%;
 	display: block;
-	margin: 40px auto 20px;
+	margin: 80px auto 40px;
+	opacity: 0.2;
+	-webkit-transition: 0.6s;
+	transition: 0.6s;
+}
+#mock:hover {
+	opacity: 1;
 }
 .signup-heading {
 	margin: 30px 0;
