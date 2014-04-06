@@ -226,9 +226,9 @@ expensesApp.controller('mainController', function($scope,  $rootScope, $filter, 
 	// Set window color like the category color and show the information
 	$scope.updateDetailsWindow = function(event, color, info) {
 		detailsDesplay.style.background = color
+		detailsText.textContent = info
 		detailsDesplay.style.left = event.target.offsetLeft - (detailsDesplay.clientWidth / 2) + 'px'
 		detailsDesplay.style.top = event.target.offsetTop - 100 + 'px'
-		detailsText.textContent = info
 	}
 
 // Show and hide settings and plan blocks
