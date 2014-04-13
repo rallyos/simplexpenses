@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"/>
-	<title>Simplexpense</title>
+	<title>Simplexpenses Beta</title>
 	<link rel="stylesheet" href="{% static "css/user.css" %}">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:500, 400,100,300,300italic|Open+Sans:400,300' rel='stylesheet' type='text/css'>
 	<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
@@ -15,6 +15,7 @@
 	<script src="{% static "js/services/expensesAppServices.js" %}"></script>
 	<script src="{% static "js/controllers/expensesAppController.js" %}"></script>
 	<script src="{% static "js/directives/expensesAppDirectives.js" %}"></script>
+
 	<script>
 		var c = '{{categories|escapejs}}'
 		var e = '{{expenses|escapejs}}'

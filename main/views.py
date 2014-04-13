@@ -34,7 +34,6 @@ def index(request):
         # Get the settings object. Containing: Currency AND show_category_creation_form
         app_settings = AppSettings.objects.get(user_id__exact=request.user.id)
 
-        #Everything is wrapped in JSON object so we can tie the API endpoints and the webapp without making extra requests when loading.
         bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder),
                             'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder),
                             'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder),
