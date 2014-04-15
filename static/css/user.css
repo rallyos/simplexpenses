@@ -377,6 +377,7 @@ a {
 	transform: translateY(0);
 	background: #fff;
 	box-shadow: 0 2px 3px #BABABA;
+	z-index: 3;
 }
 .add-expense-error {
 	position: absolute;

@@ -2,8 +2,7 @@
 // check them when you have time
 
 expensesApp.controller('mainController', function($scope,  $rootScope, $filter, $http, Expenses, Categories, Planned, Expense, Category, Plan) {
-// Set globals
-
+	
 	// Data collections
 	// Maybe use services or something?
 	$scope.categories = JSON.parse(c)

@@ -1,4 +1,4 @@
-// Separate to files
+// Note: Check if this is anti-pattern
 expensesApp.directive('expenseform', ['Expenses', 'Expense', 'Categories', '$rootScope', function(Expenses, Expense, Categories, $rootScope) {
 	return {
 		restrict: 'A',
@@ -38,7 +38,7 @@ expensesApp.directive('expenseform', ['Expenses', 'Expense', 'Categories', '$roo
 
 			// Disables tooltips
 			$scope.removeCookie = function() {
-				document.cookie='show_tooltips=false';
+				document.cookie = 'show_tooltips=false';
 			}
 
 			// Selects category when adding expense
