@@ -16,6 +16,7 @@ from main.models import Expense, Category, Planned, AppSettings, AccountRecover
 
 TODAY = datetime.date.today()
 
+
 def index(request):
     '''Shows the data to the user'''
 
@@ -38,16 +39,18 @@ def index(request):
                             'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder),
                             'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder),
                             'currency': app_settings.currency,
-                            'show_category_creation_form': bool(app_settings.show_CategoryCreationForm)
-        }
-        
+                            'show_category_creation_form': bool(app_settings.show_CategoryCreationForm)}
+
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
 
+
 def about(request):
     '''Shows about page'''
+
     return render(request, 'about.html')
+
 
 def set_currency(request):
     '''Sets app settings'''
@@ -66,6 +69,7 @@ def set_currency(request):
 
         return HttpResponse(status=201)
 
+
 def toggle_new_category_form(request):
     '''Show/Hides new category form'''
        
@@ -73,6 +77,7 @@ def toggle_new_category_form(request):
     AppSettings.objects.filter(user_id=request.user.id).update(show_CategoryCreationForm=show_category_creation_form)
     
     return HttpResponse(status=201)
+
 
 def register_user(request):
     '''Registers new user'''
@@ -104,8 +109,8 @@ def login_user(request):
     '''Login user'''
 
     if request.method == 'GET':
-        username = request.GET[ 'username' ]
-        password = request.GET[ 'password' ]
+        username = request.GET['username']
+        password = request.GET['password']
         user = authenticate(username=username, password=password)
     
         if user is not None:
@@ -250,5 +255,3 @@ class PlannedViewSet(viewsets.ModelViewSet):
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
-
-

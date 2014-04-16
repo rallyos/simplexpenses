@@ -20,7 +20,6 @@ tick.src = 'http://simplexpenses.herokuapp.com/static/img/rt.png'
 var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 
 //Some amateurish substitutes of jquery methods
-
 Node.prototype.toggleClass = function(nodeClass) {
 
 	if (this.className.match(nodeClass)) {

@@ -354,7 +354,6 @@ expensesApp.directive('highestexpense', function() {
 					      return 1;
 					    if (Number(a.amount) < Number(b.amount))
 					      return -1;
-					    // a must be equal to b
 					    return 0;
 					});
 
@@ -409,7 +408,6 @@ expensesApp.directive('highestsavings', function() {
 				      return 1;
 				    if (Number(a.saved) < Number(b.saved))
 				      return -1;
-				    // a must be equal to b
 				    return 0;
 				});
 
@@ -447,7 +445,6 @@ expensesApp.directive('spendingsonday', function(){
 				      return 1;
 				    if (Number(a.amount) < Number(b.amount))
 				      return -1;
-				    // a must be equal to b
 				    return 0;
 				});
 
@@ -560,7 +557,6 @@ expensesApp.directive('thisweekchart', function(){
 				      return 1;
 				    if (Number(a.spent) < Number(b.spent))
 				      return -1;
-				    // a must be equal to b
 				    return 0;
 				});
 
