@@ -18,65 +18,59 @@ TODAY = datetime.date.today()
 
 
 def index(request):
-    '''Shows the data to the user'''
+    ''' Returns page depending on the user credentials
+    If user is logged in, returns the user template with a object containing its data,
+    if not - returns the front page.
+    '''
 
     if request.user.is_authenticated():
-        # Get the expenses but filter them and show only these that are added this month
-        queryset = ExpenseViewSet().get_queryset_this_month(request)
-        serializedExpenses = ExpenseSerializer(queryset, many=True)
+
+        # Make a couple of lookups to get the user data for this month and app settings
+        expenses = ExpenseViewSet().get_queryset_this_month(request)
+        serializedExpenses = ExpenseSerializer(expenses, many=True)
 
         categories = Category.objects.filter(user_id__exact=request.user.id)
         serializedCategories = CategorySerializer(categories, many=True)
 
-        # Get planned amounts for this month
         planned = PlannedViewSet().get_queryset_this_month(request)
         serializedPlanned = PlannedSerializer(planned, many=True)
 
-        # Get the settings object. Containing: Currency AND show_category_creation_form
         app_settings = AppSettings.objects.get(user_id__exact=request.user.id)
 
+        # Pack the serialized data in a dict and return it
+        # This is needed to escape the extra requests when the front-end app is loading
         bootstrapped_data = {'expenses': json.dumps(serializedExpenses.data, cls=DjangoJSONEncoder),
                             'categories': json.dumps(serializedCategories.data, cls=DjangoJSONEncoder),
                             'planned': json.dumps(serializedPlanned.data, cls=DjangoJSONEncoder),
                             'currency': app_settings.currency,
                             'show_category_creation_form': bool(app_settings.show_CategoryCreationForm)}
-
         return render(request, 'user/index.html', bootstrapped_data)
     else:
         return render(request, 'index.html')
 
 
 def about(request):
-    '''Shows about page'''
+    '''Returns about page'''
 
     return render(request, 'about.html')
 
 
 def set_currency(request):
-    '''Sets app settings'''
+    '''Updates currency setting'''
 
-    # If the user doesn't have currency set
-    if request.method == 'POST':
-        currency = json.loads(request.body).get('currency', None)
-        AppSettings.objects.create(user_id=request.user.id, currency=currency, show_CategoryCreationForm=True)
-
-        return HttpResponse(status=201)
-
-    # If the user is updating the current currency
-    elif request.method == 'PUT':
+    if request.method == 'PUT':
         currency = json.loads(request.body).get('currency', None)
         AppSettings.objects.filter(user_id=request.user.id).update(currency=currency)
-
         return HttpResponse(status=201)
 
 
 def toggle_new_category_form(request):
-    '''Show/Hides new category form'''
-       
-    show_category_creation_form = bool(json.loads(request.body).get('show_CategoryCreationForm', None))
-    AppSettings.objects.filter(user_id=request.user.id).update(show_CategoryCreationForm=show_category_creation_form)
-    
-    return HttpResponse(status=201)
+    '''Updates show/hide category creation form setting'''
+
+    if request.method == 'PUT':
+        show_category_creation_form = bool(json.loads(request.body).get('show_CategoryCreationForm', None))
+        AppSettings.objects.filter(user_id=request.user.id).update(show_CategoryCreationForm=show_category_creation_form)
+        return HttpResponse(status=201)
 
 
 def register_user(request):

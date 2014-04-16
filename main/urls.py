@@ -2,7 +2,7 @@ from django.conf.urls import patterns, url
 from main import views
 
 urlpatterns = patterns('',
-    url(r'', views.index),
+    url(r'^$', views.index),
     url(r'^about', views.about),
     url(r'^set_currency', views.set_currency),
     url(r'^toggle_new_category_form', views.toggle_new_category_form),
