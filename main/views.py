@@ -74,7 +74,7 @@ def toggle_new_category_form(request):
 
 
 def register_user(request):
-    '''Registers new user'''
+    '''Onboards new users'''
 
     if request.method == 'POST':
         form = UserCreationForm(request.POST)
@@ -85,28 +85,28 @@ def register_user(request):
             password = request.POST['password1']
             user = authenticate(username=username, password=password)
 
-            # Create default settings
+            # Create default settings for the user
             AppSettings.objects.create(user_id=user.id, show_CategoryCreationForm=True)
 
-            # Login the user
+            # Login user and set cookie to show him helpful tooltips
             if user is not None:
                 if user.is_active:
                     success = HttpResponse(status=200)
                     success.set_cookie('show_tooltips', 'true', expires=365 * 24 * 60 * 60)
                     login(request, user)
                     return success
-                     
 
-        return HttpResponse(status=403) 
+        return HttpResponse(status=403)
+
 
 def login_user(request):
-    '''Login user'''
+    '''Opens the door for the user'''
 
     if request.method == 'GET':
         username = request.GET['username']
         password = request.GET['password']
         user = authenticate(username=username, password=password)
-    
+
         if user is not None:
             if user.is_active:
                 login(request, user)
@@ -117,11 +117,13 @@ def login_user(request):
         else:
             return HttpResponse(status=404)
 
+
 def logout_user(request):
-    '''Logout user'''
+    '''Helps the user to escape'''
 
     logout(request)
     return redirect('/')
+
 
 def password_change(request):
     '''Changes user password'''
@@ -133,22 +135,23 @@ def password_change(request):
         user.save()
         return HttpResponse(status=200)
 
+
 def forgotten_password(request):
-    '''Send forgotten password mail
-    Recieves user email, generate key and stores it to the database
-    Then sends url address to the user mail
+    ''' Sends forgotten password mail
+    Accepts user email, generates key and stores it to the database,
+    then sends url address with the key to the user email.
     '''
 
+    # Check if user exists
     if request.method == 'POST':
         email = request.POST['username']
-
-        # Check if exists
         try:
             user = User.objects.get(username=email)
         except ObjectDoesNotExist:
             return HttpResponse(status=404)
 
         # Using random_password method is not good for this thing I suppose
+        # search how it's done
         key = User.objects.make_random_password(length=32)
 
         from django.core.mail import send_mail
@@ -167,32 +170,34 @@ http://simplexpenses.heroku.com/recover?key=%s
 
         return HttpResponse(status=200)
 
+
 def recover_account(request):
     '''Recovers account
-    Verifies the key parameter from the url then login the user and deletes the key
+    Verifies key parameter from the url then signs in the user and deletes the key.
     '''
 
     key = request.GET['key']
     signed_key = Signer().sign(key)
-    
+
     try:
         key_obj = AccountRecover.objects.get(key=signed_key)
         user = User.objects.get(id=key_obj.user_id)
 
-        # This is needed because of the non-standard usage of login() on line 187
+        # This is needed because of the non-standard usage of login() on line 188
+        # (Maybe authenticate first and it will work properly without this)
         user.backend = 'django.contrib.auth.backends.ModelBackend'
 
         login(request, user)
         key_obj.delete()
-        
+
         return redirect('/')
 
     except ObjectDoesNotExist:
         return HttpResponse('Key already used, or does not exists.', status=404)
 
 
-
 class ExpenseViewSet(viewsets.ModelViewSet):
+    '''Expenses API methods'''
 
     queryset = Expense.objects.all()
     serializer_class = ExpenseSerializer
@@ -204,22 +209,30 @@ class ExpenseViewSet(viewsets.ModelViewSet):
         month = self.request.QUERY_PARAMS.get('month', None)
 
         if year is not None:
-            queryset = Expense.objects.filter(user_id__exact=self.request.user.id, date__year=year, date__month=month)
+            queryset = Expense.objects.filter(user_id__exact=self.request.user.id,
+                                                date__year=year,
+                                                date__month=month)
         else:
-            queryset = Expense.objects.filter(user_id__exact=self.request.user.id, date__year=TODAY.year, date__month=TODAY.month)
+            queryset = Expense.objects.filter(user_id__exact=self.request.user.id,
+                                                date__year=TODAY.year,
+                                                date__month=TODAY.month)
 
         return queryset.order_by('-date')
 
     def get_queryset_this_month(self, request):
         '''Preparing to add changes so I can implement endpoint for history/year/month'''
 
-        queryset = Expense.objects.filter(user_id__exact=request.user.id, date__year=TODAY.year, date__month=TODAY.month)    
+        queryset = Expense.objects.filter(user_id__exact=request.user.id,
+                                            date__year=TODAY.year,
+                                            date__month=TODAY.month)
         return queryset.order_by('-date')
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
+
 class CategoryViewSet(viewsets.ModelViewSet):
+    '''Categories API methods'''
 
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
@@ -232,7 +245,9 @@ class CategoryViewSet(viewsets.ModelViewSet):
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
 
+
 class PlannedViewSet(viewsets.ModelViewSet):
+    '''Planned API methods'''
 
     queryset = Planned.objects.all()
     serializer_class = PlannedSerializer
@@ -240,12 +255,16 @@ class PlannedViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         '''Preparing to add changes so I can implement endpoint for history/year/month'''
 
-        return Planned.objects.filter(user_id__exact=self.request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
+        return Planned.objects.filter(user_id__exact=self.request.user.id,
+                                        planned_month__year=TODAY.year,
+                                        planned_month__month=TODAY.month)
 
     def get_queryset_this_month(self, request):
         '''Preparing to add changes so I can implement endpoint for history/year/month'''
 
-        return Planned.objects.filter(user_id__exact=request.user.id, planned_month__year=TODAY.year, planned_month__month=TODAY.month)
+        return Planned.objects.filter(user_id__exact=request.user.id,
+                                        planned_month__year=TODAY.year,
+                                        planned_month__month=TODAY.month)
 
     def pre_save(self, obj):
         obj.user_id = self.request.user.id
