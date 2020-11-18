@@ -243,14 +243,14 @@ a {
 	margin: 0 12px;
 	background-size: 25px;
 	background-repeat: no-repeat;
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/1.png);
+	background-image: url(https://simplexpenses.herokuapp.com/static/img/1.png);
 	background-color: transparent;
 	border-color: transparent;
 	-moz-appearance: none;
 	-webkit-appearance: none;
 }
 .settings-checkbox:checked {
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/2.png)
+	background-image: url(https://simplexpenses.herokuapp.com/static/img/2.png)
 }
 .log-out {
 	display: block;
@@ -435,7 +435,7 @@ a {
 	transition: 0.3s;
 }
 .add-expense-category-selected {
-	background-image: url(http://simplexpenses.herokuapp.com/static/img/rt.png);
+	background-image: url(https://simplexpenses.herokuapp.com/static/img/rt.png);
 	opacity: 1;
 	font-weight: 400;
 }

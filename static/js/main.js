@@ -15,7 +15,7 @@ var ENTER_KEY = 13;
 
 // Preload image
 var tick = new Image()
-tick.src = 'http://simplexpenses.herokuapp.com/static/img/rt.png'
+tick.src = 'https://simplexpenses.herokuapp.com/static/img/rt.png'
 
 var expensesApp = angular.module('expensesApp', ['ngResource', 'ngAnimate']);
 

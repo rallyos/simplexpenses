@@ -158,7 +158,7 @@ def forgotten_password(request):
 
         message = """
 Use the link below to login to your account and then please change your password.
-http://simplexpenses.heroku.com/recover?key=%s
+https://simplexpenses.heroku.com/recover?key=%s
 """ % (key)
 
         send_mail('Simplexpenses account recovery', message, 'app20032559@heroku.com', [email])
